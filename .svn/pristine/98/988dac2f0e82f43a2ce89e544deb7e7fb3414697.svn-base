@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.cqut.dao.UserDao">
+
+	<!-- 结果集映射 -->
+<!-- 	<resultMap type="com.cqut.entity.User" id="User">
+		<id property="userId" column="userid" />
+		<result property="userName" column="username" />
+		<result property="userPass" column="userpass" />
+		<result property="realName" column="realname" />
+	</resultMap> -->
+
+	<select id="login" 
+		parameterType="com.cqut.entity.User">
+		select * from User where username = #{0} and userpass
+		= #{1}
+	</select>
+	<select id="getPoJo" 
+		parameterType="com.cqut.entity.User">
+		select * from User where userId = #{userId}
+	</select>
+	<insert id="insert" >
+			insert into User values(#{userId},#{userName},#{userPass},#{realName})
+	</insert>
+	
+		<select id="queryBycondition" resultType="com.cqut.entity.User">
+		<![CDATA[   
+			select * from User 
+		]]>
+		<where>
+			<if test="condition != null">
+		 		${condition}
+		 	</if>
+		</where>
+	</select>
+		<update id="updateByID" >
+		<![CDATA[  
+			update User set 	
+      		userName = #{entity.userName},
+      		userPass = #{entity.userPass},
+      		realName = #{entity.realName}
+      	]]>
+      	<where>
+      		userId = #{id}
+      	</where>  		
+	</update>
+	
+	   <delete id="deleteByID"  parameterType="string">
+		<![CDATA[   
+			delete from User   
+		]]>
+		<where>
+			userId = #{ID}
+		</where>
+	</delete>	
+</mapper>

@@ -1,0 +1,204 @@
+/*function showdiag(data){
+	$('#dequ').remove();
+	document.getElementById("showdiv1").style.display = "none";
+	var sentence = "<span id='dequ'>" + data + "</span>" ; 
+	$('#showdiv1').append(sentence);
+	var width=(document.body.clientWidth-300)/2;
+	document.getElementById("showdiv1").style.marginLeft = width;
+	document.getElementById("showdiv1").style.display = "block";
+	setTimeout("document.getElementById('showdiv1').style.display = 'none'",800);
+}*/
+	var obj={};//定义参数对象
+	var type="";
+//表格初始化
+$(function(){	
+	initData();//初始化数据
+});
+
+//获取全部数据
+function initData(){
+	$('#table').bootstrapTable({
+		height:1000,
+		width:1000,
+		cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+		striped: true,// 隔行变色效果
+		pagination: true,// 在表格底部显示分页条
+	    strictSearch: true,
+	    pageNumber:1,                       //初始化加载第一页，默认第一页
+	    pageSize: 10,                       //每页的记录行数（*）
+	    pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+		clickToSelect:true,//设置true 将在点击行时，自动选择radiobox 和 checkbox
+		sortName:'Receipt.rId',//定义排序列
+		sortOrder:'asc',//定义排序方式
+		url:'receiptController/getReceiptInfo.do',//服务器数据的加载地址
+		contentType:'application/json',//发送到服务器的数据编码类型
+		dataType:'json',//服务器返回的数据类型
+		queryParams:{ 	},
+		sidePagination:'client',
+//		queryParamsType: "limit", //参数格式,发送标准的RESTFul类型的参数请求
+//		selectItemName:'',//radio or checkbox 的字段名
+        detailView: false,                   //是否显示父子表
+        cardView: false,                    //是否显示详细视图
+        uniqueId: "rId",                     //每一行的唯一标识，一般为主键列
+	    columns:[{
+	    	checkbox:true,
+	    	align:'center',
+	    	valign:'middle',
+	    	width:'5%',
+	    },{
+	    	field:'rId',
+	    	visible:false,
+	    },{
+	    	field:'dId',
+	    	title:'货运单编号',
+	    	align:'center',
+	    	valign:'middle',
+	    	width:'5%',
+	    },{
+	        field:'rName',
+	        title:'姓名',
+	        align:'center',
+	        valign:'middle',
+	        width:'15%',
+	    },{
+	        field:'rAdd',
+	        title:'地址',
+	        align:'center',
+	        valign:'middle',
+	        width:'15%',
+	    },{
+	        field:'rState',
+	        title:'状态',
+	        align:'center',
+	        valign:'middle',
+	        width:'15%',
+	    	formatter:function(value,rowData,rowIndex){  
+	    		if(rowData.rState=="1"){
+	    			return "无差错";
+	    		}else{
+	    			return "有差错";
+	    		}
+	    	}
+	    }]
+	});
+}
+//下拉框选择
+function changevalue(type,value){
+	if(type==1){
+		$('#textspan1').html(value);
+	}
+	else{
+		$('#textspan2').html(value);
+	}
+}
+
+//刷新
+function refresh(){
+	$('#table').bootstrapTable('refresh');
+}
+
+//新增数据
+function addrow(){
+	  type="add";
+	  $('#myModal').modal("show");
+	  Forward(type);
+}
+//修改
+function updataReceipt(){
+		type="edit";
+	  var getdata = $('#table').bootstrapTable('getSelections');	   
+	  if(getdata.length!=1){
+		  alert("请选择一条进行修改！");
+	  }else{
+		  var state="";
+		  if(getdata[0].rState=="有差错")
+			  state="0";
+		  else state="1";
+		  $('#myModal').modal("show");
+		  $("input[name='dId']").val(getdata[0].dId);
+		  $("input[name='rName']").val(getdata[0].rName);
+		  $("input[name='rAdd']").val(getdata[0].rAdd);
+		  $("input[name='rState']").val(state);
+		  Forward(type,getdata);
+	  }
+}
+//删除
+function deleteReceipt(){
+	var getData = $('#table').bootstrapTable('getSelections');
+	var deleteData = "";
+	if(getData.length<=0){
+		showdiag("请选择");
+	}else{
+		if(getData[0].rId.length==0){
+			refresh();
+		}else{
+			for (var i = 0 ; i < getData.length ; i++){
+				deleteData += getData[i].rId; 
+				if(i<getData.length-1)
+					deleteData+=",";
+			}
+			$.ajax({
+				  url:'receiptController/deleteByID.do',
+				  data:{"IDS":deleteData},
+				  success:function(e){
+					  alert(e);
+					  refresh();
+				  }
+				});
+		}
+	}
+}
+function Forward(type,getdata){
+	   $('#submit').one("click", function () {
+		   if(type=="add"){
+			   obj.dId=$("input[name='dId']").val();
+			   obj.rName=$("input[name='rName']").val();
+			   obj.rAdd=$("input[name='rAdd']").val();
+			   obj.rState=$("input[name='rState']").val();
+			   $.ajax({
+				   type:"post",
+				   url:"receiptController/insert.do",
+				   data:{
+					   "dId": obj.dId,
+					   "rName": obj.rName,
+					   "rAdd": obj.rAdd,
+					   "rState": obj.rState
+					   },
+				   success:function(data){
+					   if(data=='true'){
+						   $("input").val("");
+						   alert("新增成功!");
+						   refresh();
+						   $('#myModal').modal("hide");
+					   }else alert("新增失败！");
+				   }
+			   });
+			 }else {
+			   obj.dId=$("input[name='dId']").val();
+			   obj.rName=$("input[name='rName']").val();
+			   obj.rAdd=$("input[name='rAdd']").val();
+			   obj.rState=$("input[name='rState']").val();
+			   $.ajax({
+				   type:"post",
+				   url:"receiptController/updateByID.do",
+				   data:{
+					   "rId":getdata[0].rId,
+					   "dId": obj.dId,
+					   "rName": obj.rName,
+					   "rAdd": obj.rAdd,
+					   "rState": obj.rState,
+					   "ID": getdata[0].rId
+					   },
+				   success:function(data){
+					   if(data=='true'){
+						   $("input").val("");
+						   alert("修改成功!");
+						   refresh();
+						   $('#myModal').modal("hide");
+					   }else alert("修改失败！");
+				   }
+			   });
+		   }
+	   });	
+	
+}

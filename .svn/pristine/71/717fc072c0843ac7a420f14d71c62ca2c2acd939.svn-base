@@ -1,0 +1,239 @@
+$(function(){
+	
+	$('#table').bootstrapTable({
+			pagination: true,//在表格底部显示分页条
+			classes:'table table-condensed',
+			clickToSelect:true,
+			pageSize: 10,//页面数据条数
+			pageNumber:1,//首页页码
+			pageList: [1,2,3, 10, 20, 50, 200, 500],//设置可供选择的页面数据条数
+			cache: false,//禁用 AJAX 数据缓存
+			sortName:'dId',//定义排序列
+			sortOrder:'asc',//定义排序方式
+			url:'deliveryOrderController/searchWithPage.do',//服务器数据的加载地址
+			sidePagination:'server',//设置在哪里进行分页
+			contentType:'application/json',//发送到服务器的数据编码类型
+			dataType:'json',//服务器返回的数据类型
+	//		queryParams:'',//请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数
+			//onDblClickCell:onDblClickCell,
+			queryParams : queryParams, // 参数
+			//onClickRow:onClickRow,
+		    columns:[{
+		    	checkbox:true,
+		    	align:'center',
+		    	valign:'middle',
+		    	width:'',
+		    },{
+		    	field:'dId',
+		    	title:'货运单',
+		    	align:'center',
+		    	valign:'middle',
+		    	width:'',
+		    },{
+		    	field:'dFare',
+		    	title:'运费',
+		    	align:'center',
+		    	valign:'middle',
+		    	width:'',
+		    },{
+		        field:'shipperName',
+		        title:'寄件人姓名',
+		        align:'center',
+		        valign:'middle',
+		        width:'',
+		    },{
+		        field:'shipperTel',
+		        title:'寄件人电话',
+		        align:'center',
+		        valign:'middle',
+			        width:'',
+		    },{
+		        field:'shipperAdd',
+		        title:'寄件人地址',
+		        align:'center',
+		        valign:'middle',
+		        width:'',
+		    },{
+		        field:'consigneeName',
+		        title:'收件人姓名',
+		        align:'center',
+		        valign:'middle',
+		        width:'',
+		    },{
+		        field:'consigneeTel',
+		        title:'收件人电话',
+		        align:'center',
+		        valign:'middle',
+		        width:'',
+		    },{
+		        field:'consigneeAdd',
+		        title:'收件人地址',
+		        align:'center',
+		        valign:'middle',
+		        width:'',
+		    },{
+		        field:'dState',
+		        title:'状态',
+		        align:'center',
+		        valign:'middle',
+		        width:'',
+		    },{
+		        field:'dDate',
+		        title:'寄件日期',
+		        align:'center',
+		        valign:'middle',
+		        width:'',
+		    }]
+		});
+	
+});
+
+function queryParams(params) { // 配置参数
+	var temp = { // 这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+
+		limit : params.limit, // 页面大小
+		offset : params.offset, // 页码
+		sort : params.sort, // 排序列名
+		order : params.order,
+		dId:$("#tdId").val(),
+		fordate:$("#time").val(),
+		/*createTime2:$('#createTime2').val(),
+		usersID:$('#UsersID').val(),
+		createTime:$('#createTime').val(),
+		openid:$('#openid').val()*/
+	// 排位命令（desc，asc）
+	};
+	
+	return temp;
+}
+
+function add(){
+	$("input").val();
+	var obj ={};
+	obj.dId="";
+	obj.dFare=$("#dFare").val();
+	obj.shipperName=$("#shipperName").val();
+	obj.shipperTel=$("#shipperTel").val();
+	obj.shipperAdd=$("#shipperAdd").val();
+	obj.consigneeName=$("#consigneeName").val();
+	obj.consigneeTel=$("#consigneeTel").val();
+	obj.consigneeAdd=$("#consigneeAdd").val();
+	obj.dState=$("#dState2").val();
+	$.ajax({
+		url:'deliveryOrderController/edit.do',
+		data:obj,
+		success:function(e){
+			if(e=="1"){
+				alert_success("成功！");
+				refresh();
+			}else{
+				alert_fail("发生错误！");
+			}
+			
+		}
+	});
+}
+
+function refresh(){
+	$('#table').bootstrapTable('refresh', null);
+}
+
+function dropli(dom){
+	$("#dState").html(dom.innerHTML);
+	$("#dState2").val(dom.value);
+}
+function dropli2(dom){
+	$("#dState3").html(dom.innerHTML);
+	$("#dState4").val(dom.value);
+}
+
+function show(){
+	var data = $("#table").bootstrapTable('getSelections');
+	if(data.length==1){
+		$("#dId2").val(data[0].dId);
+		$("#dFare2").val(data[0].dFare);
+		$("#shipperName2").val(data[0].shipperName);
+		$("#shipperTel2").val(data[0].shipperTel);
+		$("#shipperAdd2").val(data[0].shipperAdd);
+		$("#consigneeName2").val(data[0].consigneeName);
+		$("#consigneeTel2").val(data[0].consigneeTel);
+		$("#consigneeAdd2").val(data[0].consigneeAdd);
+		$("#dState4").val(b);
+		var  b = data[0].dState;
+		if(b==1){
+			$("#dState3").html("已发");
+			
+		}else if(b==2){
+			$("#dState3").html("未发");
+			
+		}else if(b==3){
+			$("#dState3").html("已接");
+		}else{
+			$("#dState3").html("未接");
+		}
+		
+		$("#edit").attr("data-target","#myModal2");
+		
+	}else{
+		$("#edit").attr("data-target",null);
+		alert_fail("请选择一条数据");
+	}
+}
+
+function edit(){
+	var obj = {};
+	obj.dId = $("#dId2").val();
+	obj.dFare = $("#dFare2").val();
+	obj.shipperName = $("#shipperName2").val();
+	obj.shipperTel = $("#shipperTel2").val();
+	obj.shipperAdd = $("#shipperAdd2").val();
+	obj.consigneeName = $("#consigneeName2").val();
+	obj.consigneeTel= $("#consigneeTel2").val();
+	obj.consigneeAdd= $("#consigneeAdd2").val();
+	obj.dState = $("#dState4").val();
+	$.ajax({
+		url:'deliveryOrderController/edit.do',
+		data:obj,
+		success:function(e){
+			if(e=="1"){
+				alert_success("成功！");
+				refresh();
+			}else{
+				alert_fail("发生错误");
+			}
+		}
+		
+	})
+}
+
+function dele(){
+	var data = $("#table").bootstrapTable('getSelections');
+	var dId="";
+	for(var i = 0; i<data.length;i++){
+		dId = dId+data[i].dId+",";
+	}
+		$.ajax({
+			url:'deliveryOrderController/dele.do',
+			data:{dId:dId},
+			success:function(e){
+				if(e=="1"){
+					alert_success("成功！");
+					refresh();
+				}else{
+					alert_fail("错误");
+				}
+			}
+		});
+}
+
+function alert_success(value){
+	$("#alert_success").css("display","block");
+	$("#alert_success").html(value);
+	$("#alert_success").fadeOut(2000);
+}
+function alert_fail(value){
+	$("#alert_fail").css("display","block");
+	$("#alert_fail").html(value);
+	$("#alert_fail").fadeOut(2000);
+}
+

@@ -1,0 +1,16 @@
+package com.cqut.service;
+
+import java.util.List;
+
+import com.cqut.entity.SysFunction;
+
+/**
+ * @author wangqian
+ *
+ */
+public interface FunctionService {
+	public List<SysFunction> getFunctionInfo();
+	public int insert(SysFunction function);
+	public int deleteByID(String funId);
+	public int updateByID(SysFunction function, String ID);
+}

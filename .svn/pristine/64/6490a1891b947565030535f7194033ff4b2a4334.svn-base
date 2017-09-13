@@ -1,0 +1,107 @@
+package com.cqut.service;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.cqut.dao.DeliveryOrderDao;
+import com.cqut.dao.LoginDao;
+import com.cqut.dao.SearchDao;
+import com.cqut.entity.DeliveryOrder;
+@Service
+public class DeliveryOrderImp implements DeliveryOrderService {
+	
+	@Resource(name="deliveryOrderDao")
+	private DeliveryOrderDao dao;
+	
+	@Resource(name="searchDao")
+	private SearchDao dao2;
+	
+
+	@Override
+	public Map<String, Object> searchWithPaging(String dId,String fordate,int limit, int offset, String order, String sort) {
+		int index = limit;
+		int pageNum = offset/limit;
+		String tableName = "deliveryorder";
+		String[] properties = new String[]{
+				"*",
+		};
+		String date_before = fordate+" 00:00:00";
+		String date_after = fordate+" 23:59:59";
+		String condition = "";
+		if(dId!=null&&dId!=""){
+			condition = condition +"dId like '%" +dId+"%'";
+		}
+		if(fordate!=null&&fordate!=""){
+			condition=condition+ " AND dDate >='"+date_before +"' AND dDate<='" +date_after+"'";
+		}
+		List<Map<String, Object>> result = dao2.searchWithpagingInMysql(properties, tableName, null, null, null, condition, null, sort, order, pageNum,index );
+		Map<String,Object> map = new HashMap<String, Object>();
+		int count = dao.getcount().size();
+		for (Map<String, Object> m : result)  
+	    { 
+			m.put("dDate", m.get("dDate").toString());
+	    }
+		System.out.println("count:"+count);
+		map.put("total", count);
+		map.put("rows",result);
+		System.out.println(map);
+		return map;
+	}
+
+
+
+	@Override
+	public void add(DeliveryOrder deliveryOrder) {
+		try {
+			dao.add(deliveryOrder);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+
+
+	@Override
+	public void deleteById(String dId) {
+		try {
+			String []array=dId.split(",");
+			for (String ID : array) {
+				dao.deleteById(ID);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+
+
+	@Override
+	public void edit(DeliveryOrder deliveryOrder) {
+		try {
+			dao.edit(deliveryOrder);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+
+
+	@Override
+	public List<DeliveryOrder> getalldata() {
+		
+		return dao.getcount();
+	}
+	
+	
+	
+}

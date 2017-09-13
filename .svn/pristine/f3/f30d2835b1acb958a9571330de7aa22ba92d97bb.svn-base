@@ -1,0 +1,25 @@
+/**
+ * @author : tanxiaokang
+ * @date : 2017上午10:52:12
+ */
+package com.cqut.service;
+
+import java.util.List;
+
+
+
+
+
+import com.cqut.entity.Receipt;
+
+/**
+ *@author:tanxiaokang
+ * 
+ */
+public interface ReceiptService {
+		
+		public List<Receipt> getReceipteInfo(String condition);
+		public int insert(Receipt receipt);
+		public int deleteByID(String IDS);
+		public int updateByID(Receipt receipt,String ID);
+}

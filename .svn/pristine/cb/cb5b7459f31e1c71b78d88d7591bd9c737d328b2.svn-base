@@ -1,0 +1,21 @@
+/**
+ * @author : tanxiaokang
+ * @date : 2017上午11:01:50
+ */
+package com.cqut.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.cqut.entity.Receipt;
+
+/**
+ *@author:tanxiaokang
+ * 
+ */
+public interface ReceiptDao {
+	
+		public List<Receipt> getReceiptInfo();
+		public int insert(@Param("entity")Receipt receipt);
+}

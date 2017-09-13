@@ -1,0 +1,23 @@
+package com.cqut.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.cqut.entity.ProfitAndLoss;
+
+
+/**
+ * @author xuweiling
+ * 2017年6月18日
+ * 
+ */
+public interface CostDao {
+	
+	public List<ProfitAndLoss> getCostInfo(@Param("condition")String condition);
+	public int insert(@Param("entity")ProfitAndLoss cost);
+	public int deleteByID(@Param("ID")String ID);
+	public int updateByID(@Param("entity")ProfitAndLoss cost,@Param("id")String ID);
+	public int getCount();
+}
+

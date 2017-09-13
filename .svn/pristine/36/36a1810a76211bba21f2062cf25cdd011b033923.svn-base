@@ -1,0 +1,342 @@
+/*function showdiag(data){
+	$('#dequ').remove();
+	document.getElementById("showdiv1").style.display = "none";
+	var sentence = "<span id='dequ'>" + data + "</span>" ; 
+	$('#showdiv1').append(sentence);
+	var width=(document.body.clientWidth-300)/2;
+	document.getElementById("showdiv1").style.marginLeft = width;
+	document.getElementById("showdiv1").style.display = "block";
+	setTimeout("document.getElementById('showdiv1').style.display = 'none'",800);
+}*/
+	var obj={};//定义参数对象
+//表格初始化
+$(function(){	
+	initData();//初始化数据
+});
+
+//获取全部数据
+function initData(){
+	$('#table').bootstrapTable({
+		cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+		striped: true,// 隔行变色效果
+		pagination: true,// 在表格底部显示分页条
+	    strictSearch: true,
+	    pageNumber:1,                       //初始化加载第一页，默认第一页
+	    pageSize: 10,                       //每页的记录行数（*）
+	    pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+		clickToSelect:true,//设置true 将在点击行时，自动选择radiobox 和 checkbox
+		sortName:'Receipt.rId',//定义排序列
+		sortOrder:'asc',//定义排序方式
+		url:'receiptController/getReceiptInfo.do',//服务器数据的加载地址
+		contentType:'application/json',//发送到服务器的数据编码类型
+		dataType:'json',//服务器返回的数据类型
+		queryParams:{ 	},
+		queryParamsType: "limit", //参数格式,发送标准的RESTFul类型的参数请求
+		selectItemName:'',//radio or checkbox 的字段名
+        detailView: false,                   //是否显示父子表
+        cardView: false,                    //是否显示详细视图
+        uniqueId: "rId",                     //每一行的唯一标识，一般为主键列
+	    columns:[{
+	    	checkbox:true,
+	    	align:'center',
+	    	valign:'middle',
+	    	width:'5%',
+	    },{
+	    	field:'rId',
+	    	visible:false,
+	    },{
+	    	field:'dId',
+	    	title:'货运单编号',
+	    	align:'center',
+	    	valign:'middle',
+	    	width:'5%',
+	    },{
+	        field:'rName',
+	        title:'姓名',
+	        align:'center',
+	        valign:'middle',
+	        width:'15%',
+	    },{
+	        field:'rAdd',
+	        title:'地址',
+	        align:'center',
+	        valign:'middle',
+	        width:'15%',
+	    },{
+	        field:'rState',
+	        title:'状态',
+	        align:'center',
+	        valign:'middle',
+	        width:'15%',
+	    	formatter:function(value,rowData,rowIndex){  
+	    		if(rowData.rState=="1"){
+	    			return "无差错";
+	    		}else{
+	    			return "有差错";
+	    		}
+	    	}
+	    }]
+	});
+}
+//下拉框选择
+function changevalue(type,value){
+	if(type==1){
+		$('#textspan1').html(value);
+	}
+	else{
+		$('#textspan2').html(value);
+	}
+}
+
+//刷新
+function refresh(){
+	$('#table').bootstrapTable('refresh', null);
+}
+
+
+//修改存储值
+function getParentbutton(dom,value,ID){
+	var parentdom = dom.parentNode;
+	for(var i = 0;;i++){
+		if(parentdom.nodeName == "TD"){
+			parentdom.innerHTML=value;
+			visture = value ; 
+			object.employeeName = ID;
+			sbtjude = 1;
+			viscount = 1;
+			judgHtml=0;
+			judg = 1;
+			break;
+		}else{
+			parentdom = parentdom.parentNode;
+		}
+	}
+}
+
+//修改存储值
+function getParentbutton2(dom,value,ID){
+	var parentdom = dom.parentNode;
+	for(var i = 0;;i++){
+		if(parentdom.nodeName == "TD"){
+			parentdom.innerHTML=value;
+			visture2 = value,
+			object.employeeName2= ID;
+			sbtjude = 1;
+			viscount2 = 1;
+			judgHtml=0;
+			judg2 = 1;
+			break;
+		}else{
+			parentdom = parentdom.parentNode;
+		}
+	}
+}
+
+
+//新增数据
+function addrow(){
+	  $('#myModal').modal("show");
+	   $('#submit').on("click", function () {
+		   obj.dId=$("input[name='dId']").val();
+		   obj.rName=$("input[name='rName']").val();
+		   obj.rAdd=$("input[name='rAdd']").val();
+		   obj.rState=$("input[name='rState']").val();
+		   $.ajax({
+			   type:"post",
+			   url:"receiptController/insert.do",
+			   data:{
+				   "dId": obj.dId,
+				   "rName": obj.rName,
+				   "rAdd": obj.rAdd,
+				   "rState": obj.rState
+				   },
+			   success:function(data){
+				   alert(data);
+				   if(data=='true'){
+					   alert("新增成功!");
+				   }else alert("新增失败！");
+			   }
+		   });
+		   refresh();
+		   $('#myModal').modal("hide");
+	   });
+}
+//修改
+function updataqualityPlan(dom){
+	var getdata = $('#table').bootstrapTable('getSelections');
+	var dataobj={};
+	if(getdata.length==1){
+		dataobj.id = getdata[0].ID;
+		dataobj.type = getdata[0].type;
+		dataobj.code = getdata[0].code;
+		dataobj.year = getdata[0].year;
+		dataobj.employeeName = getdata[0].employeeName;
+		dataobj.employeeName2 = getdata[0].employeeName2;
+		dataobj.judg = judg;
+		dataobj.judg2 = judg2;
+		if(dataobj.id==null||dataobj.id==""){
+			showdiag("请选择新增按钮");
+		}
+		else{
+			if(sbtjude == 1){
+				$.ajax({
+					url:'qualityPlanController/updataQualityPlanById.do',
+					  data:dataobj,
+					  success:function(o){  
+						  sbtjude=0;
+						  judg =0;
+						  judg2 =0;
+						  showdiag("修改成功");
+						  refresh();
+					  }
+				});
+			}
+		}
+		
+		
+		
+	}else{
+		showdiag("请选择或者选择一条");
+	}
+	
+}
+
+//删除
+function deletequalityPlan(){
+	var getdata = $('#table').bootstrapTable('getSelections');
+	var allid = "";
+	if(getdata.length<=0){
+		showdiag("请选择");
+	}else{
+		if(getdata[0].ID.length==0){
+			refresh();
+		}else{
+			for (var i = 0 ; i < getdata.length ; i++){
+				allid += getdata[i].ID+","; 
+			}
+			var dataobj={};
+			dataobj.idstr = allid;
+			$.ajax({
+				  url:'qualityPlanController/deleteQualityPlanById.do',
+				  data:dataobj,
+				  success:function(e){
+					  showdiag("删除成功");
+					  refresh();
+				  }
+				});
+		}
+		
+	}
+	
+	
+}
+
+//新增
+function addQualityPlan(dom){
+	var getdata = $('#table').bootstrapTable('getSelections');
+	var dataobj={};
+	dataobj.type = getdata[0].type;
+	dataobj.code = getdata[0].code;
+	dataobj.year = getdata[0].year;
+	dataobj.employeeName = getdata[0].employeeName;
+	dataobj.employeeName2 = getdata[0].employeeName2;
+	if(getdata.length==1){
+		for(var i =0 ;i<1;i++){
+			if(dataobj.type==null||dataobj.type==""){
+				showdiag("请填写计划名称");
+				break;
+			}
+			if(dataobj.code==null||dataobj.code==""){
+				showdiag("请填写计划编号");
+				break;
+			}
+			if(dataobj.year==null||dataobj.year==""){
+				showdiag("请填写执行年度");
+				break;
+			}
+			if(dataobj.employeeName==null||dataobj.employeeName==""){
+				showdiag("请填写审核人");
+				break;
+			}
+			if(dataobj.id==undefined){
+				$.ajax({
+					url:'qualityPlanController/addQualityPlan.do',
+					data:dataobj,
+					success:function(e){
+						judg =0;
+						judg2 =0;
+						showdiag("增加成功");
+						refresh();
+						$(".thatbtn").css("display","none");
+					},
+					});
+			}else{
+				showdiag("请选择修改按钮");
+				}
+		}
+	}else{
+		showdiag("请选择一条数据");
+	}
+	
+};
+
+
+function getTimeCheckPage(){
+	var getdata = $('#table').bootstrapTable('getSelections');
+	var name = getdata[0].type;
+	if(name =="期间核查计划"){
+		window.location.href="http://localhost:8080/laboratorySystem/module/jsp/timecheck/TimeCheck.jsp?qualiyPlanId="+getdata[0].ID+"&&code="+getdata[0].code+"&&year="+getdata[0].year;
+	}
+	else if(name =="量值溯源计划"){
+		window.location.href="http://localhost:8080/laboratorySystem/module/jsp/traceability/traceability.jsp?qualiyPlanId="+getdata[0].ID+"&&code="+getdata[0].code+"&&year="+getdata[0].year;
+	}
+	else if(name =="人员比对计划"){
+		window.location.href="http://localhost:8080/laboratorySystem/module/jsp/personContrast/personContrast.jsp?qualiyPlanId="+getdata[0].ID+"&&code="+getdata[0].code+"&&year="+getdata[0].year;
+	}else{
+		showdiag("没有这个计划");
+	}
+}
+	
+function resetAlldata(){
+	$('#type').val("");
+	$('#year').val("");
+	$('#code').val("");
+	$('#textspan1').html("");
+	refresh();
+}	
+function ToAuditJSP(){
+	var getdata = $('#table').bootstrapTable('getSelections');
+	if(getdata.length==1){
+		var name = getdata[0].type;
+		if(name=="期间核查计划")
+			window.location.href="http://localhost:8080/laboratorySystem/module/jsp/timecheck/TimeCheckAudit.jsp?qualiyPlanId="+getdata[0].ID+"&&year="+getdata[0].year+"&&code="+getdata[0].code;
+		else if(name=="量值溯源计划")
+			window.location.href="http://localhost:8080/laboratorySystem/module/jsp/traceability/traceabilityAudit.jsp?qualiyPlanId="+getdata[0].ID+"&&year="+getdata[0].year+"&&code="+getdata[0].code;
+		else if(name=="人员比对计划")
+			window.location.href="http://localhost:8080/laboratorySystem/module/jsp/personContrast/personContrastAudit.jsp?qualiyPlanId="+getdata[0].ID+"&&year="+getdata[0].year+"&&code="+getdata[0].code;
+		else{
+			showdiag("没有这个计划");
+		}
+	}else{
+		showdiag("请选择一条信息");
+	}
+	
+}
+function ToResultJSP(){
+	var getdata = $('#table').bootstrapTable('getSelections');
+	if(getdata.length==1){
+		var name = getdata[0].type;
+		if(name=="期间核查计划")
+			window.location.href="http://localhost:8080/laboratorySystem/module/jsp/timecheck/TimeCheckResult.jsp?qualiyPlanId="+getdata[0].ID+"&&year="+getdata[0].year+"&&code="+getdata[0].code;
+		else if(name=="量值溯源计划")
+			window.location.href="http://localhost:8080/laboratorySystem/module/jsp/traceability/traceabilityResult.jsp?qualiyPlanId="+getdata[0].ID+"&&year="+getdata[0].year+"&&code="+getdata[0].code;
+		else if(name=="人员比对计划")
+			window.location.href="http://localhost:8080/laboratorySystem/module/jsp/personContrast/personContrastResult.jsp?qualiyPlanId="+getdata[0].ID+"&&year="+getdata[0].year+"&&code="+getdata[0].code;
+		else{
+			showdiag("没有这个计划");
+		}
+	}else{
+		showdiag("请选择一条数据");
+	}
+	
+}

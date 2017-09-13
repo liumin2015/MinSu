@@ -1,0 +1,82 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>数据维护</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<link rel="stylesheet" type="text/css" href="frame/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="frame/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="frame/font-awesome-4.7.0/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="module/CSS/DeliveryOrder/DeliveryOrder.css">
+	<link rel="stylesheet" type="text/css" href="module/CSS/DataMaintenance/DataMaintenance.css">
+  </head>
+  
+  <body>
+  <div id="alert_fail" class="alert alert-danger alert_style" role="alert">...</div>
+   	<div id="alert_success" class="alert alert-success alert_style" role="alert"> ...</div>
+  	<div id="main2">
+  		<div id="top">
+	  		<div class="Dheadtext">
+	    			<table>
+	    				<tr>
+									<td class="dd_left">您将要清除的数据表：</td>
+									<td class="td_right" id="">
+										<button class="mystyle dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										    <span id="dState">请选择数据表：</span><i class="fa fa-caret-down" aria-hidden="true" style="margin-left:15px;"></i>
+									  	</button>
+									  	<input type="text" id="dState2" style="display:none" />
+										  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+										    <li class="style_li" onclick="getValue(this)" value="1">货物表</li>
+										    <li class="style_li" onclick="getValue(this)" value="2">货运单</li>
+										    <li class="style_li" onclick="getValue(this)" value="3">回执单</li>
+										    <li class="style_li" onclick="getValue(this)" value="4">差错记录</li>
+										    <li class="style_li" onclick="getValue(this)" value="5">货运信息表</li>
+										    <li class="style_li" onclick="getValue(this)" value="6">损益表</li>
+										  </ul>
+									</td>
+						</tr>
+	    			</table>
+	    	</div>
+    	</div>
+    	<div id="main_body">
+    		<div id="Data_div_left" class="pre-scrollable">
+    			<p class="div_title">待选数据</p>
+				<ul id="cundata" class="list-group">
+				  
+				</ul>				 
+				
+    		</div>
+    		<div id="Data_div_right" class="pre-scrollable">
+    			<p class="div_title">已选数据</p>
+    			<ul id="cundata2" class="list-group">
+				  
+				</ul>
+    		</div>
+    		
+    		
+    	</div>
+    	<button id="" type="button" class=" mystyle select_btn" style="margin-left:62%;margin-top:20px;" onclick="refrenArray()" >取消</button>
+    	<button id="" type="button" class=" mystyle select_btn" style="margin-top:20px" onclick="deletealldata()">清除</button>
+  	</div>
+  	<div><button id="btn_up" type="button" class=" mystyle select_btn" onclick="getSelectDate()" ><i class="fa fa-hand-o-right" aria-hidden="true"></i></button></div>
+  	<div><button id="btn_down" type="button" class=" mystyle select_btn" onclick="getReturnDate()" ><i class="fa fa-hand-o-left" aria-hidden="true"></i></button></div>
+  	<script src="frame/jquery-2.1.0.js"></script>
+	<script src="frame/bootstrap.min.js"></script>
+	<script type="text/javascript" src="module/JS/DataMaintenance/DataMaintenance.js"></script>
+  </body>
+</html>

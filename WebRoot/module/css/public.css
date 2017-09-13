@@ -1,0 +1,66 @@
+ /*底部 */
+ .public-footer{
+ 	margin-top: 30px;
+ 	width: 920px;
+ 	margin:0 auto;
+ 	display: flex;
+ 	justify-content: space-between;
+ }
+ .bottomlogo{
+ 	width: 68px;
+ 	height: 34px;
+ }
+ .aboutus a,.introduce a{
+ 	color:rgb(151,151,151);
+ }
+ .aboutus a:hover,.introduce a:hover{
+ 	color:rgb(151,151,151);
+ }
+
+ /* 头部导航栏 */
+.header-top{
+	height: 80px;
+	display: flex;
+	justify-content: space-between;
+}
+.logo{
+	height: 38px;
+	width: 70px;
+	background-image: url(../img/logo5.png);
+	background-repeat: no-repeat;
+	text-align: center;
+	margin-left: 30px;
+	margin-top: 20px;
+}
+.nav{
+	margin-right: 20px;
+    width: 470px;
+    height: 38px;
+    margin-top: 30px;
+}
+.nav a{
+	display: block;
+	height: 30px;
+	text-align: center;
+	float: left;
+    color: #000;
+    font-size: 14px;
+    font-family: "微软雅黑";
+    margin-right: 54px;
+}
+.nav a:hover{
+	text-decoration:none;
+	cursor: pointer;
+    color: #ccc;
+	border-bottom: 2px solid #ccc;
+}
+.userImg{
+	width: 24px;
+	height: 24px;
+	border-radius: 90px;
+}
+hr{
+	border: rgb(241,241,241) solid 1px;
+	width: 100%;
+	margin: 0 auto;
+}

@@ -1,0 +1,41 @@
+package com.cqut.entity;
+
+import com.cqut.util.ID;
+
+/**
+ * @author hechangxing
+ * @2017-6-14 
+ */
+public class RoleFunction {
+        @ID
+		private int 	id;
+		private String	roleId;
+		private String  funId;
+		private String	cmt;
+		
+		public int getId() {
+			return id;
+		}
+		public void setId(int id) {
+			this.id = id;
+		}
+		public String getRoleId() {
+			return roleId;
+		}
+		public void setRoleId(String roleId) {
+			this.roleId = roleId;
+		}
+		public String getFunId() {
+			return funId;
+		}
+		public void setFunId(String funId) {
+			this.funId = funId;
+		}
+		public String getCmt() {
+			return cmt;
+		}
+		public void setCmt(String cmt) {
+			this.cmt = cmt;
+		}
+	
+}

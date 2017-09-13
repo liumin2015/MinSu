@@ -1,0 +1,152 @@
+.warpper{
+	width: 1366px;
+	margin:0 auto;
+}
+.houseplaceSearchbox{
+	position: relative;
+    width: 600px;
+    height: 46px;
+    margin-top: 22px;
+    margin-left: -80px;
+}
+.houseplaceSearch{
+	width: 570px;
+    height: 40px;
+    border-radius: 4px;
+    border:solid 1px #ccc;
+}
+.searchico{
+	margin-left: -30px;
+}
+.houseImg{
+    position: relative;
+    width: 100%;
+    height: 320px;
+    border:solid 1px #ccc;
+}
+.houseContainer{
+    width: 800px;
+}
+.bookHouse{
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    right: 30px;
+    top: 350px;
+    z-index: 99;
+}
+.bookBox{
+    width: 380px;
+    height: 450px;
+    border:solid 1px #ccc;
+}
+.houseContainerWarpper{
+    width: 700px;
+    margin:0 auto;
+}
+.houseContainerNav{
+    width: 700px;
+    border-bottom: solid 1px #ccc;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    overflow: hidden;
+}
+.houseContainerNav a{
+    float: left;
+    margin-right: 20px;
+}
+.bookBox p{
+    height: 50px;
+    background-color: rgba(0,0,0,0.6);
+    line-height: 50px;
+    text-align: center;
+    color: #ffffff;
+}
+.bookBox label{
+    font-weight: normal;
+}
+.bookBox .form-group{
+    margin-top: 20px;
+}
+.form-group .col-xs-12{
+    margin-top: 30px;
+}
+.bookBox button{
+    margin-top: 30px;
+    margin-left: 16px;
+    width: 348px;
+    height: 46px;
+    border-radius: 4px;
+    border: #FF5A5F solid 1px;
+    background-color: #FF5A5F;
+    color: #ffffff;
+    font-size: 20px;
+}
+.bookBox hr{
+    width: 300px;
+    margin: 30px auto 0 auto;
+    border:solid 1px #DBDBDB;
+
+}
+.say{
+    font-size: 14px;
+    font-weight: normal;
+    width: 200px;
+    height: 60px;
+    margin-top: 20px;
+    margin-left: 20px;
+    background-color: #ffffff;
+}
+.houseOwner{
+    width: 680px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-bottom: solid 1px #ccc;
+    height: 180px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.houseOwnerLeft{
+    height: 140px;
+    width: 450px;
+}
+.houseOwnerImg{
+    width: 60px;
+    height: 60px;
+    border-radius: 90px;
+}
+.mainBox{
+    width: 700px;
+    position: relative;
+    height: 999px;
+    z-index: 10;
+}
+.houseEvluate{
+    height: 100px;
+    width: 700px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: solid 1px #DBDBDB;
+}
+.houseEvluate div{
+    height: 70px;
+    width: 60px;
+    overflow: hidden;
+}
+.houseEvluate div p{
+    font-size:14px;
+}
+.houseIntroduce{
+    padding: 20px 5px;
+    width: 690px;
+    border-bottom: solid 1px #DBDBDB;
+}
+.houseIntroduce p{
+    line-height: 30px;
+}
+.learnmore{
+    margin-bottom: 20px;
+}

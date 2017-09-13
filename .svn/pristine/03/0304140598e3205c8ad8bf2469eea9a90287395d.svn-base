@@ -1,0 +1,78 @@
+	//定义参数对象
+//表格初始化
+$(function(){	
+//	initData();//初始化数据
+	updataOwnInfo();
+});
+
+/*//获取全部数据
+function initData(){
+	$.ajax({
+		url:'ownInfoController/getOwnInfo.do',
+		success:function(e){
+			var data = eval(e);
+			$("#userName").val(data[0].userName);
+			$("#password").val(data[0].password);
+			$("#passwordAgain").val(data[0].password);
+			$("#userType").val(data[0].userType);
+			$("#telephone").val(data[0].telephone);
+		}
+		
+	});
+
+}*/
+
+
+//刷新
+function refresh(){
+	$('#table').bootstrapTable('refresh', null);
+}
+//修改
+function updataOwnInfo(){
+	var obj={};
+		  $('#submit').one("click", function (){
+				   obj.userId=$("input[id='userId']").val();
+				   obj.userName=$("input[id='userName']").val();
+				   obj.password=$("input[id='password']").val();
+				   obj.passwordAgain=$("input[id='passwordAgain']").val();
+//				   obj.userType=$("input[id='userType']").val();
+				   obj.telephone=$("input[id='telephone']").val();
+				   obj.ID=$("input[id='userId']").val();
+				   obj.userType=$("input[name='userType']").val();
+        		   if((!isNaN(obj.telephone)&&obj.telephone!=null&&obj.telephone!=undefined&&obj.telephone!=""&&obj.telephone.length==11)){
+        			   alert_success("输入合法！");
+        		   }else {
+        			   alert_fail("输入错误！");
+        			   location.reload("ture");   
+        			   return ;
+        		   }
+				   if(obj.password== obj.passwordAgain){
+					   $.ajax({
+						   url:"ownInfoController/updateByID.do",
+						   data:obj,
+						   success:function(data){
+									   if(data=='true'){
+										   alert_success("修改成功!");
+										   location.reload("ture");   
+									   }else{
+										   alert_fail("修改失败！");   
+									   }
+						   }
+					   });
+				   }
+				   else{
+					   alert_fail("密码不一致，修改失败！");   
+					   location.reload("ture");   
+				   }
+			   });
+	  }
+function alert_success(value){
+	$("#alert_success").css("display","block");
+	$("#alert_success").html(value);
+	$("#alert_success").fadeOut(2000);
+}
+function alert_fail(value){
+	$("#alert_fail").css("display","block");
+	$("#alert_fail").html(value);
+	$("#alert_fail").fadeOut(2000);
+}

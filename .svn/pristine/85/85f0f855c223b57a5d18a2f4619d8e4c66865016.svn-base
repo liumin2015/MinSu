@@ -1,0 +1,24 @@
+/**
+ * @author : tanxiaokang
+ * @date : 2017上午10:52:12
+ */
+package com.cqut.service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.cqut.entity.DeliveryOrder;
+import com.cqut.entity.Error;
+
+/**
+ *@author:tanxiaokang
+ * 
+ */
+public interface ErrorService {
+		
+		public Map<String, Object> getErrorInfo(int limit, int offset,String order,String sort,String condition);
+		public int insert(Error error);
+		public int deleteByID(String IDS);
+		public int updateByID(Error error,String ID);
+		public List<Error> getalldata();
+}

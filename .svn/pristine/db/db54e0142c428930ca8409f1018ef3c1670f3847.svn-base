@@ -1,0 +1,18 @@
+package com.cqut.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.cqut.entity.Receipt;
+import com.cqut.entity.User;
+
+/**
+ * @author: wangying
+ *@date:2017.6.18
+ */
+public interface OwnInformationDao {
+
+	public List<User> getOwnInfo();
+	public int updateByID(@Param("entity")User owninfo,@Param("id")String ID);
+}

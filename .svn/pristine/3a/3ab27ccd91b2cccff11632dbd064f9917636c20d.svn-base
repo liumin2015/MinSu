@@ -1,0 +1,127 @@
+/**
+ * @author : tanxiaokang
+ * @date : 2017上午10:53:50
+ */
+package com.cqut.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.cqut.dao.DeliveryInfoDao;
+import com.cqut.dao.DeliveryOrderDao;
+import com.cqut.dao.SearchDao;
+import com.cqut.entity.DeliveryInfo;
+import com.cqut.entity.DeliveryOrder;
+
+/**
+ *@author:tanxiaokang
+ * 
+ */
+@Service
+public class DeliveryInfoServiceImpl implements DeliveryInfoService {
+
+	@Resource(name="deliveryInfoDao")
+	private DeliveryInfoDao dao;
+	@Resource(name="searchDao")
+	SearchDao searchDao;
+	@Resource(name="deliveryOrderDao")
+	private DeliveryOrderDao deliveryOrderDao;
+	/**
+	 * @author：tanxiaokang
+	 *	@date:2017上午11:00:55
+	 * @function：
+	 * @return	
+	 */
+	@Override
+	public Map<String, Object> getDeliveryInfo(	int limit, int offset,String order,String sort,String condition) {
+		int index = limit;
+		int pageNum = offset/limit;
+		if(condition!=null){
+			condition=" deliveryinfo.dId LIKE '%"+condition+"%' ";
+		}
+		String [] properties=new String[]{
+						" deliveryinfo.diId ",
+						" deliveryinfo.dId ",
+						" DATE_FORMAT(deliveryinfo.diTime,'%Y-%m-%d') AS diTime ",
+						" deliveryinfo.diType ",
+						" deliveryinfo.diAdd ",
+						" deliveryorder.consigneeName",
+						" deliveryorder.consigneeTel ",
+						" deliveryorder.shipperName ",
+						" deliveryorder.consigneeAdd "
+					};
+		String baseEntity=" deliveryinfo ";
+		String joinEntity="  LEFT JOIN deliveryorder ON deliveryorder.dId = deliveryinfo.dId ";
+		List<Map<String, Object>> list=searchDao.searchWithpagingInMysql(properties, 
+				baseEntity, joinEntity, null, null, condition, null, sort, order,pageNum , index);
+		int account=list.size();
+		Map<String,Object> map=new HashMap<String ,Object>();
+		map.put("total", account);
+		map.put("rows", list);
+		return map;
+	}
+	/**
+	 * @author：tanxiaokang
+	 *	@date:2017下午3:42:28
+	 * @function：
+	 * @param DeliveryInfo
+	 * @return	
+	 */
+	@Override
+	public int insert(DeliveryInfo deliveryInfo) {
+		deliveryInfo.setDiId(UUID.randomUUID().toString().replaceAll("-",""));
+		return dao.insert(deliveryInfo);
+	}
+	/**
+	 * @author：tanxiaokang
+	 *	@date:2017下午3:04:50
+	 * @function：
+	 * @param ID
+	 * @return	
+	 */
+	@Override
+	public int deleteByID(String IDS) {
+		int i=0;
+		String []array=IDS.split(","); 
+		for (String ID : array) {
+			i=dao.deleteByID(ID);
+		}
+		return i;
+	}
+	/**
+	 * @author：tanxiaokang
+	 *	@date:2017下午3:41:00
+	 * @function：
+	 * @param DeliveryInfo
+	 * @param ID
+	 * @return	
+	 */
+	@Override
+	public int updateByID(DeliveryInfo deliveryInfo, String ID) {
+		// TODO Auto-generated method stub
+		return dao.updateByID(deliveryInfo, ID);
+	}
+	/**
+	 * @author：tanxiaokang
+	 *	@date:2017下午1:28:08
+	 * @function：
+	 * @return	
+	 */
+	@Override
+	public List<DeliveryOrder> getDelivery() {
+		return deliveryOrderDao.getcount() ;
+	}
+	
+	@Override
+	public List<DeliveryInfo> getalldata() {
+		// TODO Auto-generated method stub
+		return dao.getcount();
+	}
+
+}

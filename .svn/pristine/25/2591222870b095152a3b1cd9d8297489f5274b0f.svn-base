@@ -1,0 +1,20 @@
+package com.cqut.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.cqut.entity.SysFunction;
+
+/**
+ * @author wangqian
+ *
+ */
+public interface FunctionDao {
+	
+	public List<SysFunction> getFunctionInfo();
+	public int insert(@Param("entity")SysFunction function);
+	public int deleteByID(@Param("ID")String ID);
+	public int updateByID(@Param("entity")SysFunction function, @Param("id")String ID);
+	
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.cqut.dao.ReceiptDao">
+
+	<insert id="insert" >
+			insert into Receipt(rId,rName,dId,rAdd,rState) values(#{entity.rId},#{entity.rName},#{entity.dId},#{entity.rAdd},#{entity.rState})
+	</insert>
+	
+		<select id="getReceiptInfo" resultType="com.cqut.entity.Receipt">
+		<![CDATA[   
+			select * from Receipt 
+		]]>
+		<where>
+			<if test="condition != null">
+		 		${condition}
+		 	</if>
+		</where>
+		
+	</select>
+		<update id="updateByID" >
+		<![CDATA[  
+			update Receipt set 	
+      		rName = #{entity.rName},
+      		dId = #{entity.dId},
+      		rAdd = #{entity.rAdd},
+      		rState = #{entity.rState}
+      	]]>
+      	<where>
+      		rId = #{id}
+      	</where>  		
+	</update>
+	
+	   <delete id="deleteByID"  parameterType="string">
+		<![CDATA[   
+			delete from Receipt   
+		]]>
+		<where>
+			rId = #{ID}
+		</where>
+	</delete>	
+</mapper>

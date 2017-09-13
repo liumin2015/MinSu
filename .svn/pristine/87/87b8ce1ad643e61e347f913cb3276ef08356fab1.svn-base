@@ -1,0 +1,95 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>回执单管理</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+
+	<link rel="stylesheet" type="text/css" href="frame/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="frame/bootstrap-table.min.css">
+	<link rel="stylesheet" type="text/css" href="frame/bootstrap.min.css">
+      <script src="frame/jquery-2.1.0.js"></script>
+	<script src="frame/bootstrap.min.js"></script>
+	<script src="frame/bootstrap-table.min.js"></script>
+	<script src="frame/bootstrap-table-zh-CN.min.js"></script>
+  </head>
+  
+  <body>
+    <div id="main">
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+							<h4 class="modal-title" id="myModalLabel">
+								新增回执单
+							</h4>
+						</div>
+			<div class="modal-body">
+						  <form class="bs-example bs-example-form" role="form">
+						    <div class="input-group">
+						            <span class="input-group-addon">货运单编号:</span>
+						            <input type="text" name="dId" class="form-control" placeholder="货运单编号">
+						        </div><br/>
+						        <div class="input-group">
+						            <span class="input-group-addon">姓名:</span>
+						            <input type="text" name="rName" class="form-control" placeholder="请填写姓名">
+						        </div><br/>
+						        <div class="input-group">
+						            <span class="input-group-addon">地址:</span>
+						            <input type="text" name="rAdd" class="form-control" placeholder="请填写地址">
+						        </div><br/>
+						        <div class="input-group">
+						            <span class="input-group-addon">状态:</span>
+						            <input type="text" name="rState" class="form-control" placeholder="请填写状态">
+						        </div><br/>
+						   </form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					关闭
+				</button>
+				<button type="button" class="btn btn-primary" id="submit">
+					提交
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+    	<div id="restcontent">
+    		<div >
+    			<button type="button" class="btn btn-info " onclick="addrow()">新增</button>
+    			<button type="button" class="btn btn-info thisbtn" onclick="deletequalityPlan()">删除</button>
+    			<button type="button" class="btn btn-info thisbtn" onclick="updataqualityPlan(this)">修改</button>
+    			<button type="button" class="btn btn-info thisbtn" onclick="resetAlldata()">全部数据</button>
+    			<button type="button" class="btn btn-info thisbtn" onclick="getTimeCheckPage()">新增建议页面</button>
+    			<button type="button" class="btn btn-info thisbtn thatbtn" onclick="addQualityPlan(this)">提交</button>
+    		</div>
+    		<div id="tablecontent">
+	    		<table id="table">
+	    		</table>
+    		</div>
+    	</div>
+    </div>
+  
+	<script src="module/JS/ReceipteMagnage/ReceipteMagnage.js"></script>
+    <script>
+    	$(function(){
+    			$("#myModal").modal("hide");
+    	}); 
+  	</script>
+  </body>
+</html>

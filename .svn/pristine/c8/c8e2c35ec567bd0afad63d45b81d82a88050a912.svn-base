@@ -1,0 +1,69 @@
+package com.cqut.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.cqut.dao.CostDao;
+import com.cqut.dao.SearchDao;
+import com.cqut.entity.ProfitAndLoss;;
+
+/**
+ * @author xuweiling
+ * 2017年6月18日
+ * 
+ */
+@Service
+public class CostServiceImpl implements CostService {
+
+	@Resource(name="costDao")
+	private CostDao dao;
+	@Resource(name="searchDao")
+	SearchDao searchDao;
+	@Override
+	public Map<String, Object> getCostInfo(int limit,int offset,String order,String sort,String condition) {
+		if(condition!=null){
+			condition=" plid like '%"+condition+"%' ";
+		}
+		int index = limit;
+		int pageNum = offset/limit;
+		List<Map<String, Object>> list=searchDao.searchWithpagingInMysql(
+				new String []{" DATE_FORMAT(profitandloss.startTime,'%Y-%m-%d') AS startTime ",
+						  " DATE_FORMAT(profitandloss.endTime,'%Y-%m-%d ') AS endTime ",
+						  " profitandloss.plid ",
+						  " profitandloss.income ",
+						  " profitandloss.expense "}, " ProfitAndLoss ", null, null, null, condition, null, sort, order, pageNum, index);	
+		int count=list.size();
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("total", count);
+		map.put("rows",list);
+		System.out.println(map);
+		return map;
+	}
+	@Override
+	public int insert(ProfitAndLoss cost) {
+		System.out.println(cost.toString());
+		cost.setPlid(UUID.randomUUID().toString().replaceAll("-",""));
+		return dao.insert(cost);
+	}
+	@Override
+	public int deleteByID(String IDS) {
+		int i=0;
+		String []array=IDS.split(","); 
+		for (String ID : array) {
+			i=dao.deleteByID(ID);
+		}
+		return i;
+	}
+	@Override
+	public int updateByID(ProfitAndLoss cost, String ID) {
+		// TODO Auto-generated method stub
+		return dao.updateByID(cost, ID);
+	}
+
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.cqut.dao.ErrorDao">
+
+	<insert id="insert" >
+			insert into Error(eid,consigneeName,dId,eType,gId,rId) values(#{entity.eid},#{entity.consigneeName},#{entity.dId},#{entity.eType},#{entity.gId},#{entity.rId})
+	</insert>
+	
+		<select id="getErrorInfo" resultType="com.cqut.entity.Error">
+		<![CDATA[   
+			select * from Error 
+		]]>
+		<where>
+			<if test="condition != null">
+		 		${condition}
+		 	</if>
+		</where>
+		
+	</select>
+		<update id="updateByID" >
+		<![CDATA[  
+			update Error set 	
+      		consigneeName = #{entity.consigneeName},
+      		dId = #{entity.dId},
+      		eType = #{entity.eType},
+      		gId = #{entity.gId},
+      		rId = #{entity.rId}
+      	]]>
+      	<where>
+      		eid = #{id}
+      	</where>  		
+	</update>
+	
+	   <delete id="deleteByID"  parameterType="string">
+		<![CDATA[   
+			delete from Error   
+		]]>
+		<where>
+			eid = #{ID}
+		</where>
+	</delete>
+	
+	<select id="getcount" resultType="com.cqut.entity.Error">
+		select * from error
+	</select>	
+</mapper>

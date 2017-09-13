@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.cqut.dao.DeliveryOrderDao">
+
+
+	<select id="searchWithPaging" resultType="map">
+		select * from deliveryorder
+		<where>
+			<if test="condition != null">
+		 		${condition}
+		 	</if>
+		</where>
+		
+	</select>
+	
+	<select id="getcount" resultType="com.cqut.entity.DeliveryOrder">
+		select * from deliveryorder
+	</select>
+	
+	<insert id="add" >
+		insert into deliveryorder values (#{consigneeAdd},#{shipperTel},#{dState},#{dFare},#{consigneeTel},#{shipperName},#{dId},#{dDate},#{shipperAdd},#{consigneeName})
+	</insert>
+	
+	<update id="edit">
+		update deliveryorder set dFare = #{dFare},shipperName=#{shipperName} ,
+		shipperTel=#{shipperTel},shipperAdd=#{shipperAdd},consigneeName=#{consigneeName},
+		consigneeTel=#{consigneeTel},consigneeAdd=#{consigneeAdd},dState=#{dState}
+		where dId=#{dId}
+	</update>
+	
+	<delete id="deleteById">
+		delete from deliveryorder where dId = #{dId}
+	</delete>
+</mapper>

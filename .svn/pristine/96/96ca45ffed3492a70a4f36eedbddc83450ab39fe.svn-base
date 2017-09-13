@@ -1,0 +1,38 @@
+.border{
+	 margin-left:10px;
+	 magin-bottom:6px;
+}
+li{
+	padding-left:15px;	
+	}
+	a{
+		color:gray; 
+		transition:0.5s;
+		cursor: pointer;
+	}
+	#main-nav>li>a:link {
+		color:#ff6633;
+		font-size:16px;
+		}
+		#systemSetting >li:hover,#systemSetting1 >li:hover ,#systemSetting2 >li:hover ,#systemSetting3 >li:hover  { 	
+			 background-color:#FF6633; 
+		}
+		#systemSetting >li>a,#systemSetting1>li>a,
+		#systemSetting2>li>a,#systemSetting3>li>a{
+			background-color:#F9F9F9;
+			 filter: alpha(opacity=70);
+			 opacity: 0.7;
+		}
+			#sidebar{
+				background-color:#ECECEC;
+				filter: alpha(opacity=70);
+			 	opacity: 0.7;
+			 	height:100%;
+			}
+/* 			a:link {color: #FF0000} /* 未访问时的状态 */ */
+			#systemSetting >li>a:visited {
+					font-weight:bold;
+					font-size:20px;
+					color: red} /* 已访问过的状态 */
+			a:active {color: blue} /* 鼠标按下去时的状态 */
+			

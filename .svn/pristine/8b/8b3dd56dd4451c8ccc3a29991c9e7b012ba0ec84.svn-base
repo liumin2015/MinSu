@@ -1,0 +1,49 @@
+package com.cqut.service;
+
+import java.util.List;
+import java.util.UUID;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.cqut.dao.FunctionDao;
+import com.cqut.entity.SysFunction;
+import com.cqut.util.EntityIDFactory;
+/**
+ * @author wangqian
+ *
+ */
+@Service
+public class FunctionServiceImpl implements FunctionService{
+
+	@Resource(name="functionDao")
+	private FunctionDao dao;
+	
+	@Override
+	public List<SysFunction> getFunctionInfo() {
+		return dao.getFunctionInfo();
+	}
+
+	@Override
+	public int insert(SysFunction function) {
+		System.out.println(function.toString());
+		function.setFunId(EntityIDFactory.createId());
+		return dao.insert(function);
+	}
+
+	@Override
+	public int deleteByID(String funId) {
+		int i=0;
+		String []array=funId.split(","); 
+		for (String ID : array) {
+			i=dao.deleteByID(ID);
+		}
+		return i;
+	}
+
+	@Override
+	public int updateByID(SysFunction function, String ID) {
+		return dao.updateByID(function, ID);
+	}
+}

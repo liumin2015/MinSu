@@ -1,0 +1,67 @@
+package com.cqut.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.cqut.dao.LoginDao;
+import com.cqut.dao.SysRoleDao;
+import com.cqut.entity.SysRole;
+
+@Service
+public class SysRoleImp implements SysRoleService {
+
+	@Resource(name="sysRoleDao")
+	private SysRoleDao dao;
+	
+	@Override
+	public Map<String, Object> searchWithPaging(String roleName) {
+		String condition = "";
+		if(roleName!=null&&roleName!=""){
+			condition = condition +"roleName = " +roleName;
+		}
+		List<Map<String, Object>> result = dao.searchWithPaging(condition);
+		Map<String,Object> map = new HashMap<String, Object>();
+		int count = dao.getcount().size();
+		map.put("total", count);
+		map.put("rows",result);
+		System.out.println(map);
+		return map;
+	}
+
+	@Override
+	public void add(SysRole sysRole) {
+		try {
+			dao.add(sysRole);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+	@Override
+	public void deleteById(String roleId) {
+		try {
+			dao.deleteById(roleId);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+	@Override
+	public void edit(SysRole sysRole) {
+		try {
+			dao.edit(sysRole);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+	
+}

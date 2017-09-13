@@ -1,0 +1,34 @@
+package com.cqut.entity;
+
+import com.cqut.util.ID;
+
+/**
+ * @author hechangxing
+ * @2017-6-14 
+ */
+public class SysRole {
+	@ID
+	private String  roleId;
+	private String  roleName;
+	private String  cmt;
+	
+	public String getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+	public String getCmt() {
+		return cmt;
+	}
+	public void setCmt(String cmt) {
+		this.cmt = cmt;
+	}
+	
+}

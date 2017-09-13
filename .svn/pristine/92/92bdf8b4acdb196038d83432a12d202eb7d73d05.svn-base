@@ -1,0 +1,205 @@
+	var obj={};//定义参数对象
+	var type="";
+//表格初始化
+$(function(){	
+	initData();//初始化数据
+});
+
+//获取全部数据
+function initData(){
+	$('#table').bootstrapTable({
+		height:400,
+		cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+		striped: true,// 隔行变色效果
+		pagination: true,// 在表格底部显示分页条
+	    strictSearch: true,
+	    pageNumber:1,                       //初始化加载第一页，默认第一页
+	    pageSize: 10,                       //每页的记录行数（*）
+	    pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+		clickToSelect:true,//设置true 将在点击行时，自动选择radiobox 和 checkbox
+		sortName:'Receipt.rId',//定义排序列
+		sortOrder:'asc',//定义排序方式
+		url:'receiptController/getReceiptInfo.do',//服务器数据的加载地址
+		contentType:'application/json',//发送到服务器的数据编码类型
+		dataType:'json',//服务器返回的数据类型
+		queryParams:{ 	},
+		sidePagination:'client',
+//		queryParamsType: "limit", //参数格式,发送标准的RESTFul类型的参数请求
+//		selectItemName:'',//radio or checkbox 的字段名
+        detailView: false,                   //是否显示父子表
+        cardView: false,                    //是否显示详细视图
+        uniqueId: "rId",                     //每一行的唯一标识，一般为主键列
+	    columns:[{
+	    	checkbox:true,
+	    	align:'center',
+	    	valign:"middel"
+	    },{
+	    	field:'rId',
+	    	title:'回执单编号',
+	    	align:'center',
+	    	valign:"middel"
+	    },{
+	    	field:'dId',
+	    	title:'货运单编号',
+	    	align:'center',
+	    	valign:"middel"
+	    },{
+	        field:'rName',
+	        title:'姓名',
+	        align:'center',
+	    	valign:"middel"
+	    },{
+	        field:'rAdd',
+	        title:'地址',
+	        align:'center',
+	    	valign:"middel"
+	    },{
+	        field:'rState',
+	        title:'状态',
+	        align:'center',
+	    	valign:"middel",
+	    	formatter:function(value,rowData,rowIndex){  
+	    		if(rowData.rState=="1"){
+	    			return "无误";
+	    		}else{
+	    			return "有误";
+	    		}
+	    	}
+	    }]
+	});
+}
+//下拉框选择
+function dropli(dom){
+	$("#dState").html(dom.innerHTML);
+	$("input[name='rState']").val(dom.value);
+}
+function dropli2(dom){
+	$("#dState3").html(dom.innerHTML);
+	$("input[id='rState']").val(dom.value);
+}
+//刷新
+function refresh(){
+	$('#table').bootstrapTable('refresh',
+		{query:{"condition":""}}
+	);
+}
+//搜索
+function research(){
+	$('#table').bootstrapTable('refresh',
+		{query:{"condition":$("input[name='condition']").val()}}
+	);
+}
+//新增数据
+function addrow(){
+	  $('#myModal').modal("show");
+	   $('#submit').one("click", function () {
+			   obj.dId=$("input[name='dId']").val();
+			   obj.rName=$("input[name='rName']").val();
+			   obj.rAdd=$("input[name='rAdd']").val();
+			   obj.rState=$("input[name='rState']").val();
+			   $.ajax({
+				   type:"post",
+				   url:"receiptController/insert.do",
+				   data:{
+					   "dId": obj.dId,
+					   "rName": obj.rName,
+					   "rAdd": obj.rAdd,
+					   "rState": obj.rState
+					   },
+				   success:function(data){
+					   if(data=='true'){
+						   $("input").val("");
+						   alert_success("新增成功!");
+						   location.reload("true");
+						   $('#myModal').modal("hide");
+					   }else{
+						   alert_fail("发生错误！");
+					   } 
+				   }
+			   });
+		 });
+}
+//修改
+function updataReceipt(){
+	  var getdata = $('#table').bootstrapTable('getSelections');	   
+	  if(getdata.length!=1){
+		  alert_fail("请选择一条数据");
+	  }else{
+		  var state="";
+		  if(getdata[0].rState=="0")
+			  state="有误";
+		  else state="无误";
+		  $('#editmyModal').modal("show");
+		  $("input[id='dId']").val(getdata[0].dId);
+		  $("input[id='rName']").val(getdata[0].rName);
+		  $("input[id='rAdd']").val(getdata[0].rAdd);
+		  $("input[id='rState']").val(getdata[0].rState);
+		  $("span[id='dState3']").html(state);
+		  $('#editSubmit').one("click", function () {
+			   obj.dId=$("input[id='dId']").val();
+			   obj.rName=$("input[id='rName']").val();
+			   obj.rAdd=$("input[id='rAdd']").val();
+			   obj.rState=$("input[id='rState']").val();
+			   $.ajax({
+				   type:"post",
+				   url:"receiptController/updateByID.do",
+				   data:{
+					   "rId":getdata[0].rId,
+					   "dId": obj.dId,
+					   "rName": obj.rName,
+					   "rAdd": obj.rAdd,
+					   "rState": obj.rState,
+					   "ID": getdata[0].rId
+					   },
+				   success:function(data){
+					   if(data=='true'){
+						   $("input").val("");
+						   alert_success("修改成功！");
+						   location.reload("true");
+						   refresh();
+						   $('#editmyModal').modal("hide");
+					   }else{
+						   alert_fail("发生错误！");
+					   } 
+				   }
+			   });
+		   });
+	  }
+}
+//删除
+function deleteReceipt(){
+	var getData = $('#table').bootstrapTable('getSelections');
+	var deleteData = "";
+	if(getData.length<=0){
+		alert_fail("请选择一条数据");
+	}else{
+		if(getData[0].rId.length==0){
+			refresh();
+		}else{
+			for (var i = 0 ; i < getData.length ; i++){
+				deleteData += getData[i].rId; 
+				if(i<getData.length-1)
+					deleteData+=",";
+			}
+			$.ajax({
+				  url:'receiptController/deleteByID.do',
+				  data:{"IDS":deleteData},
+				  success:function(e){
+					  alert_success("删除成功！");
+					  refresh();
+				  }
+			});
+		}
+	}
+}
+
+function alert_success(value){
+	$("#alert_success").css("display","block");
+	$("#alert_success").html(value);
+	$("#alert_success").fadeOut(2000);
+}
+function alert_fail(value){
+	$("#alert_fail").css("display","block");
+	$("#alert_fail").html(value);
+	$("#alert_fail").fadeOut(2000);
+}

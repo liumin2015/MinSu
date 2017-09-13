@@ -1,0 +1,22 @@
+package com.cqut.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.cqut.entity.Receipt;
+import com.cqut.entity.User;
+
+/**
+ * @author hechangxing
+ * @2017-6-14 
+ */
+public interface UserDao {
+	
+	public List<User> queryBycondition(@Param("condition")String condition);
+	public int insert(@Param("entity")User user);
+	public int deleteByID(String ID);
+	public int updateByID(@Param("entity")User user,@Param("id")String userId);
+	
+}

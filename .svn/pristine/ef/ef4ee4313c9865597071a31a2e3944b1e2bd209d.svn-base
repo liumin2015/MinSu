@@ -1,0 +1,211 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>DeliveryOrder管理</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<link rel="stylesheet" type="text/css" href="frame/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="frame/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="frame/bootstrap-table.min.css">
+	<link rel="stylesheet" type="text/css" href="frame/bootstrap-datetimepicker.min.css">
+	<link rel="stylesheet" type="text/css" href="frame/font-awesome-4.7.0/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="module/CSS/DeliveryOrder/DeliveryOrder.css">
+	
+	
+  </head>
+  
+  <body>
+  	<div id="main">
+  	<div id="alert_fail" class="alert alert-danger alert_style" role="alert">...</div>
+   	<div id="alert_success" class="alert alert-success alert_style" role="alert"> ...</div>
+  	<div id="top">
+  		<div class="headtext">
+    			货运编号：<input id="tdId" type="text" class="form-control text">
+    			
+    	</div>
+    	<div class="headtext">
+    			<span class="spanstyle">生成日期:</span>
+    			<input id="time" type="text" class="form-control text" onfocus="timeget()">
+    	</div>
+    	<button type="button" class=" mystyle" onclick="refresh()"><i class="fa fa-search" aria-hidden="true" ></i>&nbsp;&nbsp;查找</button>
+  	</div>
+  	<div id="content">
+  		<div id="content_top">
+  			<button type="button" class=" mystyle" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;增加</button>
+  			<button type="button" class=" mystyle" onclick="dele()" ><i class="fa fa-ban" aria-hidden="true" ></i>&nbsp;&nbsp;删除</button>
+  			<button id="edit" type="button" class=" mystyle" data-toggle="modal"  onclick="show()"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;修改</button>
+  		</div>
+	  	<table id="table">
+		</table>
+	</div>
+	<!-- 新增模态框 -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			    <div class="modal-dialog" style="width:500px">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                <h4 class="modal-title" id="myModalLabel">新增</h4>
+			            </div>
+			            <div class="modal-body">
+							<table>
+								<tr>
+									<td class="td_left">运费：</td>
+									<td class="td_right"><input id="dFare" type="text" class="form-control input_style"/></td>
+								</tr>
+								<tr>
+									<td class="td_left">寄件人姓名：</td>
+									<td class="td_right"><input id="shipperName" type="text" class="form-control input_style"/></td>
+								</tr>
+								<tr>
+									<td class="td_left">寄件人电话：</td>
+									<td class="td_right"><input id="shipperTel" type="text" class="form-control input_style"/></td>
+								</tr>
+								<tr>
+									<td class="td_left">寄件人地址：</td>
+									<td class="td_right"><input id="shipperAdd" type="text" class="form-control input_style"/></td>
+								</tr>
+								<tr>
+									<td class="td_left">收件人姓名：</td>
+									<td class="td_right"><input id="consigneeName" type="text" class="form-control input_style"/></td>
+								</tr>
+								<tr>
+									<td class="td_left">收件人电话：</td>
+									<td class="td_right"><input id="consigneeTel" type="text" class="form-control input_style"/></td>
+								</tr>
+								<tr>
+									<td class="td_left">收件人地址：</td>
+									<td class="td_right"><input id="consigneeAdd" type="text" class="form-control input_style"/></td>
+								</tr>
+								<tr>
+									<td class="td_left">状态：</td>
+									<td class="td_right" id="">
+										<button class="mystyle dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										    <span id="dState">状态</span><i class="fa fa-caret-down" aria-hidden="true" style="margin-left:15px;"></i>
+									  	</button>
+									  	<input type="text" id="dState2" style="display:none" />
+										  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+										    <li class="style_li" onclick="dropli(this)" value="1">发货</li>
+										    <li class="style_li" onclick="dropli(this)" value="2">未发</li>
+										    <li class="style_li" onclick="dropli(this)" value="3">已接</li>
+										    <li class="style_li" onclick="dropli(this)" value="4">未接</li>
+										  </ul>
+									</td>
+								</tr>
+							</table>
+						</div>
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			                <button type="button" class="mystyle" data-dismiss="modal" onclick="add()">确定</button>
+			            </div>
+			        </div><!-- /.modal-content -->
+			    </div><!-- /.modal -->
+			</div>
+	</div>
+	<!-- 修改模态框 -->
+	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			    <div class="modal-dialog" style="width:500px">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                <h4 class="modal-title" id="myModalLabel">修改</h4>
+			            </div>
+			            <div class="modal-body">
+							<table>
+								<tr>
+									<td class="td_left">货运单号：</td>
+									<td class="td_right"><input id="dId2" type="text" class="form-control input_style" readonly="true" /></td>
+								</tr>
+								<tr>
+									<td class="td_left">运费：</td>
+									<td class="td_right"><input id="dFare2" type="text" class="form-control input_style"/></td>
+								</tr>
+								<tr>
+									<td class="td_left">寄件人姓名：</td>
+									<td class="td_right"><input id="shipperName2" type="text" class="form-control input_style"/></td>
+								</tr>
+								<tr>
+									<td class="td_left">寄件人电话：</td>
+									<td class="td_right"><input id="shipperTel2" type="text" class="form-control input_style"/></td>
+								</tr>
+								<tr>
+									<td class="td_left">寄件人地址：</td>
+									<td class="td_right"><input id="shipperAdd2" type="text" class="form-control input_style"/></td>
+								</tr>
+								<tr>
+									<td class="td_left">收件人姓名：</td>
+									<td class="td_right"><input id="consigneeName2" type="text" class="form-control input_style"/></td>
+								</tr>
+								<tr>
+									<td class="td_left">收件人电话：</td>
+									<td class="td_right"><input id="consigneeTel2" type="text" class="form-control input_style"/></td>
+								</tr>
+								<tr>
+									<td class="td_left">收件人地址：</td>
+									<td class="td_right"><input id="consigneeAdd2" type="text" class="form-control input_style"/></td>
+								</tr>
+								<tr>
+									<td class="td_left">状态：</td>
+									<td class="td_right" id="">
+										<button class="mystyle dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										    <span id="dState3">状态</span><i class="fa fa-caret-down" aria-hidden="true" style="margin-left:15px;"></i>
+									  	</button>
+									  	<input type="text" id="dState4" style="display:none" />
+										  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+										    <li class="style_li" onclick="dropli2(this)" value="1">发货</li>
+										    <li class="style_li" onclick="dropli2(this)" value="2">未发</li>
+										    <li class="style_li" onclick="dropli2(this)" value="3">已接</li>
+										    <li class="style_li" onclick="dropli2(this)" value="4">未接</li>
+										  </ul>
+									</td>
+								</tr>
+							</table>
+						</div>
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			                <button type="button" class="mystyle" data-dismiss="modal" onclick="edit()">确定</button>
+			            </div>
+			        </div><!-- /.modal-content -->
+			    </div><!-- /.modal -->
+			</div>
+	</div>
+	<script src="frame/jquery-2.1.0.js"></script>
+	<script src="frame/bootstrap.min.js"></script>
+	<script src="frame/bootstrap-table.min.js"></script>
+	<script src="frame/bootstrap-table-zh-CN.min.js"></script>
+	<script src="frame/bootstrap-datetimepicker.js"></script>
+	<script src="frame/bootstrap-datetimepicker.fr.js"></script>
+	<script src="frame/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script>
+	$('#time').focus();
+		function timeget(){
+			
+			$('#time').datetimepicker({
+				minView:'year',
+				format: 'yyyy-mm-dd',
+				autoclose:1,
+				todayHighlight:1,
+				startView:2,
+				forceParse:0,
+				showMeridian:1,
+				language:'zh-CN'      /*此属性是显示顺序，还有显示顺序是mm-dd-yyyy*/
+			});
+		}
+	</script>
+	<script type="text/javascript" src="module/JS/DeliveryOrder/DeliveryOrder.js"></script>
+  </body>
+</html>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.cqut.dao.Story.StoryDao">
+ 
+    <insert id="save" parameterType="com.cqut.entity.Story">  
+     <![CDATA[   
+         insert into  story ( ID, houseID, userID, imgID, title, writeTime)
+         values(#{ID}, #{houseID}, #{userID}, #{imgID}, #{title}, #{writeTime})	
+     ]]>   
+    </insert>
+  
+    
+    <!--  mysql -->
+    <insert id="saveEntities"> 
+	 	 <![CDATA[  
+	    	insert into story ( ID, houseID, userID, imgID, title, writeTime) VALUES 
+	    ]]>  
+	    <foreach collection="entities" item="item" index="index" separator=",">   
+	         ( #{item.ID}, #{item.houseID}, #{item.userID}, #{item.imgID}, #{item.title}, #{item.writeTime})
+	    </foreach> 
+	</insert> 
+	
+	
+	<update id="updateByID" >
+		<![CDATA[  
+			update story set 	
+      		houseID = #{entity.houseID},
+      		userID = #{entity.userID},
+      		imgID = #{entity.imgID},
+      		title = #{entity.title},
+      		writeTime = #{entity.writeTime}
+      	]]>
+      	<where>
+      		ID = #{id}
+      	</where>  		
+	</update>
+		
+		
+	<update id="updateByCondition">
+		<![CDATA[  
+			update story set 	
+      		houseID = #{entity.houseID},
+      		userID = #{entity.userID},
+      		imgID = #{entity.imgID},
+      		title = #{entity.title},
+      		writeTime = #{entity.writeTime}
+      	]]>
+      	<where>
+      		<if test="condition != null">
+      			${condition}
+      		</if>
+      	</where>  		
+	</update>	
+	
+	<update id="updatePropByID">
+		<![CDATA[  
+			update  story set
+		]]>
+		<foreach collection="prop" item="item" index="index" separator=",">
+          	${item.key} = #{item.value}
+        </foreach>
+        <where>
+        	ID = #{id}
+        </where>
+	</update>	
+	
+	<update id="updatePropByCondition">
+		<![CDATA[  
+			update  story set
+		]]>
+		<foreach collection="prop" item="item" index="index" separator=",">
+          	${item.key} = #{item.value}
+        </foreach>
+        <where>
+        	<if test="condition != null">
+        		${condition}
+        	</if>
+        </where>
+	</update>	
+	
+   <delete id="deleteByID"  parameterType="string">
+		<![CDATA[   
+			delete from story   
+		]]>
+		<where>
+			ID = #{ID}
+		</where>
+	</delete>	
+	
+	<delete id="deleteByCondition"  parameterType="string">
+		<![CDATA[   
+			delete from story  
+		]]>
+		<where>
+			<if test="condition != null">
+				${condition}
+			</if>	
+		</where>	
+	</delete>	
+	
+	<delete id="deleteEntities"  parameterType="string">
+		<![CDATA[   
+			delete from story    
+		]]>
+		<where>
+			 ID in
+			 <foreach collection="ids" item="item" index="index" separator="," open="(" close=")">
+          		#{item}
+        	</foreach>
+		</where>	
+	</delete>
+	
+	
+	<select id="getByID" resultType="com.cqut.entity.Story">
+		<![CDATA[   
+			select * from story 
+		]]>
+		<where>
+			ID = #{ID}
+		</where>
+	</select>
+	
+	<select id="getByCondition" resultType="com.cqut.entity.Story">
+		<![CDATA[   
+			select * from story 
+		]]>
+		<where>
+			<if test="condition != null">
+		 		${condition}
+		 	</if>
+		</where>
+	</select>
+	
+	<select id="findByID" resultType="map">
+		select 
+		<foreach collection="properties" item="item" index="index" separator=",">
+          	${item}
+        </foreach>
+        from story 
+        <where>
+        	ID = #{id}
+        </where>
+	</select>	
+	
+	
+	<select id="findByCondition" resultType="map">
+		select 
+		<foreach collection="properties" item="item" index="index" separator=",">
+          	${item}
+        </foreach>
+        from story 
+        <where>
+        	<if test="condition != null">
+        		${condition}
+        	</if>
+        </where>
+	</select>		
+	
+		
+	<select id="getCountByCondition" resultType="int">
+		select count(distinct ID) from story
+		<where>
+        	<if test="condition != null">
+        		${condition}
+        	</if>	
+        </where>
+	</select>	
+</mapper>

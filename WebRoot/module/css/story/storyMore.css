@@ -1,0 +1,152 @@
+/* 头部导航栏 
+.header-top{
+	height: 80px;
+	display: flex;
+	justify-content: space-between;
+}
+.logo{
+	height: 38px;
+	width: 70px;
+	background-image: url(../img/logo5.png);
+	background-repeat: no-repeat;
+	text-align: center;
+	margin-left: 30px;
+	margin-top: 20px;
+}
+.nav{
+	margin-right: 20px;
+    width: 470px;
+    height: 38px;
+    margin-top: 30px;
+}
+.nav a{
+	display: block;
+	height: 30px;
+	text-align: center;
+	float: left;
+    color: #000;
+    font-size: 14px;
+    font-family: "微软雅黑";
+    margin-right: 54px;
+}
+.nav a:hover{
+	text-decoration:none;
+	cursor: pointer;
+    color: #ccc;
+	border-bottom: 2px solid #ccc;
+}
+.userImg{
+	width: 24px;
+	height: 24px;
+	border-radius: 90px;
+}
+*/
+hr{
+	border: rgb(241,241,241) solid 1px;
+	width: 100%;
+	margin: 0 auto;
+}
+.warpper hr{
+	margin-top:-20px;
+}
+.storymain{
+	width: 920px;
+	margin:38px auto 0 auto;
+}
+.storymain h1{
+	overflow: hidden;
+}
+.storymain-head{
+	display: flex;
+	justify-content: space-between;
+}
+.storysearch{
+	width: 300px;
+	height: 50px;
+}
+.searchbtn{
+	position: absolute;
+    margin-top: 24px;
+    margin-left: 212px;
+    width: 78px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    background-color: rgb(255,90,95);
+    border: rgb(255,90,95) solid 1px;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 18px;
+}
+.searchbtn:hover{
+	cursor: pointer;
+}
+.storysearchText{
+	position: absolute;
+    /* top: 10px; */
+    right: 216px;
+    border: #ffffff solid 1px;
+    height: 50px;
+    width: 317px;
+    border-bottom: #ccc solid 1px;
+    margin-top: 20px;
+}
+.location{
+	width: 320px;
+	height: 50px;
+	margin-top: 20px;
+}
+.location li{
+	height: 48px;
+	line-height: 48px;
+	text-align: center;
+	width: 40px;
+	float: left;
+	margin-right:12px;
+	display: block;
+	font-size: 18px;
+	color:rgb(72,72,72);
+	overflow: hidden;
+}
+.location li:hover{
+	border-bottom: solid 2px rgb(0,132,137);
+	color: rgb(0,132,137);
+}
+
+.storyContainer{
+	margin-top: 28px;
+	width: 920px;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.story-list{
+	height: 336px;
+}
+.storypPhoto{
+	width: 220px;
+	height: 220px;
+	border-radius: 4px;
+}
+.userphoto{
+	width: 20px;
+	height: 20px;
+	border-radius: 90px;
+	margin-right: 10px;
+}
+.story-detil,.story-evaluate{
+	width: 220px;
+}
+.storyaddress{
+	font-size: 18px;
+	font-weight: bold;
+	font-family: "微软雅黑";
+}
+.storyitd{
+	font-size: 14px;
+	font-family: "微软雅黑";
+}
+.zanNum,.evaluateNum{
+	margin-left: 2px;
+	margin-right:10px;
+}

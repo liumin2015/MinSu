@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.cqut.dao.TableCreatorDao">
+    <update id="createTable">
+    	CREATE TABLE ${tableName}(
+    	<foreach collection="fieldSqls" item="item" index="index" separator=",">
+          		${item} 
+        </foreach>)
+    </update>		
+    
+    <select id="existsTable"  resultType="String">
+    	SHOW TABLES LIKE #{tableName}
+    </select>
+</mapper>

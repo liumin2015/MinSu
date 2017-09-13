@@ -1,0 +1,91 @@
+package com.cqut.entity;
+
+import java.util.Date;
+
+import com.cqut.util.ID;
+
+
+
+/**
+ * @author hechangxing
+ * @2017-6-14 
+ */
+public class DeliveryOrder {
+       @ID
+	   private String dId; 
+	   private float dFare;
+	   private String shipperName;
+	   private String shipperTel;
+	   private String shipperAdd;
+	   private String consigneeName;
+	   private String consigneeTel;
+	   private String consigneeAdd;
+	   private int dState;
+	   private Date dDate;
+	   
+   public String getdId() {
+		return dId;
+	}
+	public void setdId(String dId) {
+		this.dId = dId;
+	}
+	public float getdFare() {
+		return dFare;
+	}
+	public void setdFare(float dFare) {
+		this.dFare = dFare;
+	}
+	public String getShipperName() {
+		return shipperName;
+	}
+	public void setShipperName(String shipperName) {
+		this.shipperName = shipperName;
+	}
+	public String getShipperTel() {
+		return shipperTel;
+	}
+	public void setShipperTel(String shipperTel) {
+		this.shipperTel = shipperTel;
+	}
+	public String getShipperAdd() {
+		return shipperAdd;
+	}
+	public void setShipperAdd(String shipperAdd) {
+		this.shipperAdd = shipperAdd;
+	}
+	public String getConsigneeName() {
+		return consigneeName;
+	}
+	public void setConsigneeName(String consigneeName) {
+		this.consigneeName = consigneeName;
+	}
+	public String getConsigneeTel() {
+		return consigneeTel;
+	}
+	public void setConsigneeTel(String consigneeTel) {
+		this.consigneeTel = consigneeTel;
+	}
+	public String getConsigneeAdd() {
+		return consigneeAdd;
+	}
+	public void setConsigneeAdd(String consigneeAdd) {
+		this.consigneeAdd = consigneeAdd;
+	}
+	public int getdState() {
+		return dState;
+	}
+	public void setdState(int dState) {
+		this.dState = dState;
+	}
+    
+	    public Date getdDate() {
+			return dDate;
+		}
+		public void setdDate(Date dDate) {
+			this.dDate = dDate;
+		}
+	
+
+  
+   
+}

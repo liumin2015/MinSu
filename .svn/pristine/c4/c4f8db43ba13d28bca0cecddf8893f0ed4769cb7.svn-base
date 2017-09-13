@@ -1,0 +1,148 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+/* 	String ID=request.getSession()==null?request.getSession().getAttribute("ID").toString():"2"; */
+	String ID=request.getParameter("ID").toString();
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+<base href="<%=basePath%>">
+<title>main</title>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="This is my page">
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ 	<link rel="stylesheet" type="text/css" href="frame/bootstrap.min.css">
+ 	<link rel="stylesheet" type="text/css" href="module/CSS/main/main.css">
+     <script src="frame/jquery-2.1.0.js"></script>
+	<script src="frame/bootstrap.min.js"></script>
+	
+</head>
+<body>
+<div style="width: 100%">
+
+<!-- 左侧菜单栏 -->
+
+<div id="main-Container" >
+  <div data-options="region:'north'" style="height:100px">
+        <img src="Images/banner2.png" style="width: 100%; height: 100px;" />
+    </div>
+	<div id="sidebar" class="col-md-2 column" >
+<!-- 创建菜单树 -->
+			<div class="col-md-12">
+                <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
+                    <li class="admin">
+                        <a href="#systemSetting"  class="nav-header collapsed" data-toggle="collapse">
+                            <i class="glyphicon glyphicon-cog"></i><span class="border">系统设置</span>
+                               <span class="pull-right glyphicon glyphicon-chevron-down" style="margin-top:3px;"></span>
+                        </a>
+                        <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                            <li ><a onclick="menuClick('module/JSP/userManage/UserManage.jsp')">
+                            			<i class="glyphicon glyphicon-user" ></i><span style="margin-left:6px;">用户管理</span></a></li>
+                            <li><a onclick="menuClick('module/JSP/DataMaintenance/DataMaintenance.jsp')">
+                            			<i class="glyphicon glyphicon-screenshot"></i><span style="margin-left:6px;">数据维护</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="admin">
+                        <a href="#systemSetting1" class="nav-header collapsed" data-toggle="collapse">
+                            <i class="glyphicon glyphicon-check"></i><span class="border">到货管理</span>
+                               <span class="pull-right glyphicon glyphicon-chevron-down" style="margin-top:3px;"></span>
+                        </a>
+                        <ul id="systemSetting1" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                            <li><a onclick="menuClick('module/JSP/ReceiptManage/ReceiptManage.jsp')">
+                            			<i class="glyphicon glyphicon-edit"></i><span style="margin-left:6px;">回执管理</span></a></li>
+                             <li><a onclick="menuClick('module/JSP/ErrorManage/ErrorManage.jsp')">
+                             			<i class="glyphicon glyphicon-saved"></i><span style="margin-left:6px;">到货验收</span></a></li>
+                        </ul>
+                    </li>
+                      <li class="admin">
+                        <a href="#systemSetting2" class="nav-header collapsed" data-toggle="collapse">
+                            <i class="glyphicon glyphicon-compressed"></i><span class="border">接货管理</span>
+                               <span class="pull-right glyphicon glyphicon-chevron-down" style="margin-top:3px;"></span>
+                        </a>
+                        <ul id="systemSetting2" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                            <li><a onclick="menuClick('module/JSP/DeliveryOrder/DeliveryOrderManage.jsp')">
+                            			<i class="glyphicon glyphicon-tags"></i><span style="margin-left:6px;">货运单管理</span></a></li>
+                             <li><a  onclick="menuClick('module/JSP/GoodsManage/GoodsManage.jsp')">
+                             			<i class="glyphicon glyphicon-gift"></i><span style="margin-left:6px;">货物管理</span></a></li>
+                        </ul>
+                    </li>
+                      <li>
+                        <a href="#systemSetting3" class="nav-header collapsed" data-toggle="collapse">
+                            <i class="glyphicon glyphicon-info-sign"></i><span class="border" >个人信息</span>
+                               <span class="pull-right glyphicon glyphicon-chevron-down" style="margin-top:3px;"></span>
+                        </a>
+                        <ul id="systemSetting3" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                            <li><a onclick="menuClick('module/JSP/OwnInformation/OwnInformation.jsp')">
+                            			<i class="glyphicon glyphicon-info-sign"></i><span style="margin-left:6px;">个人信息</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="admin">
+                        <a href="#systemSetting4" class="nav-header collapsed" data-toggle="collapse">
+                            <i class="glyphicon glyphicon-info-sign"></i><span class="border" >成本核算</span>
+                               <span class="pull-right glyphicon glyphicon-chevron-down" style="margin-top:3px;"></span>
+                        </a>
+                        <ul id="systemSetting4" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                            <li><a onclick="menuClick('module/JSP/CostManage/CostManage.jsp')">
+                            			<i class="glyphicon glyphicon-info-sign"></i><span style="margin-left:6px;">成本核算</span></a></li>
+                        </ul>
+                    </li>
+                     	<li>
+                        <a href="#systemSetting5" class="nav-header collapsed" data-toggle="collapse">
+                            <i class="glyphicon glyphicon-info-sign"></i><span class="border" >物流信息</span>
+                               <span class="pull-right glyphicon glyphicon-chevron-down" style="margin-top:3px;"></span>
+                        </a>
+                        <ul id="systemSetting5" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                            <li><a onclick="menuClick('module/JSP/DeliveryInfo/DeliveryInfo.jsp')">
+                            			<i class="glyphicon glyphicon-info-sign"></i><span style="margin-left:6px;">物流信息</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+	</div>
+
+		<div class="col-md-10 column">
+				<!-- 内容展示页 -->
+				<div style="height:40%">
+				<iframe id="iframe-page-content" src="" width="100%"  frameborder="no" border="0" marginwidth="0"
+				marginheight=" 0" scrolling="no" allowtransparency="yes"></iframe>
+				</div>
+		</div>
+</div>
+
+</div>
+<script type="text/JavaScript">
+$(function() {
+	var height=document.documentElement.clientHeight;
+	document.getElementById("iframe-page-content").style.height=height+"px";
+	init();
+	});
+
+	function menuClick(menuUrl) {
+			$("#iframe-page-content").attr("src",menuUrl+"?ID=<%=ID%>");	
+	};
+	function init(){
+			 $.ajax({
+				   type:"post",
+				   url:"ownInfoController/getOwnInfo.do",
+				   data:{"ID":<%=ID%>},
+				   async:false, 
+				   success:function(data){
+							var data = eval(data);
+			//				$("#userName").val(data[0].userName);
+							if(data[0].userType=="0"){
+								$(".admin").attr("style","display:none");
+							}
+				  		 }
+				  });
+	};
+
+
+</script>
+</body>
+</html>

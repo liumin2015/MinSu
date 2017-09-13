@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.cqut.dao.House.HouseDao">
+ 
+    <insert id="save" parameterType="com.cqut.entity.House">  
+     <![CDATA[   
+         insert into  house ( ID, houseOwnerID, introduce, facilitiesID, evaluateID, state, price, type, houseImgID, bedNum, peopleNum, toiletNum, houseName, satisfy, houseRule, bookRuleID, priceRule, roomType, starTime, endTime)
+         values(#{ID}, #{houseOwnerID}, #{introduce}, #{facilitiesID}, #{evaluateID}, #{state}, #{price}, #{type}, #{houseImgID}, #{bedNum}, #{peopleNum}, #{toiletNum}, #{houseName}, #{satisfy}, #{houseRule}, #{bookRuleID}, #{priceRule}, #{roomType}, #{starTime}, #{endTime})	
+     ]]>   
+    </insert>
+  
+    
+    <!--  mysql -->
+    <insert id="saveEntities"> 
+	 	 <![CDATA[  
+	    	insert into house ( ID, houseOwnerID, introduce, facilitiesID, evaluateID, state, price, type, houseImgID, bedNum, peopleNum, toiletNum, houseName, satisfy, houseRule, bookRuleID, priceRule, roomType, starTime, endTime) VALUES 
+	    ]]>  
+	    <foreach collection="entities" item="item" index="index" separator=",">   
+	         ( #{item.ID}, #{item.houseOwnerID}, #{item.introduce}, #{item.facilitiesID}, #{item.evaluateID}, #{item.state}, #{item.price}, #{item.type}, #{item.houseImgID}, #{item.bedNum}, #{item.peopleNum}, #{item.toiletNum}, #{item.houseName}, #{item.satisfy}, #{item.houseRule}, #{item.bookRuleID}, #{item.priceRule}, #{item.roomType}, #{item.starTime}, #{item.endTime})
+	    </foreach> 
+	</insert> 
+	
+	
+	<update id="updateByID" >
+		<![CDATA[  
+			update house set 	
+      		houseOwnerID = #{entity.houseOwnerID},
+      		introduce = #{entity.introduce},
+      		facilitiesID = #{entity.facilitiesID},
+      		evaluateID = #{entity.evaluateID},
+      		state = #{entity.state},
+      		price = #{entity.price},
+      		type = #{entity.type},
+      		houseImgID = #{entity.houseImgID},
+      		bedNum = #{entity.bedNum},
+      		peopleNum = #{entity.peopleNum},
+      		toiletNum = #{entity.toiletNum},
+      		houseName = #{entity.houseName},
+      		satisfy = #{entity.satisfy},
+      		houseRule = #{entity.houseRule},
+      		bookRuleID = #{entity.bookRuleID},
+      		priceRule = #{entity.priceRule},
+      		roomType = #{entity.roomType},
+      		starTime = #{entity.starTime},
+      		endTime = #{entity.endTime}
+      	]]>
+      	<where>
+      		ID = #{id}
+      	</where>  		
+	</update>
+		
+		
+	<update id="updateByCondition">
+		<![CDATA[  
+			update house set 	
+      		houseOwnerID = #{entity.houseOwnerID},
+      		introduce = #{entity.introduce},
+      		facilitiesID = #{entity.facilitiesID},
+      		evaluateID = #{entity.evaluateID},
+      		state = #{entity.state},
+      		price = #{entity.price},
+      		type = #{entity.type},
+      		houseImgID = #{entity.houseImgID},
+      		bedNum = #{entity.bedNum},
+      		peopleNum = #{entity.peopleNum},
+      		toiletNum = #{entity.toiletNum},
+      		houseName = #{entity.houseName},
+      		satisfy = #{entity.satisfy},
+      		houseRule = #{entity.houseRule},
+      		bookRuleID = #{entity.bookRuleID},
+      		priceRule = #{entity.priceRule},
+      		roomType = #{entity.roomType},
+      		starTime = #{entity.starTime},
+      		endTime = #{entity.endTime}
+      	]]>
+      	<where>
+      		<if test="condition != null">
+      			${condition}
+      		</if>
+      	</where>  		
+	</update>	
+	
+	<update id="updatePropByID">
+		<![CDATA[  
+			update  house set
+		]]>
+		<foreach collection="prop" item="item" index="index" separator=",">
+          	${item.key} = #{item.value}
+        </foreach>
+        <where>
+        	ID = #{id}
+        </where>
+	</update>	
+	
+	<update id="updatePropByCondition">
+		<![CDATA[  
+			update  house set
+		]]>
+		<foreach collection="prop" item="item" index="index" separator=",">
+          	${item.key} = #{item.value}
+        </foreach>
+        <where>
+        	<if test="condition != null">
+        		${condition}
+        	</if>
+        </where>
+	</update>	
+	
+   <delete id="deleteByID"  parameterType="string">
+		<![CDATA[   
+			delete from house   
+		]]>
+		<where>
+			ID = #{ID}
+		</where>
+	</delete>	
+	
+	<delete id="deleteByCondition"  parameterType="string">
+		<![CDATA[   
+			delete from house  
+		]]>
+		<where>
+			<if test="condition != null">
+				${condition}
+			</if>	
+		</where>	
+	</delete>	
+	
+	<delete id="deleteEntities"  parameterType="string">
+		<![CDATA[   
+			delete from house    
+		]]>
+		<where>
+			 ID in
+			 <foreach collection="ids" item="item" index="index" separator="," open="(" close=")">
+          		#{item}
+        	</foreach>
+		</where>	
+	</delete>
+	
+	
+	<select id="getByID" resultType="com.cqut.entity.House">
+		<![CDATA[   
+			select * from house 
+		]]>
+		<where>
+			ID = #{ID}
+		</where>
+	</select>
+	
+	<select id="getByCondition" resultType="com.cqut.entity.House">
+		<![CDATA[   
+			select * from house 
+		]]>
+		<where>
+			<if test="condition != null">
+		 		${condition}
+		 	</if>
+		</where>
+	</select>
+	
+	<select id="findByID" resultType="map">
+		select 
+		<foreach collection="properties" item="item" index="index" separator=",">
+          	${item}
+        </foreach>
+        from house 
+        <where>
+        	ID = #{id}
+        </where>
+	</select>	
+	
+	
+	<select id="findByCondition" resultType="map">
+		select 
+		<foreach collection="properties" item="item" index="index" separator=",">
+          	${item}
+        </foreach>
+        from house 
+        <where>
+        	<if test="condition != null">
+        		${condition}
+        	</if>
+        </where>
+	</select>		
+	
+		
+	<select id="getCountByCondition" resultType="int">
+		select count(distinct ID) from house
+		<where>
+        	<if test="condition != null">
+        		${condition}
+        	</if>	
+        </where>
+	</select>	
+</mapper>

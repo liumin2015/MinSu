@@ -1,0 +1,223 @@
+var type="";
+//表格初始化
+$(function(){	
+	initData();//初始化数据
+});
+
+//获取全部数据
+function initData(){
+	$('#table').bootstrapTable({
+		pagination: true,//在表格底部显示分页条
+		classes:'table table-condensed',
+		clickToSelect:true,
+		pageSize: 10,//页面数据条数
+		pageNumber:1,//首页页码
+		pageList: [1,2,3, 10, 20, 50, 200, 500],//设置可供选择的页面数据条数
+		cache: false,//禁用 AJAX 数据缓存
+		sortName:'plid',//定义排序列
+		sortOrder:'asc',//定义排序方式
+		url:'costController/getCostInfo.do',//服务器数据的加载地址
+		sidePagination:'server',//设置在哪里进行分页
+		contentType:'application/json',//发送到服务器的数据编码类型
+		dataType:'json',//服务器返回的数据类型
+//		queryParamsType: "limit", //参数格式,发送标准的RESTFul类型的参数请求
+//		selectItemName:'',//radio or checkbox 的字段名              //是否显示详细视图
+		queryParams : queryParams, // 参数
+	    columns:[{
+	    	checkbox:true,
+	    	align:'center',
+	    	valign:'middle',
+	    	width:'5%',
+	    },{
+	    	field:'plid',
+	    	visible:false,
+	    },{
+	    	field:'startTime',
+	    	title:'开始时间',
+	    	align:'center',
+	    	valign:'middle',
+	    	width:'5%',
+	    },{
+	        field:'endTime',
+	        title:'结束时间',
+	        align:'center',
+	        valign:'middle',
+	        width:'15%',
+	    },{
+	        field:'income',
+	        title:'收入',
+	        align:'center',
+	        valign:'middle',
+	        width:'15%',
+	    },{
+	        field:'expense',
+	        title:'支出',
+	        align:'center',
+	        valign:'middle',
+	        width:'15%'
+	    }]
+	});
+}
+function queryParams(params) { // 配置参数
+	var temp = { // 这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+
+		limit : params.limit, // 页面大小
+		offset : params.offset, // 页码
+		sort : params.sort, // 排序列名
+		order : params.order,	
+//		dId:$("#tdId").val(),
+//		fordate:$("#time").val(),
+		/*createTime2:$('#createTime2').val(),
+		usersID:$('#UsersID').val(),
+		createTime:$('#createTime').val(),
+		openid:$('#openid').val()*/
+	// 排位命令（desc，asc）
+	};
+	
+	return temp;
+}
+
+//刷新
+function refresh(){
+	$('#table').bootstrapTable('refresh',
+		{query:{"condition":""}}
+	);
+}
+//搜索
+function research(){
+	$('#table').bootstrapTable('refresh',
+		{query:{"condition":$("input[name='condition']").val()}}
+	);
+}
+//新增数据
+function addrow(){
+	   var obj={};//定义参数对象
+	   obj.startTime=$("input[id='startTime']").val();
+	   obj.endTime=$("input[id='endTime']").val();
+	   obj.income=$("input[id='income']").val();
+	   obj.expense=$("input[id='expense']").val();
+	   if((!isNaN(obj.income)&&obj.income!=null&&obj.income!=undefined&&obj.income!="")){
+		   alert_success("输入合法！");
+	   }else {
+		   alert_fail("输入错误！");
+		   return ;
+	   }
+	   if((!isNaN(obj.expense)&&obj.expense!=null&&obj.expense!=undefined&&obj.expense!="")){
+		   alert_success("输入合法！");
+	   }else {
+		   alert_fail("输入错误！");
+		   return ;
+	   }
+	   $.ajax({
+		   type:"post",
+		   url:"costController/insertCost.do",
+		   data:{
+			   "StartTime": obj.startTime,
+			   "EndTime": obj.endTime,
+			   "income": obj.income,
+			   "expense": obj.expense
+			   },
+		   success:function(data){
+			   if(data=='true'){
+				   $("input").val("");
+				   alert_success("新增成功!");
+				   refresh();
+			   }else{
+				   alert_fail("发生错误！");
+			   } 
+		   }
+	   });
+}
+
+function show(){
+	var getdata = $("#table").bootstrapTable('getSelections');
+	if(getdata.length==1){
+	  $("input[id='startTime2']").val(getdata[0].startTime);
+      $("input[id='endTime2']").val(getdata[0].endTime);
+      $("input[id='income2']").val(getdata[0].income);
+	  $("input[id='expense2']").val(getdata[0].expense);
+	  $("#edit").attr("data-target","#myModal2");		
+	}else{
+		$("#edit").attr("data-target",null);
+		alert_fail("请选择一条数据!");
+	}
+}
+
+//修改
+function updataCost(){
+	  var getdata = $('#table').bootstrapTable('getSelections');
+	  var obj={};//定义参数对象
+	  obj.startTime=$("input[id='startTime2']").val();
+	   obj.endTime=$("input[id='endTime2']").val();
+	   obj.income=$("input[id='income2']").val();
+	   obj.expense=$("input[id='expense2']").val();
+	   if((!isNaN(obj.income)&&obj.income!=null&&obj.income!=undefined&&obj.income!="")){
+		   alert_success("输入合法！");
+	   }else {
+		   alert_fail("输入错误！");
+		   return ;
+	   }
+	   if((!isNaN(obj.expense)&&obj.expense!=null&&obj.expense!=undefined&&obj.expense!="")){
+		   alert_success("输入合法！");
+	   }else {
+		   alert_fail("输入错误！");
+		   return ;
+	   }
+	   $.ajax({
+		   url:"costController/updateByID.do",
+		   data:{
+			   "plid":getdata[0].plid,
+			   "StartTime": obj.startTime,
+			   "EndTime": obj.endTime,
+			   "income": obj.income,
+			   "expense": obj.expense,
+			   "ID": getdata[0].plid
+			   },
+		   success:function(data){
+			   if(data=='true'){
+				   $("input").val("");
+				   alert_success("修改成功!");
+				   refresh();
+			   }else{
+				   alert_fail("发生错误！");
+			   } 
+		   }
+	   });  
+}
+//删除
+function deleteCost(){
+	var getData = $('#table').bootstrapTable('getSelections');
+	var deleteData = "";
+	if(getData.length<=0){
+		alert_fail("请选择一条数据！");
+	}else{
+		if(getData[0].plid.length==0){
+			refresh();
+		}else{
+			for (var i = 0 ; i < getData.length ; i++){
+				deleteData += getData[i].plid; 
+				if(i<getData.length-1)
+					deleteData+=",";
+			}
+			$.ajax({
+				  url:'costController/deleteByID.do',
+				  data:{"IDS":deleteData},
+				  success:function(e){
+					  alert_success("删除成功！");
+					  refresh();
+				  }
+				});
+		}
+	}
+}
+
+function alert_success(value){
+	$("#alert_success").css("display","block");
+	$("#alert_success").html(value);
+	$("#alert_success").fadeOut(2000);
+}
+function alert_fail(value){
+	$("#alert_fail").css("display","block");
+	$("#alert_fail").html(value);
+	$("#alert_fail").fadeOut(2000);
+}

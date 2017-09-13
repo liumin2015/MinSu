@@ -1,0 +1,48 @@
+package com.cqut.entity;
+
+import com.cqut.util.ID;
+
+/**
+ * @author hechangxing
+ * @2017-6-14 
+ */
+public class Goods {
+    @ID
+	private   String  gId;     	 
+	private   String  gName;    
+	private   float  gWeight;  
+	private   float  gVolume;  
+	private  String  gValue;   
+	public String getgId() {
+		return gId;
+	}
+	public void setgId(String gId) {
+		this.gId = gId;
+	}
+	public String getgName() {
+		return gName;
+	}
+	public void setgName(String gName) {
+		this.gName = gName;
+	}
+	public float getgWeight() {
+		return gWeight;
+	}
+	public void setgWeight(float gWeight) {
+		this.gWeight = gWeight;
+	}
+	public float getgVolume() {
+		return gVolume;
+	}
+	public void setgVolume(float gVolume) {
+		this.gVolume = gVolume;
+	}
+	public String getgValue() {
+		return gValue;
+	}
+	public void setgValue(String gValue) {
+		this.gValue = gValue;
+	}
+
+	
+}

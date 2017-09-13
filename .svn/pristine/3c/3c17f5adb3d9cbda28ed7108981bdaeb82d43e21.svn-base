@@ -1,0 +1,82 @@
+package com.cqut.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.cqut.dao.LoginDao;
+import com.cqut.dao.SearchDao;
+import com.cqut.dao.SysRoleDao;
+import com.cqut.entity.SysRole;
+
+@Service
+public class SysRoleImp implements SysRoleService {
+
+	@Resource(name="sysRoleDao")
+	private SysRoleDao dao;
+	
+	@Resource(name="searchDao")
+	private SearchDao dao2;
+	
+	@Override
+	public Map<String, Object> searchWithPaging(String roleName,int limit, int offset, String order, String sort) {
+		int index = limit;
+		int pageNum = offset/limit;
+		String tableName = "sysrole";
+		String[] properties = new String[]{
+				"roleId",
+				"roleName",
+				"cmt",
+		};
+		String condition = "";
+		if(roleName!=null&&roleName!=""){
+			condition = condition +"roleName like '%" +roleName+"%'";
+		}
+		List<Map<String, Object>> result = dao2.searchWithpagingInMysql(properties, tableName, null, null, null, condition, null, sort, order, pageNum,index );
+		Map<String,Object> map = new HashMap<String, Object>();
+		int count = dao.getcount().size();
+		map.put("total", count);
+		map.put("rows",result);
+		System.out.println(map);
+		return map;
+	}
+
+	@Override
+	public void add(SysRole sysRole) {
+		try {
+			dao.add(sysRole);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+	@Override
+	public void deleteById(String roleId) {
+		try {
+			String []array=roleId.split(",");
+			for (String ID : array) {
+				dao.deleteById(ID);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+	@Override
+	public void edit(SysRole sysRole) {
+		try {
+			dao.edit(sysRole);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+	
+}

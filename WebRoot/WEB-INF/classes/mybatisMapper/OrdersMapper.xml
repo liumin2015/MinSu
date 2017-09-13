@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.cqut.dao.Orders.OrdersDao">
+ 
+    <insert id="save" parameterType="com.cqut.entity.Orders">  
+     <![CDATA[   
+         insert into  orders ( ID, orderTime, starTime, endTime, userID, houseID, state, price, orderBookRuleID, orderPriceRule)
+         values(#{ID}, #{orderTime}, #{starTime}, #{endTime}, #{userID}, #{houseID}, #{state}, #{price}, #{orderBookRuleID}, #{orderPriceRule})	
+     ]]>   
+    </insert>
+  
+    
+    <!--  mysql -->
+    <insert id="saveEntities"> 
+	 	 <![CDATA[  
+	    	insert into orders ( ID, orderTime, starTime, endTime, userID, houseID, state, price, orderBookRuleID, orderPriceRule) VALUES 
+	    ]]>  
+	    <foreach collection="entities" item="item" index="index" separator=",">   
+	         ( #{item.ID}, #{item.orderTime}, #{item.starTime}, #{item.endTime}, #{item.userID}, #{item.houseID}, #{item.state}, #{item.price}, #{item.orderBookRuleID}, #{item.orderPriceRule})
+	    </foreach> 
+	</insert> 
+	
+	
+	<update id="updateByID" >
+		<![CDATA[  
+			update orders set 	
+      		orderTime = #{entity.orderTime},
+      		starTime = #{entity.starTime},
+      		endTime = #{entity.endTime},
+      		userID = #{entity.userID},
+      		houseID = #{entity.houseID},
+      		state = #{entity.state},
+      		price = #{entity.price},
+      		orderBookRuleID = #{entity.orderBookRuleID},
+      		orderPriceRule = #{entity.orderPriceRule}
+      	]]>
+      	<where>
+      		ID = #{id}
+      	</where>  		
+	</update>
+		
+		
+	<update id="updateByCondition">
+		<![CDATA[  
+			update orders set 	
+      		orderTime = #{entity.orderTime},
+      		starTime = #{entity.starTime},
+      		endTime = #{entity.endTime},
+      		userID = #{entity.userID},
+      		houseID = #{entity.houseID},
+      		state = #{entity.state},
+      		price = #{entity.price},
+      		orderBookRuleID = #{entity.orderBookRuleID},
+      		orderPriceRule = #{entity.orderPriceRule}
+      	]]>
+      	<where>
+      		<if test="condition != null">
+      			${condition}
+      		</if>
+      	</where>  		
+	</update>	
+	
+	<update id="updatePropByID">
+		<![CDATA[  
+			update  orders set
+		]]>
+		<foreach collection="prop" item="item" index="index" separator=",">
+          	${item.key} = #{item.value}
+        </foreach>
+        <where>
+        	ID = #{id}
+        </where>
+	</update>	
+	
+	<update id="updatePropByCondition">
+		<![CDATA[  
+			update  orders set
+		]]>
+		<foreach collection="prop" item="item" index="index" separator=",">
+          	${item.key} = #{item.value}
+        </foreach>
+        <where>
+        	<if test="condition != null">
+        		${condition}
+        	</if>
+        </where>
+	</update>	
+	
+   <delete id="deleteByID"  parameterType="string">
+		<![CDATA[   
+			delete from orders   
+		]]>
+		<where>
+			ID = #{ID}
+		</where>
+	</delete>	
+	
+	<delete id="deleteByCondition"  parameterType="string">
+		<![CDATA[   
+			delete from orders  
+		]]>
+		<where>
+			<if test="condition != null">
+				${condition}
+			</if>	
+		</where>	
+	</delete>	
+	
+	<delete id="deleteEntities"  parameterType="string">
+		<![CDATA[   
+			delete from orders    
+		]]>
+		<where>
+			 ID in
+			 <foreach collection="ids" item="item" index="index" separator="," open="(" close=")">
+          		#{item}
+        	</foreach>
+		</where>	
+	</delete>
+	
+	
+	<select id="getByID" resultType="com.cqut.entity.Orders">
+		<![CDATA[   
+			select * from orders 
+		]]>
+		<where>
+			ID = #{ID}
+		</where>
+	</select>
+	
+	<select id="getByCondition" resultType="com.cqut.entity.Orders">
+		<![CDATA[   
+			select * from orders 
+		]]>
+		<where>
+			<if test="condition != null">
+		 		${condition}
+		 	</if>
+		</where>
+	</select>
+	
+	<select id="findByID" resultType="map">
+		select 
+		<foreach collection="properties" item="item" index="index" separator=",">
+          	${item}
+        </foreach>
+        from orders 
+        <where>
+        	ID = #{id}
+        </where>
+	</select>	
+	
+	
+	<select id="findByCondition" resultType="map">
+		select 
+		<foreach collection="properties" item="item" index="index" separator=",">
+          	${item}
+        </foreach>
+        from orders 
+        <where>
+        	<if test="condition != null">
+        		${condition}
+        	</if>
+        </where>
+	</select>		
+	
+		
+	<select id="getCountByCondition" resultType="int">
+		select count(distinct ID) from orders
+		<where>
+        	<if test="condition != null">
+        		${condition}
+        	</if>	
+        </where>
+	</select>	
+</mapper>

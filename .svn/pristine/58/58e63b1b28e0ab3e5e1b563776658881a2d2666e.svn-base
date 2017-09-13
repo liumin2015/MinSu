@@ -1,0 +1,34 @@
+package com.cqut.entity;
+
+import com.cqut.util.ID;
+
+/**
+ * @author hechangxing
+ * @2017-6-14 
+ */
+public class SysFunction {
+	    @ID
+		private String 	funId;
+		private String	funName;
+		private String	cmt;
+		
+		public String getFunId() {
+			return funId;
+		}
+		public void setFunId(String funId) {
+			this.funId = funId;
+		}
+		public String getFunName() {
+			return funName;
+		}
+		public void setFunName(String funName) {
+			this.funName = funName;
+		}
+		public String getCmt() {
+			return cmt;
+		}
+		public void setCmt(String cmt) {
+			this.cmt = cmt;
+		}
+		
+}

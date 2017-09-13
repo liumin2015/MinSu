@@ -1,0 +1,87 @@
+package com.cqut.service;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.cqut.dao.DeliveryOrderDao;
+import com.cqut.dao.LoginDao;
+import com.cqut.entity.DeliveryOrder;
+@Service
+public class DeliveryOrderImp implements DeliveryOrderService {
+	
+	@Resource(name="deliveryOrderDao")
+	private DeliveryOrderDao dao;
+	
+	
+
+	@Override
+	public Map<String, Object> searchWithPaging(String dId,String fordate) {
+		String date_before = fordate+" 00:00:00";
+		String date_after = fordate+" 23:59:59";
+		String condition = "";
+		if(dId!=null&&dId!=""){
+			condition = condition +"dId = " +dId;
+		}
+		if(fordate!=null&&fordate!=""){
+			condition=condition+ " AND dDate >='"+date_before +"' AND dDate<='" +date_after+"'";
+		}
+		List<Map<String, Object>> result = dao.searchWithPaging(condition);
+		Map<String,Object> map = new HashMap<String, Object>();
+		int count = dao.getcount().size();
+		for (Map<String, Object> m : result)  
+	    { 
+			m.put("dDate", m.get("dDate").toString());
+	    }
+		System.out.println("count:"+count);
+		map.put("total", count);
+		map.put("rows",result);
+		System.out.println(map);
+		return map;
+	}
+
+
+
+	@Override
+	public void add(DeliveryOrder deliveryOrder) {
+		try {
+			dao.add(deliveryOrder);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+
+
+	@Override
+	public void deleteById(String dId) {
+		try {
+			dao.deleteById(dId);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+
+
+	@Override
+	public void edit(DeliveryOrder deliveryOrder) {
+		try {
+			dao.edit(deliveryOrder);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+	
+	
+	
+}

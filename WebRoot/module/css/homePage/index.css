@@ -1,0 +1,297 @@
+
+/* 头部 */
+.public-header{
+	width: 100%;
+	height: 430px;
+	background-image: url(../../../img/index-banner.jpg);
+	background-repeat: no-repeat;
+	background-size:100%;
+}
+/* 头部导航栏 */
+.header-top{
+	display: flex;
+	justify-content: space-between;
+}
+.logo{
+	height: 38px;
+	width: 70px;
+	background-image: url(../../../img/logo4.png);
+	background-repeat: no-repeat;
+	text-align: center;
+	margin-left: 30px;
+	margin-top: 20px;
+}
+.nav{
+	margin-right: 20px;
+	width: 520px;
+	margin-top:30px;
+}
+.nav li{
+	float: left;
+}
+.nav a{
+	color: #ffffff;
+} 
+.mydropdownlist{
+	width:100px;
+	height:50px;
+	background-color:#ffffff;
+	position:relative;
+	display:none;
+}
+.userImg{
+	width: 24px;
+	height: 24px;
+	border-radius: 90px;
+}
+
+/* 头部横幅部分 */
+.banner{
+	position: absolute;
+	top: 160px;
+	left: 180px;
+}
+.banner h2{
+	width: 600px;
+	height: 100px;
+	color: #ffffff;
+	font-size: 32px;
+}
+.banner-btn{
+	margin-top: 30px;
+	width: 220px;
+	height: 60px;
+	background-color: rgb(255,180,0);
+	border-radius:50px;
+	text-align: center;
+	line-height: 60px;
+	color: #ffffff;
+	font-size: 18px;
+    font-family: "微软雅黑";
+}
+.banner-btn:hover{
+	background-color:rgb(211,173,11);
+}
+/* 主要内容搜索部分*/
+.search{
+	width: 900px;
+	height: 86px;
+	margin:20px auto 0 auto;
+	display: flex;
+	justify-content:center;
+}
+.locationTxt,.peopleNum{
+	height: 80px;
+	width: 300px;
+	border-radius: 2px;
+	border:solid #ccc 1px;
+}
+.startimeTxt,.endtimeTxt{
+	height: 80px;
+	width: 150px;
+	border-left:solid #ffffff 1px;
+	border-right: solid #ffffff 1px;
+	border-top: solid #ccc 1px;
+	border-bottom: solid #ccc 1px;
+}
+.searchbtn{
+	position: absolute;
+    margin-top: 15px;
+    margin-left: 370px;
+	width: 80px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: rgb(255,90,95);
+	border: rgb(255,90,95) solid 1px;
+	border-radius: 4px;
+	color: #ffffff;
+	font-size: 20px;
+}
+.searchbtn:hover{
+	cursor: pointer;
+}
+/* input框的提示文字设置，进行了处理兼容 */
+::-webkit-input-placeholder {
+	position:relative;
+	top: 8px;
+	left: 20px;
+    font-size: 18px;
+}
+::-moz-placeholder {
+	position:relative;
+	top: 8px;
+	font-size: 18px; 
+	} /* firefox 19+ */
+:-ms-input-placeholder { 
+	position:relative;
+	top: 8px;
+	font-size: 18px;
+	 } /* ie */
+input:-moz-placeholder {
+	position:relative;
+	top: 8px;
+    font-size: 18px;
+}
+.public-main hr{
+	border: rgb(241,241,241)solid 1px;
+	width: 900px;
+	margin:30px auto 0 auto;
+}
+
+/* 主要内容房源部分 */
+.houses{
+	width: 920px;
+	margin:38px auto 0 auto;
+}
+.house-title,.story-title{
+	font-size: 28px;
+    height: 30px;
+    overflow: hidden;
+}
+.location{
+	width: 320px;
+	height: 50px;
+	margin-top: 20px;
+}
+.location li{
+	height: 48px;
+	line-height: 48px;
+	text-align: center;
+	width: 40px;
+	float: left;
+	margin-right:12px;
+	display: block;
+	font-size: 18px;
+	color:rgb(72,72,72);
+	overflow: hidden;
+}
+.location li:hover{
+	border-bottom: solid 2px rgb(0,132,137);
+	color: rgb(0,132,137);
+}
+.houses hr{
+	border: rgb(241,241,241)solid 1px;
+	width: 900px;
+	margin:10px auto 0 auto;
+}
+.houses-container{
+	margin-top: 28px;
+	width: 920px;
+	height: 640px;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap:wrap;
+}
+.houses-photo{
+	width: 290px;
+	height: 200px;
+}
+.houseslist span{
+	font-size: 16px;
+	font-family: "微软雅黑";
+}
+.price{
+	font-size: 18px;
+	font-weight: bold;
+}
+.star{
+	width: 160px;
+	height: 20px;
+}
+.morehouse{
+	height: 30px;
+	width: 170px;
+	color: rgb(0,132,137);
+	border: rgb(0,132,137) solid 1px;
+	font-size: 14px;
+	text-align: center;
+	background-color: #ffffff;
+	border-radius: 2px;
+}
+
+/* 主要内容故事部分 */
+.story{
+	width: 920px;
+	margin:38px auto 0 auto;
+}
+.morestory{
+	position: absolute;
+	margin-top: -20px;
+    margin-left: 842px;
+	color: #484848;
+	font-size: 14px;
+}
+.morestory:hover{
+	text-decoration: none;
+	color: #484848;
+}
+.storyContainer{
+	margin-top: 28px;
+	width: 920px;
+	height: 310px;
+	display: flex;
+	justify-content: space-between;
+}
+.storypPhoto{
+	width: 220px;
+	height: 220px;
+}
+.userphoto{
+	width: 20px;
+	height: 20px;
+	border-radius: 90px;
+	margin-right: 10px;
+}
+.story-detil,.story-evaluate{
+	width: 220px;
+}
+.storyaddress{
+	font-size: 18px;
+	font-weight: bold;
+	font-family: "微软雅黑";
+}
+.storyitd{
+	font-size: 14px;
+	font-family: "微软雅黑";
+}
+.zanNum,.evaluateNum{
+	margin-left: 2px;
+	margin-right:10px;
+}
+hr{
+	border: rgb(241,241,241) solid 1px;
+	width: 900px;
+	margin:10px auto 0 auto;
+}
+
+ /*底部 */
+ .public-footer{
+ 	margin-top: 30px;
+ 	width: 920px;
+ 	margin:0 auto;
+ 	display: flex;
+ 	justify-content: space-between;
+ }
+ .bottomlogo{
+ 	width: 68px;
+ 	height: 34px;
+ }
+ .aboutus a,.introduce a{
+ 	color:rgb(151,151,151);
+ }
+ .aboutus a:hover,.introduce a:hover{
+ 	color:rgb(151,151,151);
+ }
+ .loginbtn{
+			 width:556px;
+			 height:46px;
+			 background-color:#FF5A5F;
+			 border-radius:4px;
+			 border:solid 1px #FF5A5F;
+			 font-size:18px;
+			 color:#ffffff;
+         }
+.close{
+  overflow: hidden;
+}

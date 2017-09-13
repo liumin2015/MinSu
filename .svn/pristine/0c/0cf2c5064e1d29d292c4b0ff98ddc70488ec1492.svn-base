@@ -1,0 +1,107 @@
+/**
+ * @author : tanxiaokang
+ * @date : 2017上午10:53:50
+ */
+package com.cqut.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.cqut.dao.ErrorDao;
+import com.cqut.dao.SearchDao;
+import com.cqut.entity.Error;
+
+/**
+ *@author:tanxiaokang
+ * 
+ */
+@Service
+public class ErrorServiceImpl implements ErrorService {
+
+	@Resource(name="errorDao")
+	private ErrorDao dao;
+	@Resource(name="searchDao")
+	SearchDao searchDao;
+	/**
+	 * @author：tanxiaokang
+	 *	@date:2017上午11:00:55
+	 * @function：
+	 * @return	
+	 */
+	@Override
+	public Map<String, Object> getErrorInfo(	int limit, int offset,String order,String sort,String condition) {
+		int index = limit;
+		int pageNum = offset/limit;
+		if(condition!=null){
+			condition=" error.rId LIKE '%"+condition+"%' ";
+		}
+		String [] properties=new String[]{
+						" error.consigneeName ",
+						" error.eType ",
+						" error.eid ",
+						" deliveryorder.shipperName ",
+						" error.dId ",
+						" error.rId ",
+						" receipt.rName "
+					};
+		String baseEntity=" error ";
+		String joinEntity="  LEFT JOIN deliveryorder ON deliveryorder.dId = error.dId "+
+									"	LEFT JOIN receipt ON receipt.rId = error.rId ";
+		List<Map<String, Object>> list=searchDao.searchWithpagingInMysql(properties, 
+				baseEntity, joinEntity, null, null, condition, null, sort, order,pageNum , index);
+		int account=list.size();
+		Map<String,Object> map=new HashMap<String ,Object>();
+		map.put("total", account);
+		map.put("rows", list);
+		return map;
+	}
+	/**
+	 * @author：tanxiaokang
+	 *	@date:2017下午3:42:28
+	 * @function：
+	 * @param Error
+	 * @return	
+	 */
+	@Override
+	public int insert(Error error) {
+		System.out.println(error.toString());
+		error.setrId(UUID.randomUUID().toString().replaceAll("-",""));
+		return dao.insert(error);
+	}
+	/**
+	 * @author：tanxiaokang
+	 *	@date:2017下午3:04:50
+	 * @function：
+	 * @param ID
+	 * @return	
+	 */
+	@Override
+	public int deleteByID(String IDS) {
+		int i=0;
+		String []array=IDS.split(","); 
+		for (String ID : array) {
+			i=dao.deleteByID(ID);
+		}
+		return i;
+	}
+	/**
+	 * @author：tanxiaokang
+	 *	@date:2017下午3:41:00
+	 * @function：
+	 * @param Error
+	 * @param ID
+	 * @return	
+	 */
+	@Override
+	public int updateByID(Error error, String ID) {
+		// TODO Auto-generated method stub
+		return dao.updateByID(error, ID);
+	}
+
+}

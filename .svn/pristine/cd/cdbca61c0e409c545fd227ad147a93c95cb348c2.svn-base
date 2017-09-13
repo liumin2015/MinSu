@@ -1,0 +1,57 @@
+package com.cqut.service;
+
+import java.util.List;
+import java.util.UUID;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.cqut.dao.GoodsDao;
+import com.cqut.entity.Goods;
+import com.cqut.util.EntityIDFactory;
+
+/**
+ * 
+ * @author renyuqi
+ *
+ *
+ */
+@Service
+public class GoodsServiceImpl implements GoodsService {
+	@Resource(name="goodsDao")
+	private GoodsDao dao;
+
+	@Override
+	public List<Goods> getGoodsInfo(String condition) {
+		if(condition!=null&&(!condition.isEmpty())){
+			condition=" goods.gId LIKE '%"+condition+"%' ";
+		}
+		return dao.getGoodsInfo(condition);
+	}
+
+	@Override
+	public int insert(Goods goods) {
+		System.out.println(goods.toString());
+		goods.setgId(EntityIDFactory.createId());
+		return dao.insert(goods);
+	}
+
+	@Override
+	public int deleteByID(String IDS) {
+		int i=0;
+		String []array=IDS.split(","); 
+		for (String ID : array) {
+			i=dao.deleteByID(ID);
+		}
+		return i;
+	}
+
+	@Override
+	public int updateByID(Goods goods, String ID) {
+		// TODO Auto-generated method stub
+		return dao.updateByID(goods, ID);
+	}
+	
+
+}

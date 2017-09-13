@@ -1,0 +1,252 @@
+	var obj={};//定义参数对象
+	var type="";
+//表格初始化
+$(function(){	
+	initData();//初始化数据
+});
+
+//获取全部数据
+function initData(){
+	$('#table').bootstrapTable({
+		height:1000,
+		width:1000,
+		cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+		striped: true,// 隔行变色效果
+		pagination: true,// 在表格底部显示分页条
+	    strictSearch: true,
+	    pageNumber:1,                       //初始化加载第一页，默认第一页
+	    pageSize: 10,                       //每页的记录行数（*）
+	    pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+		clickToSelect:true,//设置true 将在点击行时，自动选择radiobox 和 checkbox
+		sortName:'Goods.rId',//定义排序列
+		sortOrder:'asc',//定义排序方式
+		url:'goodsController/getGoodsInfo.do',//服务器数据的加载地址
+		contentType:'application/json',//发送到服务器的数据编码类型
+		dataType:'json',//服务器返回的数据类型
+		queryParams:{ 	},
+		sidePagination:'client',
+//		queryParamsType: "limit", //参数格式,发送标准的RESTFul类型的参数请求
+//		selectItemName:'',//radio or checkbox 的字段名
+        detailView: false,                   //是否显示父子表
+        cardView: false,                    //是否显示详细视图
+        uniqueId: "rId",                     //每一行的唯一标识，一般为主键列
+	    columns:[{
+	    	checkbox:true,
+	    	align:'center',
+	    	valign:'middle',
+	    	width:'5%',
+	    },{
+	    	field:'gId',
+	    	visible:false,
+	    },{
+	    	field:'gName',
+	    	title:'货物名称',
+	    	align:'center',
+	    	valign:'middle',
+	    	width:'5%',
+	    },{
+	        field:'gWeight',
+	        title:'重量',
+	        align:'center',
+	        valign:'middle',
+	        width:'15%',
+	    },{
+	        field:'gVolume',
+	        title:'体积',
+	        align:'center',
+	        valign:'middle',
+	        width:'15%',
+	    },{
+	        field:'gValue',
+	        title:'价值',
+	        align:'center',
+	        valign:'middle',
+	        width:'15%',
+	    }]
+	});
+}
+//下拉框选择
+function changevalue(type,value){
+	if(type==1){
+		$('#textspan1').html(value);
+	}
+	else{
+		$('#textspan2').html(value);
+	}
+}
+
+//刷新
+function refresh(){
+	$('#table').bootstrapTable('refresh',
+		{query:{"condition":""}}
+	);
+}
+//搜索
+function research(){
+	$('#table').bootstrapTable('refresh',
+		{query:{"condition":$("input[name='condition']").val()}}
+	);
+}
+function addrow(){
+	  type="add";
+	  $('#myModal').modal("show");
+	  Forward(type);
+//新增数据
+}function add(){
+	var obj ={};
+	obj.gId="";
+	obj.gName=$("#gName").val();
+	obj.gWeight=$("#gWeight").val();
+	obj.gVolume=$("#gVolume").val();
+	obj.gValue=$("#gValue").val();
+	$.ajax({
+		url:'goodsController/insert.do',
+		data:obj,
+		success:function(e){
+			alert_success("成功！");
+			refresh();
+		}
+	});
+}
+
+//修改
+function edit(){
+	var obj = {};
+	var getdata = $('#table').bootstrapTable('getSelections');	   
+	obj.gId = "";
+	obj.gName=$("#gName2").val();
+	obj.gWeight=$("#gWeight2").val();
+	obj.gVolume=$("#gVolume2").val();
+	obj.gValue=$("#gValue2").val();
+	$.ajax({
+		url:'goodsController/updateByID.do',
+		data:{
+			   "gId":getdata[0].gId,
+			   "gName": obj.gName,
+			   "gWeight": obj.gWeight,
+			   "gVolume": obj.gVolume,
+			   "gValue": obj.gValue,
+			   "ID": getdata[0].gId
+		},
+		success:function(data){
+			if(data=="true"){
+				alert_success("成功！");
+				refresh();
+			}else{
+				alert_fail("发生错误");
+			}
+		}
+		
+	});
+}
+
+function show(){
+	var data = $("#table").bootstrapTable('getSelections');
+	if(data.length==1){
+		$("#gId2").val(data[0].gId);
+		$("#gName2").val(data[0].gName);
+		$("#gWeight2").val(data[0].gWeight);
+		$("#gVolume2").val(data[0].gVolume);
+		$("#gValue2").val(data[0].gValue);
+		
+		$("#edit").attr("data-target","#myModal2");
+		
+	}else{
+		$("#edit").attr("data-target",null);
+		alert_fail("请选择一条数据");
+	}
+}
+//删除
+
+
+function deleteGoods(){
+	var getData = $('#table').bootstrapTable('getSelections');
+	var deleteData = "";
+	if(getData.length<=0){
+		alert_fail("请选择");
+	}else{
+		if(getData[0].gId.length==0){
+			refresh();
+		}else{
+			for (var i = 0 ; i < getData.length ; i++){
+				deleteData += getData[i].gId; 
+				if(i<getData.length-1)
+					deleteData+=",";
+			}
+			$.ajax({
+				  url:'goodsController/deleteByID.do',
+				  data:{"IDS":deleteData},
+				  success:function(e){
+					  alert_success("成功！");
+					  refresh();
+				  }
+				});
+		}
+	}
+}
+//提交按钮点击事件
+function Forward(type,getdata){
+	   $('#submit').one("click", function () {
+		   if(type=="add"){
+			   obj.gName=$("input[name='gName2']").val();
+			   obj.gWeight=$("input[name='gWeight2']").val();
+			   obj.gVolume=$("input[name='gVolume2']").val();
+			   obj.gValue=$("input[name='gValue2']").val();
+			   $.ajax({
+				   type:"post",
+				   url:"goodsController/insert.do",
+				   data:{
+					   "gName": obj.gName,
+					   "gWeight": obj.gWeight,
+					   "gVolume": obj.gVolume,
+					   "gValue": obj.gValue
+					   },
+				   success:function(data){
+					   if(data=='true'){
+						   $("input").val("");
+						   alert("新增成功!");
+						   refresh();
+						   $('#myModal').modal("hide");
+					   }else alert("新增失败！");
+				   }
+			   });
+			 }else {
+			   obj.gName=$("input[name='gName']").val();
+			   obj.gWeight=$("input[name='gWeight']").val();
+			   obj.gVolume=$("input[name='gVolume']").val();
+			   obj.gValue=$("input[name='gValue']").val();
+			   $.ajax({
+				   type:"post",
+				   url:"goodsController/updateByID.do",
+				   data:{
+					   "gId":getdata[0].gId,
+					   "gName": obj.gName,
+					   "gWeight": obj.gWeight,
+					   "gVolume": obj.gVolume,
+					   "gValue": obj.gValue,
+					   "ID": getdata[0].gId
+					   },
+				   success:function(data){
+					   if(data=='true'){
+						   $("input").val("");
+						   alert("修改成功!");
+						   refresh();
+						   $('#myModal').modal("hide");
+					   }else alert("修改失败！");
+				   }
+			   });
+		   }
+	   });	
+	
+}
+
+function alert_fail(value){
+	$("#alert_fail").css("display","block");
+	$("#alert_fail").html(value);
+	$("#alert_fail").fadeOut(2000);
+}
+function alert_success(value){
+	$("#alert_success").css("display","block");
+	$("#alert_success").html(value);
+	$("#alert_success").fadeOut(2000);
+}

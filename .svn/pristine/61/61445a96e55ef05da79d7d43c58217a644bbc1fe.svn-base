@@ -1,0 +1,243 @@
+	var obj={};//定义参数对象
+	var type="";
+//表格初始化
+$(function(){	
+	initValidate();
+	initData();//初始化数据
+	getDelivery();
+});
+function initValidate(){
+			
+}
+//获取全部数据
+function initData(){
+	$('#table').bootstrapTable({
+		height:400,
+		cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+		striped: true,// 隔行变色效果
+		pagination: true,// 在表格底部显示分页条
+	    strictSearch: true,
+	    pageNumber:1,                       //初始化加载第一页，默认第一页
+	    pageSize: 10,                       //每页的记录行数（*）
+	    pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+		clickToSelect:true,//设置true 将在点击行时，自动选择radiobox 和 checkbox
+		sortName:'DeliveryInfo.diId',//定义排序列
+		sortOrder:'asc',//定义排序方式
+		sidePagination:'server',//设置在哪里进行分页
+		url:'deliveryInfoController/getDeliveryInfo.do',//服务器数据的加载地址
+		contentType:'application/json',//发送到服务器的数据编码类型
+		dataType:'json',//服务器返回的数据类型
+		queryParams:queryParams,
+	    columns:[{
+	    	checkbox:true,
+	    	align:'center',
+	    	valign:"middel"
+	    },{
+	    	field:'diId',
+	    	visible:false,
+	    },{
+	    	field:'dId',
+	    	title:'货运单编号',
+	    	align:'center',
+	    	valign:"middel"
+	    },{
+	        field:'diTime',
+	        title:'时间',
+	        align:'center',
+	    	valign:"middel"
+	    },{
+	        field:'diAdd',
+	        title:'中途地址',
+	        align:'center',
+	    	valign:"middel"
+	    },{
+	        field:'diType',
+	        title:'状态',
+	        align:'center',
+	    	valign:"middel",
+	    	formatter:function(value,rowData,rowIndex){  
+	    		if(rowData.diType=="0"){
+	    			return "收件";
+	    		}else if(rowData.diType=="1"){
+	    			return "中转";
+	    		}else return "派件";
+	    	}
+	    }]
+	});
+}
+function getDelivery(){
+	   $.ajax({
+		   type:"post",
+		   url:"deliveryInfoController/getDelivery.do",
+		   data:{ },
+		   async:false, 
+		   success:function(data){
+				   var datas=eval(data);
+				   if(data!=""){
+					   var contents="";
+					   alert_success("订单获取成功!");
+					   for (var i = 0; i< datas.length; i++) {
+						   contents+="<li class='style_li' onclick='droplis(this)' value='"+datas[i].dId+"'>"+datas[i].dId+"</li>";
+					}
+					   $(".down").html(contents);
+					   refresh();
+					   $('#myModal').modal("hide");
+				   }else alert_fail("无订单！");
+			   }
+		   });
+}
+//下拉框选择
+function dropli(dom){
+	$("#dState").html(dom.innerHTML);
+	$("input[name='diType']").val(dom.value);
+}
+function dropli2(dom){
+	$("#dState3").html(dom.innerHTML);
+	$("input[id='rState']").val(dom.value);
+}
+function droplis(dom){
+	$("#DId").html(dom.innerHTML);
+	$("input[name='dId']").val(dom.innerHTML);
+}
+//刷新
+function refresh(){
+	$('#table').bootstrapTable('refresh',
+		{query:{"condition":""}}
+	);
+}
+//搜索
+function research(){
+	$('#table').bootstrapTable('refresh',
+		{query:{"condition":$("input[name='condition']").val()}}
+	);
+}
+//新增数据
+function addrow(){
+	  $('#myModal').modal("show");
+	  
+	   $('#submit').one("click", function () {
+			   obj.dId=$("input[name='dId']").val();
+			   obj.diTime=$("input[name='diTime']").val();
+			   obj.diAdd=$("input[name='diAdd']").val();
+			   obj.diType=$("input[name='diType']").val();
+			   $("#ff1").validate();
+			   $.ajax({
+				   type:"post",
+				   asyn:false,
+				   url:"deliveryInfoController/insert.do",
+				   data:{
+					   "dId": obj.dId,
+					   "diTime": obj.diTime,
+					   "diAdd": obj.diAdd,
+					   "diType": obj.diType
+					   },
+				   success:function(data){
+					   if(data=='true'){
+						   $("input").val("");
+						   $("span[id='DId'").html("请选择货运单编号");
+						   alert_success("新增成功!");
+						   location.reload("true");
+						   $('#myModal').modal("hide");
+					   }else alert_fail("新增失败！");
+				   }
+			   });
+		 });
+}
+//修改
+function updataDeliveryInfo(){
+	  var getdata = $('#table').bootstrapTable('getSelections');	   
+	  if(getdata.length!=1){
+		  alert_fail("请选择一条进行修改！");
+	  }else{
+		  var state="";
+		  var content="";
+		  if(getdata[0].diType=="0"){
+			  content="收件";
+		  }else if (getdata[0].diType=="1"){
+			  content="中转";
+		  }else {
+			  content="派件";
+		  }
+		  $('#editmyModal').modal("show");
+		  $("input[id='dId']").val(getdata[0].dId);
+		  $("input[id='diTime']").val(getdata[0].diTime);
+		  $("input[id='diAdd']").val(getdata[0].diAdd);
+		  $("input[id='diType']").val(getdata[0].diType);
+		  $("span[id='dState3']").html(content);
+		  $('#editSubmit').on("click", function () {
+			   obj.dId=$("input[id='dId']").val();
+			   obj.diTime=$("input[id='diTime']").val();
+			   obj.diAdd=$("input[id='diAdd']").val();
+			   obj.diType=$("input[id='diType']").val();
+			   $.ajax({
+				   type:"post",
+				   url:"deliveryInfoController/updateByID.do",
+				   data:{
+					   "diId":getdata[0].diId,
+					   "dId": obj.dId,
+					   "diTime": obj.diTime,
+					   "diAdd": obj.diAdd,
+					   "diType": obj.diType,
+					   "ID": getdata[0].diId
+					   },
+				   success:function(data){
+					   if(data=='true'){
+						   $("input").val("");
+						   alert_success("修改成功！");
+						   location.reload("true");
+						   $('#editmyModal').modal("hide");
+					   }else alert_fail("修改失败！");
+				   }
+			   });
+		   });
+	  }
+}
+//删除
+function deleteDeliveryInfo(){
+	var getData = $('#table').bootstrapTable('getSelections');
+	var deleteData = "";
+	if(getData.length<=0){
+		alert_fail("请选择");
+	}else{
+		if(getData[0].diId.length==0){
+			refresh();
+		}else{
+			for (var i = 0 ; i < getData.length ; i++){
+				deleteData += getData[i].diId; 
+				if(i<getData.length-1)
+					deleteData+=",";
+			}
+			$.ajax({
+				  url:'deliveryInfoController/deleteByID.do',
+				  data:{"IDS":deleteData},
+				  success:function(e){
+					  if(e=="true")
+					  alert_success("删除成功！");
+					  else 	alert_fail("删除失败！");
+					  refresh();
+				  }
+				});
+		}
+	}
+}
+function queryParams(params) { // 配置参数
+	var temp = { // 这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+		limit : params.limit, // 页面大小
+		offset : params.offset, // 页码
+		sort : params.sort, // 排序列名
+		order : params.order,
+		userName:$("#userName").val()
+	};
+	return temp;
+}
+
+function alert_success(value){
+	$("#alert_success").css("display","block");
+	$("#alert_success").html(value);
+	$("#alert_success").fadeOut(2000);
+}
+function alert_fail(value){
+	$("#alert_fail").css("display","block");
+	$("#alert_fail").html(value);
+	$("#alert_fail").fadeOut(2000);
+}

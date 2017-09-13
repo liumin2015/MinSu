@@ -1,0 +1,54 @@
+package com.cqut.entity;
+
+import com.cqut.util.ID;
+
+/**
+ * @author hechangxing
+ * @2017-6-14 
+ */
+public class Receipt {
+        @ID
+		private String	rId;
+		private String	dId;
+		private String	rName;
+		private String	rAdd;
+		private int		rState;
+		
+		public String getrId() {
+			return rId;
+		}
+		public void setrId(String rId) {
+			this.rId = rId;
+		}
+		public String getdId() {
+			return dId;
+		}
+		public void setdId(String dId) {
+			this.dId = dId;
+		}
+		public String getrName() {
+			return rName;
+		}
+		public void setrName(String rName) {
+			this.rName = rName;
+		}
+		public String getrAdd() {
+			return rAdd;
+		}
+		public void setrAdd(String rAdd) {
+			this.rAdd = rAdd;
+		}
+		public int getrState() {
+			return rState;
+		}
+		public void setrState(int rState) {
+			this.rState = rState;
+		}
+		@Override
+		public String toString() {
+			return "Receipt [rId=" + rId + ", dId=" + dId + ", rName=" + rName
+					+ ", rAdd=" + rAdd + ", rState=" + rState + "]";
+		}
+		
+
+}

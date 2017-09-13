@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Express_Management_System">
+        <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/resource"/>
+        <property name="context-root" value="Express_Management_System"/>
+        <property name="java-output-path" value="/Express_Management_System/WebRoot/WEB-INF/classes"/>
+    </wb-module>
+</project-modules>

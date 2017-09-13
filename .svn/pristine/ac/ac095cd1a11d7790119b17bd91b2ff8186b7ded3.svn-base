@@ -1,0 +1,18 @@
+function login(){
+	var obj = {
+			username:$('#username').val(),
+			password:$('#password').val()
+	};
+	$.ajax({
+		url:'userController/login.do',
+		data:obj,
+		success:function(e){
+			if(e=="1"){
+				alert("登陆成功");
+			}else{
+				alert("账号密码有误");
+			}
+			
+		}
+	});
+};

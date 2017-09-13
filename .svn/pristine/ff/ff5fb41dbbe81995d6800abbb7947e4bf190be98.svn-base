@@ -1,0 +1,98 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>用户管理</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<link rel="stylesheet" type="text/css" href="frame/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="frame/bootstrap-table.min.css">
+	<link rel="stylesheet" type="text/css" href="frame/bootstrap.min.css">
+    <script src="frame/jquery-2.1.0.js"></script>
+	<script src="frame/bootstrap.min.js"></script>
+	<script src="frame/bootstrap-table.min.js"></script>
+	<script src="frame/bootstrap-table-zh-CN.min.js"></script>
+ 
+  </head>
+       
+  <body>
+    <div id="main">
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+							</button>
+							<h4 class="modal-title" id="myModalLabel">
+								新增用户
+							</h4>
+						</div>
+			<div class="modal-body">
+						  <form class="bs-example bs-example-form" role="form">
+						    <div class="input-group">
+						            <span class="input-group-addon">用户名:</span>
+						            <input type="text" name="userName" class="form-control" placeholder="请填写姓名">
+						        </div><br/>
+						        <div class="input-group">
+						            <span class="input-group-addon">密码:</span>
+						            <input type="text" name="password" class="form-control" placeholder="请填写密码">
+						        </div><br/>
+						        <div class="input-group">
+						            <span class="input-group-addon">电话:</span>
+						            <input type="text" name="telephone" class="form-control" placeholder="请填写电话">
+						        </div><br/>
+						       
+						   </form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					关闭
+				</button>
+				<button type="button" class="btn btn-primary" id="submit">
+					提交
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+  
+  <!--  以上是新增-->
+                <div id="top">
+    					<label for="label">用户名：</label>
+    					<input id="label" type="text" name="condition" class="search" placeholder="请填写用户名">
+    					<button type="button" class=" btn_btn fa fa-search " onclick="research()">查询</button>
+    			</div> 
+  
+      <div id="toolbar" class="btn-group">
+              <button id="btn_add" type="button" Onclick="addrow()" class="btn btn-info btn-sm rightSize">
+                      <span class="glyphicon-plus" aria-hidden="true"></span>新增
+              </button>
+              <button id="btn_edit" type="button"  Onclick ="updateById()"   class="btn btn-info btn-sm rightSize">
+                      <span class="glyphicon-pencil" aria-hidden="true"></span>修改
+              </button>
+              <button id="btn_delete" Onclick="deleteByID()" type="button" class="btn btn-info btn-sm rightSize">
+                    <span class="glyphicon-remove" aria-hidden="true"></span>删除
+              </button>
+              <button type="button" class="btn btn-info btn-sm rightSize" onclick="refresh()">
+                   <span class="glyphicon-remove" aria-hidden="true"></span> 刷新
+              </button>
+      </div>
+  </div>
+    <table id="table">
+    
+    </table>
+     <script type="text/javascript" src="module/JS/userManage/UserManage.js"></script>
+  </body>
+
+</html>

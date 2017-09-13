@@ -1,0 +1,25 @@
+/**
+ * @author : tanxiaokang
+ * @date : 2017上午11:01:50
+ */
+package com.cqut.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.cqut.entity.DeliveryOrder;
+import com.cqut.entity.Error;
+
+/**
+ *@author:tanxiaokang
+ * 
+ */
+public interface ErrorDao {
+	
+		public List<Error> getErrorInfo(@Param("condition")String condition);
+		public int insert(@Param("entity")Error error);
+		public int deleteByID(@Param("ID")String ID);
+		public int updateByID(@Param("entity")Error error,@Param("id")String ID);
+		public List<Error> getcount();
+}

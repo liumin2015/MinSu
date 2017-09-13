@@ -1,0 +1,19 @@
+package com.cqut.service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.cqut.entity.ProfitAndLoss;;
+
+/**
+ * @author xuweiling
+ * 2017年6月18日
+ * 
+ */
+public interface CostService {
+	
+	public Map<String, Object>  getCostInfo(int lmit,int offset,String order,String sort,String condition) ;
+	public int insert(ProfitAndLoss cost);
+	public int deleteByID(String IDS);
+	public int updateByID(ProfitAndLoss cost,String ID);
+}

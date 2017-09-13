@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="MinMinSu">
+        <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/resource"/>
+        <property name="java-output-path" value="/MinMinSu/WebRoot/WEB-INF/classes"/>
+        <property name="context-root" value="MinMinSu"/>
+    </wb-module>
+</project-modules>

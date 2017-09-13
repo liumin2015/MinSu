@@ -1,0 +1,79 @@
+/**
+ * @author : tanxiaokang
+ * @date : 2017上午10:53:50
+ */
+package com.cqut.service;
+
+import java.util.List;
+import java.util.UUID;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.cqut.dao.ReceiptDao;
+import com.cqut.entity.Receipt;
+
+/**
+ *@author:tanxiaokang
+ * 
+ */
+@Service
+public class ReceiptServiceImpl implements ReceiptService {
+
+	@Resource(name="receiptDao")
+	private ReceiptDao dao;
+	/**
+	 * @author：tanxiaokang
+	 *	@date:2017上午11:00:55
+	 * @function：
+	 * @return	
+	 */
+	@Override
+	public List<Receipt> getReceipteInfo() {
+		return dao.getReceiptInfo();
+	}
+	/**
+	 * @author：tanxiaokang
+	 *	@date:2017下午3:42:28
+	 * @function：
+	 * @param receipt
+	 * @return	
+	 */
+	@Override
+	public int insert(Receipt receipt) {
+		System.out.println(receipt.toString());
+		receipt.setrId(UUID.randomUUID().toString().replaceAll("-",""));
+		return dao.insert(receipt);
+	}
+	/**
+	 * @author：tanxiaokang
+	 *	@date:2017下午3:04:50
+	 * @function：
+	 * @param ID
+	 * @return	
+	 */
+	@Override
+	public int deleteByID(String IDS) {
+		int i=0;
+		String []array=IDS.split(","); 
+		for (String ID : array) {
+			i=dao.deleteByID(ID);
+		}
+		return i;
+	}
+	/**
+	 * @author：tanxiaokang
+	 *	@date:2017下午3:41:00
+	 * @function：
+	 * @param receipt
+	 * @param ID
+	 * @return	
+	 */
+	@Override
+	public int updateByID(Receipt receipt, String ID) {
+		// TODO Auto-generated method stub
+		return dao.updateByID(receipt, ID);
+	}
+
+}

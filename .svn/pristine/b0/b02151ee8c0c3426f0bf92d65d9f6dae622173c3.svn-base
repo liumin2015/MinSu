@@ -1,0 +1,54 @@
+package com.cqut.entity;
+
+import com.cqut.util.ID;
+
+/**
+ * @author hechangxing
+ * @2017-6-14 
+ */
+public class Error {
+        @ID
+		private String	eid;
+		private String	dId;
+		private String	rId;
+		private String	consigneeName;
+		private String	eType;
+		private String	gId;
+		public String getEid() {
+			return eid;
+		}
+		public void setEid(String eid) {
+			this.eid = eid;
+		}
+		public String getdId() {
+			return dId;
+		}
+		public void setdId(String dId) {
+			this.dId = dId;
+		}
+		public String getrId() {
+			return rId;
+		}
+		public void setrId(String rId) {
+			this.rId = rId;
+		}
+		public String getConsigneeName() {
+			return consigneeName;
+		}
+		public void setConsigneeName(String consigneeName) {
+			this.consigneeName = consigneeName;
+		}
+		public String geteType() {
+			return eType;
+		}
+		public void seteType(String eType) {
+			this.eType = eType;
+		}
+		public String getgId() {
+			return gId;
+		}
+		public void setgId(String gId) {
+			this.gId = gId;
+		}
+		
+}

@@ -1,0 +1,14 @@
+package com.cqut.service;
+
+import java.util.Map;
+
+import com.cqut.entity.DeliveryOrder;
+import com.cqut.entity.SysRole;
+
+public interface SysRoleService {
+	public Map<String, Object> searchWithPaging(String roleName,int limit, int offset, String order, String sort);
+	
+	public void add(SysRole sysRole);
+	public void deleteById(String roleId);
+	public void edit(SysRole sysRole);
+}

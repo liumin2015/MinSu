@@ -1,0 +1,109 @@
+package com.cqut.controller;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.enterprise.inject.New;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+import org.apache.ibatis.io.ResolverUtil.IsA;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.cqut.dao.SearchDao;
+import com.cqut.entity.ProfitAndLoss;
+import com.cqut.entity.Receipt;
+import com.cqut.service.CostService;
+import com.cqut.service.ReceiptService;
+
+/**
+ * @author xuweiling
+ * 2017年6月18日
+ *
+ */
+@Controller
+@RequestMapping("/costController")
+public class CostController {
+	
+	@Resource(name="costServiceImpl")
+	private CostService service;
+	
+	@RequestMapping("/getCostInfo")
+	@ResponseBody
+	public String getCostInfo(int limit, int offset,String order,String sort,String condition){
+		System.out.println("1");
+		Map<String, Object> result = service.getCostInfo(limit,offset,order,sort,condition);
+		return JSONObject.fromObject(result).toString();
+	}
+	@RequestMapping("/insertCost")
+	@ResponseBody
+	public String insertCost(String income,String expense,String StartTime,String EndTime) throws ParseException{
+		ProfitAndLoss profitAndLoss=new ProfitAndLoss();
+		if(!income.isEmpty()){
+			profitAndLoss.setIncome(Float.parseFloat(income));
+		}
+		if(!expense.isEmpty()){
+			profitAndLoss.setExpense(Float.parseFloat(expense));
+		}
+		//时间转化流2017-06-20 17:36:53
+		SimpleDateFormat sdf  =new  SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		if(!StartTime.isEmpty()){
+			StartTime+=" "+"00"+":"+"00"+":"+"00";
+		    Date date1 = sdf.parse(StartTime);  
+		    profitAndLoss.setStartTime(date1);
+		}
+		if(!EndTime.isEmpty()){
+			EndTime+=" "+"00"+":"+"00"+":"+"00";
+			//利用时间流将字符串设置到新建时间对象
+		    Date date2 = sdf.parse(EndTime); 
+		    //将时间对象设置到损益表属性去
+			profitAndLoss.setEndTime(date2);
+		}
+		return service.insert(profitAndLoss)==1?"true":"false";
+	}
+	@RequestMapping("/deleteByID")
+	@ResponseBody
+	public String deleteByID(String IDS){
+		return service.deleteByID(IDS)>0?"true":"false";
+	}
+	
+	@RequestMapping("/updateByID")
+	@ResponseBody
+	public String updateByID(String income,String expense,String StartTime,String EndTime,String ID) throws ParseException{
+		ProfitAndLoss profitAndLoss=new ProfitAndLoss();
+		if(!income.isEmpty()){
+			profitAndLoss.setIncome(Float.parseFloat(income));
+		}
+		if(!expense.isEmpty()){
+			profitAndLoss.setExpense(Float.parseFloat(expense));
+		}
+		//时间转化流2017-06-20 17:36:53
+		SimpleDateFormat sdf  =new  SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		if(!StartTime.isEmpty()){
+			StartTime+=" "+"00"+":"+"00"+":"+"00";
+		    Date date1 = sdf.parse(StartTime);  
+		    profitAndLoss.setStartTime(date1);
+		}
+		if(!EndTime.isEmpty()){
+			EndTime+=" "+"00"+":"+"00"+":"+"00";
+			//利用时间流将字符串设置到新建时间对象
+		    Date date2 = sdf.parse(EndTime); 
+		    //将时间对象设置到损益表属性去
+			profitAndLoss.setEndTime(date2);
+		}
+		return service.updateByID(profitAndLoss, ID)>0?"true":"false";
+	}
+	
+	@RequestMapping("getalldata")
+	@ResponseBody
+	public String getalldata(){
+		return JSONArray.fromObject(service.getalldata()).toString();
+	}
+}

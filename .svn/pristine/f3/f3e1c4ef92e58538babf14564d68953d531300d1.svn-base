@@ -1,0 +1,20 @@
+package com.cqut.service;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cqut.dao.LoginDao;
+import com.cqut.entity.User;
+
+@Service
+public class LoginImp implements LoginService {
+	@Resource(name="loginDao")
+	private LoginDao dao;
+	@Override
+	public User logindo(String username,String password) {
+		return dao.logindo(username, password);
+	}
+
+}

@@ -1,0 +1,54 @@
+/**
+ * @author : tanxiaokang
+ * @date : 2017上午10:43:39
+ */
+package com.cqut.controller;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import net.sf.json.JSONArray;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.cqut.entity.Receipt;
+import com.cqut.service.ReceiptService;
+
+
+
+/**
+ *@author:tanxiaokang
+ * 
+ */
+@Controller
+@RequestMapping("/receiptController")
+public class ReceiptController {
+	
+	@Resource(name="receiptServiceImpl")
+	private ReceiptService service;
+	
+	@RequestMapping("/getReceiptInfo")
+	@ResponseBody
+	public String getReceiptInfo(){
+		return JSONArray.fromObject(service.getReceipteInfo()).toString();
+	}
+	@RequestMapping("/insert")
+	@ResponseBody
+	public String insert(Receipt receipt){
+		return service.insert(receipt)==1?"true":"false";
+	}
+	@RequestMapping("/deleteByID")
+	@ResponseBody
+	public String deleteByID(String IDS){
+		return service.deleteByID(IDS)>0?"true":"false";
+	}
+	
+	@RequestMapping("/updateByID")
+	@ResponseBody
+	public String updateByID(Receipt receipt,String ID){
+		return service.updateByID(receipt, ID)>0?"true":"false";
+	}
+}

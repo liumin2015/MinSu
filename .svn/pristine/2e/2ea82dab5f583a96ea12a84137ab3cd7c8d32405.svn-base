@@ -1,0 +1,20 @@
+package com.cqut.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import com.cqut.entity.DeliveryOrder;
+import com.cqut.entity.SysRole;
+
+@Repository
+public interface SysRoleDao {
+	public List<Map<String, Object>> searchWithPaging(@Param("condition")String condition);
+	public List<DeliveryOrder> getcount();
+	
+	public void add(SysRole sysRole);
+	public void deleteById(String roleId);
+	public void edit(SysRole sysRole);
+}

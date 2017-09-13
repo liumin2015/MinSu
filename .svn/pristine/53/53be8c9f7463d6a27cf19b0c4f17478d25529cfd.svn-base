@@ -1,0 +1,79 @@
+/**
+ * @author : tanxiaokang
+ * @date : 2017上午10:43:39
+ */
+package com.cqut.controller;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.annotation.Resource;
+
+import net.sf.json.JSONObject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.cqut.entity.DeliveryInfo;
+import com.cqut.entity.ProfitAndLoss;
+import com.cqut.service.DeliveryInfoService;
+
+
+
+/**
+ *@author:tanxiaokang
+ * 
+ */
+@Controller
+@RequestMapping("/deliveryInfoController")
+public class DeliveryInfoController {
+	
+	@Resource(name="deliveryInfoServiceImpl")
+	private DeliveryInfoService service;
+	
+	@RequestMapping("/getDeliveryInfo")
+	@ResponseBody
+	public String getDeliveryInfo(int limit, int offset,String order,String sort,String condition){
+		return JSONObject.fromObject(service.getDeliveryInfo(limit,offset,order,sort,condition)).toString();
+	}
+	@RequestMapping("/insert")
+	@ResponseBody
+	public String insert(String dId,String diAdd,int diType,String diTime) throws ParseException{
+		DeliveryInfo deliveryInfo=new DeliveryInfo();
+		deliveryInfo.setdId(dId);
+		deliveryInfo.setDiAdd(diAdd);
+		deliveryInfo.setDiType(diType);
+		//时间转化流2017-06-20 17:36:53
+		SimpleDateFormat sdf  =new  SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		diTime+=" "+"00"+":"+"00"+":"+"00";
+		//利用时间流将字符串设置到新建时间对象
+	    Date date1 = sdf.parse(diTime);  
+	    //将时间对象设置到损益表属性去
+	    deliveryInfo.setDiTime(date1);
+		return service.insert(deliveryInfo)==1?"true":"false";
+	}
+	@RequestMapping("/deleteByID")
+	@ResponseBody
+	public String deleteByID(String IDS){
+		return service.deleteByID(IDS)>0?"true":"false";
+	}
+	
+	@RequestMapping("/updateByID")
+	@ResponseBody
+	public String updateByID(String dId,String diAdd,int diType,String diTime,String ID) throws ParseException{
+		DeliveryInfo deliveryInfo=new DeliveryInfo();
+		deliveryInfo.setdId(dId);
+		deliveryInfo.setDiAdd(diAdd);
+		deliveryInfo.setDiType(diType);
+		//时间转化流2017-06-20 17:36:53
+		SimpleDateFormat sdf  =new  SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		diTime+=" "+"00"+":"+"00"+":"+"00";
+		//利用时间流将字符串设置到新建时间对象
+	    Date date1 = sdf.parse(diTime);  
+	    //将时间对象设置到损益表属性去
+	    deliveryInfo.setDiTime(date1);
+		return service.updateByID(deliveryInfo, ID)>0?"true":"false";
+	}
+}

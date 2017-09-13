@@ -1,0 +1,58 @@
+package com.cqut.service;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import com.cqut.dao.UserDao;
+import com.cqut.entity.User;
+
+/**
+ * @author hechangxing
+ * @2017-6-14 
+ */
+
+@Service
+public class UserServiceImpl implements UserService {
+  @Autowired
+  private UserDao dao;
+  
+  
+  @Override
+  public List<User> getUserInfo(String condition){
+	  return dao.queryBycondition( condition);
+  }
+
+
+
+
+@Override
+public int deleteByID(String ID) {
+	// TODO Auto-generated method stub
+	int result=dao.deleteByID(ID);
+	return result;
+}
+
+
+@Override
+public int insert(User user) {
+	// TODO Auto-generated method stub
+	user.setUserId(UUID.randomUUID().toString().replaceAll("-",""));
+	user.setUserType(0);
+	System.out.println(user);
+	return dao.insert(user);
+}
+
+
+
+
+@Override
+public int updateById(User user, String userId) {
+	// TODO Auto-generated method stub
+	return dao.updateByID(user, userId);
+}
+
+}

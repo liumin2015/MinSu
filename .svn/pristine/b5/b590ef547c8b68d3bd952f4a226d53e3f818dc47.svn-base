@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.cqut.dao.GoodsDao">
+<insert id="insert" >
+			insert into Goods(gId,gName,gWeight,gVolume,gValue) values(#{entity.gId},#{entity.gName},#{entity.gWeight},#{entity.gVolume},#{entity.gValue})
+	</insert>
+	<select id="getGoodsInfo" resultType="com.cqut.entity.Goods">
+		<![CDATA[   
+			select * from Goods 
+		]]>
+		<where>
+			<if test="condition != null">
+		 		${condition}
+		 	</if>
+		</where>
+		
+	</select>
+	<update id="updateByID" >
+		<![CDATA[  
+			update Goods set 	
+      		gName = #{entity.gName},
+      		gWeight = #{entity.gWeight},
+      		gVolume = #{entity.gVolume},
+      		gValue = #{entity.gValue}
+      		
+      	]]>
+      	<where>
+      		gId = #{id}
+      	</where>  		
+	</update>
+	 <delete id="deleteByID"  parameterType="string">
+		<![CDATA[   
+			delete from Goods   
+		]]>
+		<where>
+			gId = #{ID}
+		</where>
+	</delete>	
+
+
+
+</mapper>

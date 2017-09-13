@@ -1,0 +1,16 @@
+package com.cqut.service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.cqut.entity.DeliveryOrder;
+
+public interface DeliveryOrderService {
+	public Map<String, Object> searchWithPaging(String dId,String fordate,int limit, int offset, String order, String sort);
+	
+	public void add(DeliveryOrder deliveryOrder);
+	public void deleteById(String dId);
+	public void edit(DeliveryOrder deliveryOrder);
+	
+	public List<DeliveryOrder> getalldata();
+}

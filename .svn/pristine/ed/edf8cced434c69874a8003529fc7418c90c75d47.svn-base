@@ -1,0 +1,21 @@
+package com.cqut.service;
+
+import java.util.List;
+
+import com.cqut.entity.Goods;
+import com.cqut.entity.Receipt;
+/**
+ * 
+ * @author renyuqi
+ *
+ *
+ */
+
+
+public interface GoodsService {
+	public List<Goods> getGoodsInfo(String condition);
+	public int insert(Goods goods);
+	public int deleteByID(String IDS);
+	public int updateByID(Goods goods,String ID);
+
+}

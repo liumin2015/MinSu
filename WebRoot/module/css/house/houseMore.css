@@ -1,0 +1,102 @@
+.warpper{
+	width: 1366px;
+	margin:0 auto;
+}
+.houseplaceSearchbox{
+	position: relative;
+    width: 600px;
+    height: 46px;
+    margin-top: 22px;
+    margin-left: -80px;
+}
+.houseplaceSearch{
+	width: 570px;
+    height: 40px;
+    border-radius: 4px;
+    border:solid 1px #ccc;
+}
+.searchico{
+	margin-left: -30px;
+}
+
+/*更多房源搜索内容部分*/
+.houseSearch{
+	border: solid #ccc 1px;
+	height: 52px;
+	display: flex;
+	justify-content: flex-start;
+	overflow: hidden;
+}
+.houseSearch button{
+	height: 50px;
+	border-left: solid #ffffff 1px;
+	border-top: solid #ffffff 1px;
+	border-bottom: solid #ffffff 1px;
+	border-right: solid #ccc 1px;
+	background-color: #ffffff;
+	padding-left: 20px;
+	padding-right: 20px;
+	font-size: 15px;
+}
+.houseSearch button span{
+	color: #008489;
+	font-weight: bold;
+}
+/*更多房源主要展示内容部分*/
+.houseMain{
+	display: flex;
+	justify-content: space-between;
+	height: 520px;
+	overflow: hidden;
+}
+.houseShow{
+	width: 900px;
+	height: 100%;
+	overflow: auto;
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.houseslist{
+	margin-top: 30px;
+	height: 340px;
+	position: relative;
+}
+.likeico{
+
+    overflow: hidden;
+}
+.likeico .heart{
+	margin-left: 326px;
+}
+.houses-photo{
+	width: 400px;
+	height: 270px;
+}
+.houseslist span{
+	font-size: 16px;
+	font-family: "微软雅黑";
+}
+.houseHowner{
+	width: 36px;
+	height: 36px;
+	border-radius: 90px;
+	margin-left: 100px;
+	margin-top:5px;
+}
+.price{
+	font-size: 18px;
+	font-weight: bold;
+}
+.star{
+	width: 160px;
+	height: 20px;
+}
+
+
+.mapContainer{
+	height: 520px;
+	width: 470px;
+	border: solid #ccc 1px;
+}

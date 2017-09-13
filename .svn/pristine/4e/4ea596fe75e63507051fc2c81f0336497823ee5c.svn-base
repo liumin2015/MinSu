@@ -1,0 +1,187 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+<base href="<%=basePath%>">
+<title>登录界面</title>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="This is my page">
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="GENERaTOR" content="MSHTML 11.00.9600.17496" />
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="frame/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="frame/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="frame/font-awesome-4.7.0/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="module/CSS/DeliveryOrder/DeliveryOrder.css">
+	<link rel="stylesheet" type="text/css" href="module/CSS/login/login.css">
+    <style >
+        
+    </style>
+
+    
+</head>
+<body>
+
+<div id="alert_fail" class="alert alert-danger alert_style" style="z-index:2000;" role="alert">...</div>
+<div id="alert_success" class="alert alert-success alert_style" style="z-index:2000;" role="alert"> ...</div>
+<div id="mask">
+</div>
+<div id="register">
+</div>
+<div id="re_main_body">
+		<p id="top_title">Blind Register </p>
+		<div style="border-image: none; width:100%;height:160px; text-align: center;">
+ 			<p style="position: relative;">
+            <span
+                class="u_logo2"></span>
+            <input class="ipt" id="ruserName" type="text" placeholder="请输入用户名"  />
+	        </p>
+	        <p style="position: relative;">
+	            <span class="p_logo2"></span>
+	            <input class="ipt" id="rpassword" type="password" placeholder="请输入密码"  />
+	        </p>
+	        <p style="position: relative;">
+            <span
+                class="u_logo3"></span>
+            <input class="ipt" id="repassword" type="text" placeholder="确认密码"  />
+	        </p>
+	        <p style="position: relative;">
+            <span
+                class="u_logo4"></span>
+            <input class="ipt" id="rtelephone" type="text" placeholder="请输入电话号码"  name="username"/>
+	        </p>
+	        <button type="button" class="mystyle l_button" onclick="back()">取消</button>
+			<button type="button" class="mystyle l_button re_btn" onclick="register()">注册</button>
+        </div>
+        
+		<!-- <table id="mask_table">
+			<tr class="mask_tr">
+				<td class="mask_left">用户名</td>
+				<td class="mask_right"><input id="ruserName" type="text" class="form-control text2"></td>
+			</tr>
+			<tr class="mask_tr">
+				<td class="mask_left">密码</td>
+				<td class="mask_right"><input id="rpassword" type="text" class="form-control text2"></td>
+			</tr>
+			<tr class="mask_tr">
+				<td class="mask_left">确认密码</td>
+				<td class="mask_right"><input id="repassword" type="text" class="form-control text2"></td>
+			</tr>
+			<tr class="mask_tr">
+				<td class="mask_left">手机号</td>
+				<td class="mask_right"><input id="rtelephone" type="text" class="form-control text2"></td>
+			</tr>
+			<tr></tr>
+		</table> -->
+		
+	</div>
+<div id="demospace">
+    	<div id="box">
+        	<div class="box" id="box_front">付建飞</div>
+            <div class="box" id="box_behind">任禹錡</div>
+            <div class="box" id="box_left">徐维玲</div>
+            <div class="box" id="box_right">谭小康</div>
+            <div class="box" id="box_top">何昌星</div>
+            <div class="box" id="box_bottom">王倩&王莹</div>
+        </div>
+    </div>
+ <div id="login_box">
+ </div>
+ 
+ <div id="box_main">
+ 		<p id="lbox_title">BlindReceive  Login</p>
+ 		<div style="border-image: none; width:100%;height:160px; text-align: center;">
+ 			<p style="padding: 30px 0px 10px; position: relative;">
+            <span
+                class="u_logo"></span>
+            <input class="ipt" id="username" type="text" placeholder="请输入用户名"  name="username"/>
+	        </p>
+	        <p style="position: relative;">
+	            <span class="p_logo"></span>
+	            <input class="ipt" id="password" type="password" placeholder="请输入密码"  name="userpass"/>
+	        </p>
+	         
+	        <div style="height: 50px; line-height: 50px; margin-top: 30px; border-top-color: rgb(231, 231, 231); border-top-width: 1px; border-top-style: solid;">
+            <p style="width:100%;">
+                <a style="color: rgb(204, 204, 204);cursor:pointer;margin-right:180px;" onclick="showmask()">注册</a>
+				<button type="button" class="mystyle" onclick="login()">登&nbsp;&nbsp;录</button>
+            </p>
+        </div>
+ 		</div>
+ 	</div>
+<!-- <form method="post">
+	<div id="alert_fail" class="alert alert-danger alert_style" role="alert">...</div>
+   	<div id="alert_success" class="alert alert-success alert_style" role="alert"> ...</div>
+    <div class="top_div"></div>
+    <div style="background: rgb(255, 255, 255); margin: -100px auto auto; border: 1px solid rgb(231, 231, 231); border-image: none; width: 400px; height: 210px; text-align: center;">
+        <div style="width: 165px; height: 96px; position: absolute;">
+            <div class="tou"></div>
+            <div class="initial_left_hand" id="left_hand"></div>
+            <div class="initial_right_hand" id="right_hand"></div>
+        </div>
+        <p style="padding: 30px 0px 10px; position: relative;">
+            <span
+                class="u_logo"></span>
+            <input class="ipt" id="username" type="text" placeholder="请输入用户名"  name="username"/>
+        </p>
+        <p style="position: relative;">
+            <span class="p_logo"></span>
+            <input class="ipt" id="password" type="password" placeholder="请输入密码"  name="userpass"/>
+        </p>
+        <div style="height: 50px; line-height: 50px; margin-top: 30px; border-top-color: rgb(231, 231, 231); border-top-width: 1px; border-top-style: solid;">
+            <p style="margin: 0px 35px 20px 45px;">
+                <span style="float: left;"></span>
+                <span style="float: right;" ><a style="color: rgb(204, 204, 204); margin-right: 10px;cursor:pointer" onclick="showmask()">注册</a>
+			<input style="background: rgb(0, 142, 173); padding: 0px 10px;height:30px;line-height:30px; border-radius: 4px; border: 1px solid rgb(26, 117, 152); border-image: none; color: rgb(255, 255, 255); font-weight: bold;"
+                       type="button" onclick="login()" value="登录"/>
+                </span>
+            </p>
+        </div>
+    </div>
+  </form> -->
+    <script src="frame/jquery-2.1.0.js"></script>
+  <script type="text/javascript">
+  $(function () {
+      //得到焦点
+      $("#password").focus(function () {
+          $("#left_hand").animate({
+              left: "150",
+              top: " -38"
+          }, {
+              step: function () {
+                  if (parseInt($("#left_hand").css("left")) > 140) {
+                      $("#left_hand").attr("class", "left_hand");
+                  }
+              }
+          }, 2000);
+          $("#right_hand").animate({
+              right: "-64",
+              top: "-38px"
+          }, {
+              step: function () {
+                  if (parseInt($("#right_hand").css("right")) > -70) {
+                      $("#right_hand").attr("class", "right_hand");
+                  } 
+              }
+          }, 2000);
+      });
+      //失去焦点
+      $("#password").blur(function () {
+          $("#left_hand").attr("class", "initial_left_hand");
+          $("#left_hand").attr("style", "left:100px;top:-12px;");
+          $("#right_hand").attr("class", "initial_right_hand");
+          $("#right_hand").attr("style", "right:-112px;top:-12px");
+      });
+  });
+  </script>
+  <script type="text/javascript" src="module/JS/login/login.js"></script>
+</body>
+</html>

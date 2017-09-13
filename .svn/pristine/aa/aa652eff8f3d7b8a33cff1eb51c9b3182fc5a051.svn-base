@@ -1,0 +1,84 @@
+
+function login(){
+	var obj = {
+			username:$('#username').val(),
+			password:$('#password').val()
+	};
+	$.ajax({
+		url:'userController/login.do',
+		data:obj,
+		success:function(e){
+			if(e=="1"){
+				alert_success("登陆成功");
+				window.location.href="http://localhost:8080/Express_Management_System/main.jsp";
+			}else{
+				alert_fail("账号密码有误");
+			}
+			
+		}
+	});
+};
+
+function alert_success(value){
+	$("#alert_success").css("display","block");
+	$("#alert_success").html(value);
+	$("#alert_success").fadeOut(2000);
+}
+function alert_fail(value){
+	$("#alert_fail").css("display","block");
+	$("#alert_fail").html(value);
+	$("#alert_fail").fadeOut(2000);
+}
+
+function register(){
+	var obj={};
+	obj.userName=$("#ruserName").val();
+	obj.password = $("#rpassword").val();
+	obj.telephone = $("#rtelephone").val()
+	obj.userType = 0;
+	if((obj.userName!=null&&obj.userName!="")&&(obj.password!=null&&obj.password!="")){
+		if(obj.password==$("#repassword").val()){
+			$.ajax({
+				url:'userController/insert.do',
+				data:obj,
+				success:function(e){
+					if(e=="true"){
+						alert_success("注册成功！");
+						back();
+					}else{
+						alert_fail("注册失败！");
+					}
+				}
+			});
+		}else{
+			alert_fail("输入的密码不一致！");
+		}
+	}else{
+		alert_fail("请输入");
+	}
+	
+	
+}
+
+function back(){
+	$("#re_main_body").css("display","none");
+	$("#register").css("display","none");
+	$("#mask").css("display","none");
+	
+}
+function showmask(){
+	$("#mask").css("display","block");
+	$("#register").css("display","block");
+	$("#re_main_body").css("display","block");
+}
+
+function alert_success(value){
+	$("#alert_success").css("display","block");
+	$("#alert_success").html(value);
+	$("#alert_success").fadeOut(2000);
+}
+function alert_fail(value){
+	$("#alert_fail").css("display","block");
+	$("#alert_fail").html(value);
+	$("#alert_fail").fadeOut(2000);
+}

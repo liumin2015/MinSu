@@ -1,0 +1,164 @@
+	var obj={};//定义参数对象
+//表格初始化
+$(function(){	
+	initData();//初始化数据
+});
+
+//获取全部数据
+function initData(){
+	$('#table').bootstrapTable({
+		cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+		striped: true,// 隔行变色效果
+		pagination: true,// 在表格底部显示分页条
+	    strictSearch: true,
+	    pageNumber:1,                       //初始化加载第一页，默认第一页
+	    pageSize: 10,                       //每页的记录行数（*）
+	    pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+		clickToSelect:true,//设置true 将在点击行时，自动选择radiobox 和 checkbox
+		sortName:'SysFunction.funId',//定义排序列
+		sortOrder:'asc',//定义排序方式
+		url:'functionController/getFunctionInfo.do',//服务器数据的加载地址
+		contentType:'application/json',//发送到服务器的数据编码类型
+		dataType:'json',//服务器返回的数据类型
+		queryParams:{ 	},
+		queryParamsType: "limit", //参数格式,发送标准的RESTFul类型的参数请求
+		selectItemName:'',//radio or checkbox 的字段名
+        detailView: false,                   //是否显示父子表
+        cardView: false,                    //是否显示详细视图
+        uniqueId: "funId",                     //每一行的唯一标识，一般为主键列
+	    columns:[{
+	    	checkbox:true,
+	    	align:'center',
+	    	valign:'middle',
+	    	width:'5%',
+	    },{
+	    	field:'funId',
+	    	title:'功能编号',
+	    	align:'center',
+	    	valign:'middle',
+	    	width:'5%',
+	    	visible:false,
+	    },{
+	    	field:'funName',
+	    	title:'功能名称',
+	    	align:'center',
+	    	valign:'middle',
+	    	width:'5%',
+	    },{
+	        field:'cmt',
+	        title:'备注',
+	        align:'center',
+	        valign:'middle',
+	        width:'15%',
+	    }]
+	});
+}
+
+//下拉框选择
+function changevalue(type,value){
+	if(type==1){
+		$('#textspan1').html(value);
+	}
+	else{
+		$('#textspan2').html(value);
+	}
+}
+
+//刷新
+function refresh(){
+	$('#table').bootstrapTable('refresh', null);
+}
+
+//新增数据
+function addrow(){
+	  $('#myModalAdd').modal("show");
+	   $('#submit').one("click", function () {
+		   obj.funId=$("input[name='funId']").val();
+		   obj.funName=$("input[name='funName']").val();
+		   obj.cmt=$("input[name='cmt']").val();
+		   $.ajax({
+			   type:"post",
+			   url:"functionController/insert.do",
+			   data:{
+				   "funId": obj.funId,
+				   "funName": obj.funName,
+				   "cmt": obj.cmt,
+				   },
+			   success:function(data){
+				   alert(data);
+				   if(data=='true'){
+					   $("input").val("");//将所有input赋为空值
+					   alert("新增成功!");
+					   refresh();
+					   $('#myModalAdd').modal("hide");
+				   }else alert("新增失败！");
+			   }
+		   });
+	   });
+}
+
+//修改
+function updataFunction(){
+	//type="edit";
+	var getData = $('#table').bootstrapTable('getSelections');
+	if(getData.length<=0){
+		alert("请选择一条进行修改！");
+	}else{
+		$('#myModalUpdate').modal("show");
+		  $("#funId").val(getData[0].funId);
+		  $("input[id='funName']").val(getData[0].funName);
+		  $("input[id='cmt']").val(getData[0].cmt);
+		  //Forward(type,getData);
+		  $('#submitU').one("click", function () {
+			   obj.funName=$("input[id='funName']").val();
+			   obj.cmt=$("input[id='cmt']").val();
+			   $.ajax({
+				   type:"post",
+				   url:"functionController/updateByID.do",
+				   data:{
+					   "funId": getData[0].funId,
+					   "funName": obj.funName,
+					   "cmt": obj.cmt,
+					   "ID": getData[0].funId
+					   },
+				   success:function(data){
+					   alert(data);
+					   if(data=='true'){
+						   $("input").val("");
+						   alert("修改成功!");
+						   refresh();
+						   $('#myModalUpdate').modal("hide");
+					   }else alert("修改失败！");
+				   }
+			   });
+		   });
+	}	
+}
+
+//删除
+function deleteFunction(){
+	var getData = $('#table').bootstrapTable('getSelections');
+	var deleteData = "";
+	if(getData.length<=0){
+		alert("请选择");
+	}else{
+		if(getData[0].funId.length==0){
+			refresh();
+		}else{
+			for (var i = 0 ; i < getData.length ; i++){
+				deleteData += getData[i].funId; 
+				if(i<getData.length-1)
+					deleteData += ",";
+			}
+			$.ajax({
+				  url:'functionController/deleteByID.do',
+				  data: {"funId":deleteData},
+				  success:function(e){
+					  alert("删除成功");
+					  refresh();
+				  }
+				});
+		}	
+	}	
+}
+

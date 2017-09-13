@@ -1,0 +1,56 @@
+package com.cqut.entity;
+
+import java.util.Date;
+
+import com.cqut.util.ID;
+
+/**
+ * @author hechangxing
+ * @2017-6-14 
+ */
+public class ProfitAndLoss {
+        @ID
+		private String	plid;
+		private Date	startTime;
+		private Date	endTime;
+		private float	income;
+		private float	expense;
+		
+		public String getPlid() {
+			return plid;
+		}
+		public void setPlid(String plid) {
+			this.plid = plid;
+		}
+		public Date getStartTime() {
+			return startTime;
+		}
+		public void setStartTime(Date startTime) {
+			this.startTime = startTime;
+		}
+		public Date getEndTime() {
+			return endTime;
+		}
+		public void setEndTime(Date endTime) {
+			this.endTime = endTime;
+		}
+		public float getIncome() {
+			return income;
+		}
+		public void setIncome(float income) {
+			this.income = income;
+		}
+		public float getExpense() {
+			return expense;
+		}
+		public void setExpense(float expense) {
+			this.expense = expense;
+		}
+		@Override
+		public String toString() {
+			return "ProfitAndLoss [plid=" + plid + ", startTime=" + startTime
+					+ ", endTime=" + endTime + ", income=" + income
+					+ ", expense=" + expense + "]";
+		}
+		
+}

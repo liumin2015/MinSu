@@ -1,0 +1,58 @@
+/**
+ * @author : tanxiaokang
+ * @date : 2017上午10:43:39
+ */
+package com.cqut.controller;
+
+
+import javax.annotation.Resource;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.cqut.service.ErrorService;
+import com.cqut.entity.Error;
+
+/**
+ *@author:tanxiaokang
+ * 
+ */
+@Controller
+@RequestMapping("/errorController")
+public class ErrorController {
+	
+	@Resource(name="errorServiceImpl")
+	private ErrorService service;
+	
+	@RequestMapping("/getErrorInfo")
+	@ResponseBody
+	public String getErrorInfo(int limit, int offset,String order,String sort,String condition){
+		return JSONObject.fromObject(service.getErrorInfo(limit,offset,order,sort,condition)).toString();
+	}
+	@RequestMapping("/insert")
+	@ResponseBody
+	public String insert(Error error){
+		return service.insert(error)==1?"true":"false";
+	}
+	@RequestMapping("/deleteByID")
+	@ResponseBody
+	public String deleteByID(String IDS){
+		return service.deleteByID(IDS)>0?"true":"false";
+	}
+	
+	@RequestMapping("/updateByID")
+	@ResponseBody
+	public String updateByID(Error error,String ID){
+		return service.updateByID(error, ID)>0?"true":"false";
+	}
+	
+	@RequestMapping("getalldata")
+	@ResponseBody
+	public String getalldata(){
+		return JSONArray.fromObject(service.getalldata()).toString();
+	}
+}

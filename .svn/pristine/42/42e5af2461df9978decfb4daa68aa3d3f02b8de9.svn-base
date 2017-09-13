@@ -1,0 +1,236 @@
+	var obj={};//定义参数对象
+	var type="";
+//表格初始化
+$(function(){	
+	initData();//初始化数据
+});
+
+//获取全部数据
+function initData(){
+	$('#table').bootstrapTable({
+		height:490,
+//		cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+		striped: true,// 隔行变色效果
+		pagination: true,// 在表格底部显示分页条
+	    strictSearch: true,
+	    pageNumber:1,                       //初始化加载第一页，默认第一页
+	    pageSize: 10,                       //每页的记录行数（*）
+	    pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+		clickToSelect:true,//设置true 将在点击行时，自动选择radiobox 和 checkbox
+		sortName:'Error.eid',//定义排序列
+		sortOrder:'asc',//定义排序方式
+		sidePagination:'server',//设置在哪里进行分页
+		url:'errorController/getErrorInfo.do',//服务器数据的加载地址
+		contentType:'application/json',//发送到服务器的数据编码类型
+		dataType:'json',//服务器返回的数据类型
+		queryParams:queryParams,
+//		queryParamsType: "limit", //参数格式,发送标准的RESTFul类型的参数请求
+//		selectItemName:'',//radio or checkbox 的字段名
+	    columns:[{
+	    	checkbox:true,
+	    	align:'center',
+	    	valign:"middel"
+	    },{
+	    	field:'eid',
+	    	title:'差错单号',
+	    	align:'center',
+	    	valign:"middel"
+	    },{
+	    	field:'dId',
+	    	title:'货运单编号',
+	    	align:'center',
+	    	valign:"middel"
+	    },{
+	    	field:'rId',
+	    	title:'回执单编号',
+	    	align:'center',
+	    	valign:'middel'
+	    },{
+	        field:'consigneeName',
+	        title:'收件人',
+	        align:'center',
+	    	valign:"middel"
+	    },{
+	        field:'gId',
+	        title:'货物编号',
+	        align:'center',
+	    	valign:"middel"
+	    },{
+	        field:'eType',
+	        title:'差错类型',
+	        align:'center',
+	    	valign:"middel",
+	    	formatter:function(value,rowData,rowIndex){  
+	    		if(rowData.eType=="0"){
+	    			return "外因";
+	    		}else if(rowData.eType=="1"){
+	    			return "内因";
+	    		}else{
+	    			return "不可抗因素";
+	    		}
+	    	}
+	    }]
+	});
+}
+
+function queryParams(params) { // 配置参数
+	var temp = { // 这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+
+		limit : params.limit, // 页面大小
+		offset : params.offset, // 页码
+		sort : params.sort, // 排序列名
+		order : params.order,
+		/*createTime2:$('#createTime2').val(),
+		usersID:$('#UsersID').val(),
+		createTime:$('#createTime').val(),
+		openid:$('#openid').val()*/
+	// 排位命令（desc，asc）
+	};
+	
+	return temp;
+}
+//下拉框选择
+function dropli(dom){
+	$("#dState").html(dom.innerHTML);
+	$("input[name='eType']").val(dom.value);
+}
+function dropli2(dom){
+	$("#dState3").html(dom.innerHTML);
+	$("input[id='eType']").val(dom.value);
+}
+//刷新
+function refresh(){
+	$('#table').bootstrapTable('refresh',
+		{query:{"condition":""}}
+	);
+}
+//搜索
+function research(){
+	$('#table').bootstrapTable('refresh',
+		{query:{"condition":$("input[name='condition']").val()}}
+	);
+}
+//新增数据
+function addrow(){
+	  $('#myModal').modal("show");
+	   $('#submit').one("click", function () {
+			   obj.gId=$("input[name='gId']").val();
+			   obj.dId=$("input[name='dId']").val();
+			   obj.rId=$("input[name='rId']").val();
+			   obj.consigneeName=$("input[name='consigneeName']").val();
+			   obj.eType=$("input[name='eType']").val();
+			   $.ajax({
+				   type:"post",
+				   url:"errorController/insert.do",
+				   data:{
+					   "gId": obj.gId,
+					   "dId": obj.dId,
+					   "rId": obj.rId,
+					   "consigneeName": obj.consigneeName,
+					   "eType":obj.eType
+					   },
+				   success:function(data){
+					   if(data=='true'){
+						   $("input").val("");
+						   alert_success("新增成功!");
+						   refresh();
+						   $('#myModal').modal("hide");
+					   }else alert_fail("新增失败！");
+				   }
+			   });
+		 });
+}
+//修改
+function updataError(){
+	  var getdata = $('#table').bootstrapTable('getSelections');	   
+	  if(getdata.length!=1){
+		  alert_fail("请选择一条数据");
+	  }else{
+		  var state="";
+		  if(getdata[0].eType=="0")
+			  state="外因";
+		  else if(getdata[0].eType=="1") state="内因";
+		  else state="不可抗";
+		  $('#editmyModal').modal("show");
+		  $("input[id='gId']").val(getdata[0].gId);
+		  $("input[id='dId']").val(getdata[0].dId);
+		  $("input[id='rId']").val(getdata[0].rId);
+		  $("input[id='consigneeName']").val(getdata[0].consigneeName);
+		  $("input[id='eType']").val(getdata[0].eType);
+		  $("span[id='dState3']").html(state);
+		  $('#editSubmit').one("click", function () {
+			   obj.gId=$("input[id='gId']").val();
+			   obj.dId=$("input[id='dId']").val();
+			   obj.rId=$("input[id='rId']").val();
+			   obj.eType=$("input[id='eType']").val();
+			   obj.consigneeName=$("input[id='consigneeName']").val();
+			   $.ajax({
+				   type:"post",
+				   url:"errorController/updateByID.do",
+				   data:{
+					   "eId":getdata[0].eid,
+					   "gId": obj.gId,
+					   "dId": obj.dId,
+					   "rId": obj.rId,
+					   "consigneeName": obj.consigneeName,
+					   "eType":obj.eType,
+					   "ID": getdata[0].eid
+					   },
+				   success:function(data){
+					   if(data=='true'){
+						   $("input").val("");
+						   alert_success("修改成功！");
+						   refresh();
+						   $('#editmyModal').modal("hide");
+					   }else alert_fail("修改失败！");
+				   }
+			   });
+		   });
+	  }
+}
+//删除
+function deleteError(){
+	var getData = $('#table').bootstrapTable('getSelections');
+	var deleteData = "";
+	if(getData.length<=0){
+		alert_fail("请选择一条数据");
+	}else{
+			for (var i = 0 ; i < getData.length ; i++){
+				deleteData += getData[i].eid; 
+				if(i<getData.length-1)
+					deleteData+=",";
+			}
+			$.ajax({
+				  url:'errorController/deleteByID.do',
+				  data:{"IDS":deleteData},
+				  success:function(e){
+					  alert_success("删除成功!");
+					  refresh();
+				  }
+				});
+		}
+}
+function showdialog(message){
+//	$('#text').popover("show");
+/*	var dialog= new BootstrapDialog.show({
+	    message: message,
+	    closable: false,
+	    buttons: [{
+	        label: '关闭',
+	        action: function(dialogRef){
+	            dialogRef.close();
+	        }
+	    }]
+	});
+	dialog.open();*/
+}
+function alert_success(value){
+	$("#alert_success").css("display","block");
+	$("#alert_success").html(value);
+	$("#alert_success").fadeOut(2000);
+}
+function alert_fail(value){
+	$("#alert_fail").css("display","block");
+	$("#alert_fail").html(value);
+	$("#alert_fail").fadeOut(2000);
+}

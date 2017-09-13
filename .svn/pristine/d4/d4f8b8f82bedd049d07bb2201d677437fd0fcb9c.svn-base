@@ -1,0 +1,22 @@
+/**
+ * @author : tanxiaokang
+ * @date : 2017上午10:52:12
+ */
+package com.cqut.service;
+
+
+import java.util.Map;
+
+import com.cqut.entity.DeliveryInfo;
+
+/**
+ *@author:tanxiaokang
+ * 
+ */
+public interface DeliveryInfoService {
+		
+		public Map<String, Object> getDeliveryInfo(	int limit, int offset,String order,String sort,String condition) ;
+		public int insert(DeliveryInfo deliveryInfo);
+		public int deleteByID(String IDS);
+		public int updateByID(DeliveryInfo deliveryInfo,String ID);
+}

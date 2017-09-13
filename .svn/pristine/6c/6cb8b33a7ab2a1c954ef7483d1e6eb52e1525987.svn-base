@@ -1,0 +1,335 @@
+body {
+            background: #ebebeb;
+            font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","\9ED1\4F53",arial,sans-serif;
+            color: #222;
+            font-size: 12px;
+        }
+
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .top_div {
+            background: #008ead;
+            width: 100%;
+            height: 400px;
+        }
+
+        .ipt {
+            border: 1px solid #d3d3d3;
+            padding: 10px 10px;
+            width: 290px;
+            border-radius: 4px;
+            padding-left: 35px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+
+            .ipt:focus {
+                border-color: #66afe9;
+                outline: 0;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+            }
+
+        .u_logo {
+            background: url("../../../Images/账号.png") no-repeat;
+            background-size:75%;
+            padding: 10px 10px;
+            position: absolute;
+            top: 43px;
+            left:20px;
+            
+        }
+        .u_logo2{
+        	background: url("../../../Images/账号.png") no-repeat;
+        	background-size:75%;
+            padding: 10px 10px;
+            position: absolute;
+            top: 13px;
+            left:40px;
+        }
+         .u_logo3{
+        	background: url("../../../Images/密码.png") no-repeat;
+        	background-size:75%;
+            padding: 10px 10px;
+            position: absolute;
+            top: 12px;
+            left:40px;
+        }
+         .u_logo4{
+        	background: url("../../../Images/电话.png") no-repeat;
+        	background-size:75%;
+            padding: 10px 10px;
+            position: absolute;
+            top: 13px;
+            left:40px;
+        }
+
+        .p_logo{
+            background: url("../../../Images/密码2.png") no-repeat;
+            background-size:75%;
+            padding: 10px 10px;
+            position: absolute;
+            top: 13px;
+            left:20px;
+        }
+        .p_logo2{
+            background: url("../../../Images/密码2.png") no-repeat;
+            background-size:75%;
+            padding: 10px 10px;
+            position: absolute;
+            top: 12px;
+            left:40px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .tou {
+            background: url("../../../Images/tou.png") no-repeat;
+            width: 97px;
+            height: 92px;
+            position: absolute;
+            top: -87px;
+            left: 140px;
+        }
+
+        .left_hand {
+            background: url("../../../Images/left_hand.png") no-repeat;
+            width: 32px;
+            height: 37px;
+            position: absolute;
+            top: -38px;
+            left: 150px;
+        }
+
+        .right_hand {
+            background: url("../../../Images/right_hand.png") no-repeat;
+            width: 32px;
+            height: 37px;
+            position: absolute;
+            top: -38px;
+            right: -64px;
+        }
+
+        .initial_left_hand {
+            background: url("../../../Images/hand.png") no-repeat;
+            width: 30px;
+            height: 20px;
+            position: absolute;
+            top: -12px;
+            left: 100px;
+        }
+
+        .initial_right_hand {
+            background: url("../../../Images/hand.png") no-repeat;
+            width: 30px;
+            height: 20px;
+            position: absolute;
+            top: -12px;
+            right: -112px;
+        }
+
+        .left_handing {
+            background: url("../../../Images/left-handing.png") no-repeat;
+            width: 30px;
+            height: 20px;
+            position: absolute;
+            top: -24px;
+            left: 139px;
+        }
+
+        .right_handinging {
+            background: url("../../../Images/right_handing.png") no-repeat;
+            width: 30px;
+            height: 20px;
+            position: absolute;
+            top: -21px;
+            left: 210px;
+        }
+        #mask{
+        	position:absolute;
+        	top:0;
+        	left:0;
+        	height:100%;
+        	width:100%;
+        	background:#000;
+        	opacity:0.5;
+        	z-index:1000;
+        	display:none;
+        	
+        }
+        #register{
+        	position:absolute;
+        	height:42%;
+        	width:18%;
+        	left:11%;
+        	top:22%;
+        	background:#fff;
+        	opacity:0.4;
+        	z-index:1001;
+        	display:none;
+        }
+        #re_main_body{
+        	position:absolute;
+        	height:45%;
+        	width:18%;
+        	left:11%;
+        	top:22%;
+        	z-index:1002;
+        	display:none;
+        }
+        #mask_table{
+        	margin:0 auto;
+        	text-shadow:1px 1px 2px #888888;
+        }
+        .mask_tr{
+        	height:60px;
+        	line-height:60px;
+        }
+        .mask_left{
+        	width:80px;
+        	text-align:justify;
+     		text-align-last:justify;
+        	
+        }
+        .mask_right{
+        	width:230px;
+        	padding-left:10px;
+        }
+        #top_title{
+        
+        	color:#FF6633;
+        	text-align:center;
+        	font-size:25px;
+        	height:60px;
+        	background:url('../../../Images/瞎收logo.png') 10% 60% no-repeat;
+        	background-size:20%;
+        	line-height:60px;
+        	margin-top:20px;
+        	
+        }
+        .l_button{
+        	width:30%;
+        	margin-top:20px;
+        }
+        .re_btn{
+        	margin-left:60px;
+        }
+        #login_box{
+        	position:absolute;
+        	height:34%;
+        	width:18%;
+        	top:24%;
+        	left:70%;
+        	background:#fff;
+        	opacity:0.4;
+        	z-index:100;
+        	
+        }
+        #box_main{
+        position:absolute;
+        	height:32%;
+        	width:16%;
+        	top:26%;
+        	left:71%;
+        	z-index:900;
+        	opacity:1;
+        }
+        #lbox_title{
+        	height:40px;
+        	line-height:40px;
+        	text-align:center;
+        	font-size:20px;
+        	color:#FF6633;
+        	background:url('../../../Images/瞎收logo.png') 0% 60% no-repeat;
+        	background-size:20%;
+        }
+        #demospace{
+			height:100%;
+			padding-top:300px;
+			-webkit-perspective:800;
+			-moz-perspective:800px;
+			perspective:800px;
+			-webkit-perspective-origin:50% 50%;
+			-moz-perspective-origin:50% 50%;
+			perspective-origin:50% 50%;
+			background: -webkit-radial-gradient(center, ellipse, #430d6d 0%, #000000 100%);
+		}
+		#box{
+			height:200px;
+			width:200px;
+			margin:100px auto;
+			-moz-transform-style:-moz-preserve-3d;
+			-webkit-transform-style:preserve-3d;
+			transform-style:preserve-3d;
+			position:relative;
+			-webkit-animation: 6s spin linear infinite;
+		}
+		.box{
+			height:200px;
+			width:200px;
+			border:1px solid #000;
+			color:#000;
+			font-size:40px;
+			line-height:200px;
+			text-align:center;
+			background:#240048;
+			color:#000;
+			opacity:0.6;
+			position:absolute;
+			}
+			.text2{
+				display:inline-block;
+				width:100%;
+			}
+	#box_front{
+		-webkit-transform-origin:bottom;
+	
+		}
+		#box_left{
+			-webkit-transform-origin:left;
+			-webkit-transform:rotateY(90deg);
+		
+			}
+		#box_right{
+			-webkit-transform-origin:right;
+			-webkit-transform:rotateY(-90deg);
+			
+			}
+		#box_behind{
+			-webkit-transform:translateZ(-200px);
+			
+			}
+		#box_bottom{
+			-webkit-transform-origin:bottom;
+			-webkit-transform:rotateX(90deg);
+			
+			}
+		#box_top{
+			-webkit-transform-origin:bottom;
+			-webkit-transform:rotateX(90deg) translateZ(200px);
+			}
+			.l_btn{
+				background:#FF6633;
+				color:#fff;
+				opacity:1;
+			}
+  @-webkit-keyframes spin{
+	  	from
+	  	{
+			-webkit-transform:rotateX(20deg) rotateY(45deg) rotateZ(0deg);
+		  
+		  }
+		to
+		{
+			-webkit-transform:rotateX(380deg) rotateY(405deg) rotateZ(0deg);
+			}
+	  
+	  }

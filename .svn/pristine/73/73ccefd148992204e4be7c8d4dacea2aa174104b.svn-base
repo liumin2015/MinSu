@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.cqut.dao.CostDao">
+
+	<insert id="insert" >
+			insert into ProfitAndLoss(plId,startTime,endTime,income,expense) values(#{entity.plid},#{entity.startTime},#{entity.endTime},#{entity.income},#{entity.expense})
+	</insert>
+	
+		<select id="getCount">
+			select COUNT(profitandloss.plid) AS counts from ProfitAndLoss 
+		<where>
+			<if test="condition != null">
+		 		${condition}
+		 	</if>
+		</where>
+		
+	</select>
+		<select id="getCostInfo" resultType="com.cqut.entity.ProfitAndLoss">
+		<![CDATA[   
+			select * from ProfitAndLoss 
+		]]>
+		<where>
+			<if test="condition != null">
+		 		${condition}
+		 	</if>
+		</where>
+		
+	</select>
+		<update id="updateByID" >
+		<![CDATA[  
+			update ProfitAndLoss set 	
+      		startTime = #{entity.startTime},
+      		endTime = #{entity.endTime},
+      		income = #{entity.income},
+      		expense = #{entity.expense}
+      	]]>
+      	<where>
+      		plId = #{id}
+      	</where>  		
+	</update>
+	
+	   <delete id="deleteByID"  parameterType="string">
+		<![CDATA[   
+			delete from ProfitAndLoss   
+		]]>
+		<where>
+			plId = #{ID}
+		</where>
+	</delete>
+	
+	<select id="getcount2" resultType="com.cqut.entity.ProfitAndLoss">
+		select * from ProfitAndLoss
+	</select>	
+</mapper>

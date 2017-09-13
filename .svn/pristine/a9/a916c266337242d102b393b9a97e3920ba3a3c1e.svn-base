@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.cqut.dao.FunctionDao">
+
+	<insert id="insert" >
+			insert into SysFunction(funId,funName,cmt) values(#{entity.funId},#{entity.funName},#{entity.cmt})
+	</insert>
+	
+		<select id="getFunctionInfo" resultType="com.cqut.entity.SysFunction">
+		<![CDATA[   
+			select * from SysFunction 
+		]]>
+		<where>
+			<if test="condition != null">
+		 		${condition}
+		 	</if>
+		</where>
+		
+	</select>
+		<update id="updateByID" >
+		<![CDATA[  
+			update SysFunction set 	
+      		funName = #{entity.funName},
+      		cmt = #{entity.cmt}
+      	]]>
+      	<where>
+      		funId = #{id}
+      	</where>  		
+	</update>
+	
+	   <delete id="deleteByID"  parameterType="string">
+		<![CDATA[   
+			delete from SysFunction   
+		]]>
+		<where>
+			funId = #{ID}
+		</where>
+	</delete>	
+</mapper>

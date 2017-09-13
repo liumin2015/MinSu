@@ -1,0 +1,14 @@
+package com.cqut.service;
+
+import java.util.List;
+
+import com.cqut.entity.User;
+
+/**
+ * @author: wangying
+ *@date:2017.6.18
+ */
+public interface OwnInfoService {
+	public List<User> getOwnInfo();
+	public int updateByID(User owninfo,String ID);
+}

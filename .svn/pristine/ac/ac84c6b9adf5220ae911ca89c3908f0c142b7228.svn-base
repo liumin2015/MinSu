@@ -1,0 +1,12 @@
+package com.cqut.service;
+
+import java.util.List;
+
+import com.cqut.entity.User;
+
+public interface UserService {
+	public List<User> getUserInfo(String condition);
+	public int insert(User user);
+	public int deleteByID(String IDS);
+	public int updateById(User user ,String userId);
+}

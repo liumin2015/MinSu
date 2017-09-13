@@ -1,0 +1,330 @@
+var alldata = new Array();
+var selectdata = new Array();
+var returndata = new Array();
+var tableindex = 0;
+function getValue(dom){
+	var count = dom.value;
+	$("#dState").html(dom.innerHTML);
+	switch(count)
+	{
+	case 1:getDataGoods();break;
+	case 2:getDataDeliveryOrder();break;
+	case 3:getDataReceipt();break;
+	case 4:getDataError();break;
+	case 5:getDataDeliveryInfo();break;
+	case 6:getDataProfitAndLoss();break;
+	default:;break;
+	}
+}
+
+function getselect(dom){
+	$(dom).toggleClass('selected');
+}
+function getselect2(dom){
+	$(dom).toggleClass('selected2');
+}
+
+function getSelectDate(){
+	selectdata = new Array();
+	var count = $(".selected").length;
+	for(var i=0;i<count;i++){
+		selectdata[i] = $(".selected")[0].innerHTML;
+		$(".selected")[0].remove();
+	}
+	for(var j = 0;j<selectdata.length;j++){
+		$("#cundata2").append("<li onclick='getselect2(this)' class='list-group-item mya'>"+selectdata[j]+"</li>");
+	}
+	
+}
+
+function refrenArray(){
+	$("#cundata2").html(null);
+	$("#cundata").html(null);
+	selectdata = new Array();
+	switch(tableindex)
+	{
+	case 1:getDataGoods();break;
+	case 2:getDataDeliveryOrder();break;
+	case 3:getDataReceipt();break;
+	case 4:getDataError();break;
+	case 5:getDataDeliveryInfo();break;
+	case 6:getDataProfitAndLoss();break;
+	default:;break;
+	}
+	
+}
+
+function getReturnDate(){
+	returndata = new Array();
+	var count = $(".selected2").length;
+	for(var i=0;i<count;i++){
+		returndata[i] = $(".selected2")[0].innerHTML;
+		$(".selected2")[0].remove();
+	}
+	for(var j = 0;j<returndata.length;j++){
+		$("#cundata").append("<li onclick='getselect(this)' class='list-group-item mya'>"+returndata[j]+"</li>");
+	}
+	for(var h = 0;h<returndata.length;h++){
+		for(var k= 0;k<selectdata.length;k++){
+			if(returndata[h]==selectdata[k]){
+				selectdata[k]="";
+			}
+		}
+	}
+}
+
+function deletealldata(){
+	var ids = "";
+	var datacount = selectdata.length;
+	var juge = 0;
+	for(var i=0;i<selectdata.length;i++){
+		ids = ids+selectdata[i]+",";
+		if(selectdata[i]==null||selectdata[i]==""){
+			juge = juge + 1;
+		};
+	};
+	if(juge<datacount){
+		switch(tableindex)
+		{
+		case 1:deleteDataGoods(ids);break;
+		case 2:deleteDeliveryOrder(ids);break;
+		case 3:deleteDataReceipt(ids);break;
+		case 4:deleteDataError(ids);break;
+		case 5:deleteDeliveryInfo(ids);break;
+		case 6:deleteDataProfitAndLoss(ids);break;
+		default:;break;
+		}
+	}else{
+		alert_fail("选择数据!");
+	}
+	
+	
+}
+
+
+function getDataGoods(){
+	alldata = new Array();
+	selectdata = new Array();
+	$.ajax({
+		url:'goodsController/getGoodsInfo.do',
+		success:function(e){
+			$("#cundata").html(null);
+			$("#cundata2").html(null);
+			tableindex = 1;
+			var res = eval(e);
+			for(var i = 0 ; i< res.length;i++){
+				alldata[i] = res[i].gId;
+			};
+			for(var j=0;j<alldata.length;j++){
+				$("#cundata").append("<li onclick='getselect(this)' class='list-group-item mya'>"+alldata[j]+"</li>");
+			};
+		}
+	});	
+}
+
+function deleteDataGoods(ids){
+	$.ajax({
+		url:'goodsController/deleteByID.do',
+		data:{IDS:ids},
+		success:function(e){
+			if(e=="true"){
+				$("#cundata2").html(null);
+				selectdata = new Array();
+				returndata = new Array();
+				alert_success("成功!");
+			}else{
+				alert_fail("发生错误");
+			}
+		}
+	});
+}
+function getDataDeliveryOrder(){
+	alldata = new Array();
+	selectdata = new Array();
+	$.ajax({
+		url:'deliveryOrderController/getalldata.do',
+		success:function(e){
+			$("#cundata").html(null);
+			$("#cundata2").html(null);
+			tableindex=2;
+			var res = eval(e);
+			for(var i = 0 ; i< res.length;i++){
+				alldata[i] = res[i].dId;
+			};
+			for(var j=0;j<alldata.length;j++){
+				$("#cundata").append("<li onclick='getselect(this)' class='list-group-item mya'>"+alldata[j]+"</li>");
+			};
+		}
+	});
+}
+
+function deleteDeliveryOrder(ids){
+	$.ajax({
+		url:'deliveryOrderController/dele.do',
+		data:{dId:ids},
+		success:function(e){
+			if(e=="1"){
+				$("#cundata2").html(null);
+				selectdata = new Array();
+				alert_success("成功!");
+			}else{
+				alert_fail("发生错误");
+			}
+		}
+	})
+}
+
+function getDataReceipt(){
+	alldata = new Array();
+	selectdata = new Array();
+	$.ajax({
+		url:'receiptController/getReceiptInfo.do',
+		data:{conditon:""},
+		success:function(e){
+			$("#cundata").html(null);
+			tableindex=3;
+			var res = eval(e);
+			for(var i = 0 ; i< res.length;i++){
+				alldata[i] = res[i].rId;
+			};
+			for(var j=0;j<alldata.length;j++){
+				$("#cundata").append("<li onclick='getselect(this)' class='list-group-item mya'>"+alldata[j]+"</li>");
+			};
+		}
+	});
+	
+}
+
+function deleteDataReceipt(ids){
+	$.ajax({
+		url:'receiptController/deleteByID.do',
+		data:{IDS:ids},
+		success:function(e){
+			if(e=="true"){
+				$("#cundata2").html(null);
+				selectdata = new Array();
+				alert_success("成功!");
+			}else{
+				alert_fail("发生错误");
+			}
+		}
+	});
+}
+
+function getDataError(){
+	alldata = new Array();
+	selectdata = new Array();
+	$.ajax({
+		url:'errorController/getalldata.do',
+		success:function(e){
+			$("#cundata").html(null);
+			tableindex=4;
+			var res = eval(e);
+			for(var i = 0 ; i< res.length;i++){
+				alldata[i] = res[i].eid;
+			};
+			for(var j=0;j<alldata.length;j++){
+				$("#cundata").append("<li onclick='getselect(this)' class='list-group-item mya'>"+alldata[j]+"</li>");
+			};
+		}
+	});
+}
+
+function deleteDataError(ids){
+	$.ajax({
+		url:'errorController/deleteByID.do',
+		data:{IDS:ids},
+		success:function(e){
+			if(e=="true"){
+				$("#cundata2").html(null);
+				selectdata = new Array();
+				alert_success("成功!");
+			}else{
+				alert_fail("发生错误");
+			}
+		}
+	});
+}
+
+function getDataDeliveryInfo(){
+	alldata = new Array();
+	selectdata = new Array();
+	$.ajax({
+		url:'deliveryInfoController/getalldata.do',
+		success:function(e){
+			$("#cundata").html(null);
+			tableindex=5;
+			var res = eval(e);
+			for(var i = 0 ; i< res.length;i++){
+				alldata[i] = res[i].diId;
+			};
+			for(var j=0;j<alldata.length;j++){
+				$("#cundata").append("<li onclick='getselect(this)' class='list-group-item mya'>"+alldata[j]+"</li>");
+			};
+		}
+	});
+}
+
+function deleteDeliveryInfo(ids){
+	$.ajax({
+		url:'deliveryInfoController/deleteByID.do',
+		data:{IDS:ids},
+		success:function(e){
+			if(e=="true"){
+				$("#cundata2").html(null);
+				selectdata = new Array();
+				alert_success("成功!");
+			}else{
+				alert_fail("发生错误!");
+			}
+		}
+	});
+}
+
+function getDataProfitAndLoss(){
+	alldata = new Array();
+	selectdata = new Array();
+	$.ajax({
+		url:'costController/getalldata.do',
+		success:function(e){
+			$("#cundata").html(null);
+			
+			tableindex=6;
+			var res = eval(e);
+			for(var i = 0 ; i< res.length;i++){
+				alldata[i] = res[i].plid;
+			};
+			for(var j=0;j<alldata.length;j++){
+				$("#cundata").append("<li onclick='getselect(this)' class='list-group-item mya'>"+alldata[j]+"</li>");
+			};
+		}
+	});
+	
+}
+
+function deleteDataProfitAndLoss(ids){
+	$.ajax({
+		url:'costController/deleteByID.do',
+		data:{IDS:ids},
+		success:function(e){
+			if(e=="true"){
+				$("#cundata2").html(null);
+				selectdata = new Array();
+				alert_success("成功!");
+			}else{
+				alert_fail("发生错误!");
+			}
+		}
+	});
+}
+
+function alert_success(value){
+	$("#alert_success").css("display","block");
+	$("#alert_success").html(value);
+	$("#alert_success").fadeOut(2000);
+}
+function alert_fail(value){
+	$("#alert_fail").css("display","block");
+	$("#alert_fail").html(value);
+	$("#alert_fail").fadeOut(2000);
+}

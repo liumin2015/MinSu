@@ -1,0 +1,13 @@
+package com.cqut.service;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.cqut.entity.User;
+
+
+public interface LoginService {
+	public User logindo(String username,String password);
+	public List<User> regist(String username,String password);
+}

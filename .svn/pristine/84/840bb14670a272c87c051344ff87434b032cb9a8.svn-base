@@ -1,0 +1,80 @@
+/**
+ * @author : tanxiaokang
+ * @date : 2017上午11:46:26
+ */
+package com.cqut.entity;
+
+import java.util.Date;
+import com.cqut.util.ID;
+
+/**
+ *@author:tanxiaokang
+ * 
+ */
+public class User {
+	@ID
+	private String  ID;
+	private String NAME;
+	private String LOGINNAME;
+	private String PASSWORD;
+	private String STATE;
+	private Date CREATTIME;
+	private String ICON;
+	private String PERMISSIONID;
+	public String getID() {
+		return ID;
+	}
+	public void setID(String iD) {
+		ID = iD;
+	}
+	public String getNAME() {
+		return NAME;
+	}
+	public void setNAME(String nAME) {
+		NAME = nAME;
+	}
+	public String getLOGINNAME() {
+		return LOGINNAME;
+	}
+	public void setLOGINNAME(String lOGINNAME) {
+		LOGINNAME = lOGINNAME;
+	}
+	public String getPASSWORD() {
+		return PASSWORD;
+	}
+	public void setPASSWORD(String pASSWORD) {
+		PASSWORD = pASSWORD;
+	}
+	public String getSTATE() {
+		return STATE;
+	}
+	public void setSTATE(String sTATE) {
+		STATE = sTATE;
+	}
+	public Date getCREATTIME() {
+		return CREATTIME;
+	}
+	public void setCREATTIME(Date cREATTIME) {
+		CREATTIME = cREATTIME;
+	}
+	public String getICON() {
+		return ICON;
+	}
+	public void setICON(String iCON) {
+		ICON = iCON;
+	}
+	public String getPERMISSIONID() {
+		return PERMISSIONID;
+	}
+	public void setPERMISSIONID(String pERMISSIONID) {
+		PERMISSIONID = pERMISSIONID;
+	}
+	@Override
+	public String toString() {
+		return "User [ID=" + ID + ", NAME=" + NAME + ", LOGINNAME=" + LOGINNAME
+				+ ", PASSWORD=" + PASSWORD + ", STATE=" + STATE
+				+ ", CREATTIME=" + CREATTIME + ", ICON=" + ICON
+				+ ", PERMISSIONID=" + PERMISSIONID + "]";
+	}
+	
+}

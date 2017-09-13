@@ -1,0 +1,19 @@
+package com.cqut.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import com.cqut.entity.DeliveryOrder;
+
+@Repository
+public interface DeliveryOrderDao {
+	public List<Map<String, Object>> searchWithPaging(@Param("condition")String condition);
+	public List<DeliveryOrder> getcount();
+	
+	public void add(DeliveryOrder deliveryOrder);
+	public void deleteById(String dId);
+	public void edit(DeliveryOrder deliveryOrder);
+}

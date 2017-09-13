@@ -1,0 +1,8 @@
+package com.cqut.service;
+
+import com.cqut.entity.User;
+
+
+public interface LoginService {
+	public User logindo(String username,String password);
+}
