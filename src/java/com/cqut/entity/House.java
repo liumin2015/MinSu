@@ -10,11 +10,10 @@ public class House{
 	private String houseOwnerID;
 	private String introduce;
 	private String facilitiesID;
-	private String evaluateID;
 	private String state;
 	private String price;
 	private String type;
-	private String houseImgID;
+	private String address;
 	private int bedNum;
 	private int peopleNum;
 	private int toiletNum;
@@ -26,6 +25,7 @@ public class House{
 	private String roomType;
 	private Date starTime;
 	private Date endTime;
+	private Date createTime;
 	
 	
 	public String getID() {
@@ -56,13 +56,6 @@ public class House{
 	public void setFacilitiesID(String facilitiesID) {
 		this.facilitiesID = facilitiesID;
 	}
-	public String getEvaluateID() {
-		return evaluateID;
-	}	
-	
-	public void setEvaluateID(String evaluateID) {
-		this.evaluateID = evaluateID;
-	}
 	public String getState() {
 		return state;
 	}	
@@ -84,12 +77,12 @@ public class House{
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getHouseImgID() {
-		return houseImgID;
+	public String getAddress() {
+		return address;
 	}	
 	
-	public void setHouseImgID(String houseImgID) {
-		this.houseImgID = houseImgID;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public int getBedNum() {
 		return bedNum;
@@ -168,9 +161,16 @@ public class House{
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
+	public Date getCreateTime() {
+		return createTime;
+	}	
+	
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 	
 	@Override
 	public String toString() {
-		return   ID  + "\t" +  houseOwnerID  + "\t" +  introduce  + "\t" +  facilitiesID  + "\t" +  evaluateID  + "\t" +  state  + "\t" +  price  + "\t" +  type  + "\t" +  houseImgID  + "\t" +  bedNum  + "\t" +  peopleNum  + "\t" +  toiletNum  + "\t" +  houseName  + "\t" +  satisfy  + "\t" +  houseRule  + "\t" +  bookRuleID  + "\t" +  priceRule  + "\t" +  roomType  + "\t" +  starTime  + "\t" +  endTime  + "\t"  ;
+		return   ID  + "\t" +  houseOwnerID  + "\t" +  introduce  + "\t" +  facilitiesID  + "\t" +  state  + "\t" +  price  + "\t" +  type  + "\t" +  address  + "\t" +  bedNum  + "\t" +  peopleNum  + "\t" +  toiletNum  + "\t" +  houseName  + "\t" +  satisfy  + "\t" +  houseRule  + "\t" +  bookRuleID  + "\t" +  priceRule  + "\t" +  roomType  + "\t" +  starTime  + "\t" +  endTime  + "\t" +  createTime  + "\t"  ;
 	}
 }

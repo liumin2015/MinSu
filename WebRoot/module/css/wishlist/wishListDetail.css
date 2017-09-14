@@ -1,0 +1,61 @@
+
+.main{
+	width: 900px;
+	margin:20px auto 0 auto;
+}
+.wishName{
+	font-size: 36px;
+	font-weight: bold;
+	color: #484848;
+	margin-top: 30px;
+}
+.wishNumtitle{
+	font-size: 18px;
+	color: #484848;
+}
+.houseShow{
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	height: 100%;
+	overflow: auto;
+	margin-bottom: 50px;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.houseslist{
+	margin-top: 30px;
+	height: 340px;
+	position: relative;
+}
+.likeico{
+
+    overflow: hidden;
+}
+.likeico .heart{
+	margin-left: 326px;
+}
+.houses-photo{
+	width: 400px;
+	height: 270px;
+}
+.houseslist span{
+	font-size: 16px;
+	font-family: "微软雅黑";
+}
+.houseHowner{
+	width: 36px;
+	height: 36px;
+	border-radius: 90px;
+	margin-left: 100px;
+	margin-top:5px;
+}
+.price{
+	font-size: 18px;
+	font-weight: bold;
+}
+.star{
+	width: 160px;
+	height: 20px;
+}

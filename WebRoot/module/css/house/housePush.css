@@ -1,0 +1,94 @@
+.main{
+	width: 1300px;
+	margin:20px auto 0 auto;
+}
+.Leftbox{
+	width: 700px;
+	margin-left:100px;
+	float: left;
+}
+.Leftbox hr{
+	width: 800px;
+	border:solid 1px #FF5A5F;
+	margin-left: -60px;
+}
+.rightbox{
+	float: right;
+	width: 500px;
+	height: 500px;
+	background-image: url(../img/houseissue-bg.png);
+	background-repeat: no-repeat;
+}
+.title{
+	width: 325px;
+	height: 100px;
+	font-size: 30px;
+	padding-left: 20px;
+	border-left:solid 2px #FF5A5F;
+}
+.formbox{
+	padding-top: 30px;
+	width: 680px;
+	padding-left: 30px;
+	margin-bottom:50px;
+	border-left:solid 2px #FF5A5F;
+}
+.houseName{
+	width: 335px;
+	height: 35px;
+	border-radius: 4px;
+	border:solid 1px #cccccc;
+}
+.col-lg-6,.col-lg-5,.col-lg-4,.col-lg-3,.col-lg-2,.col-lg-1,.col-lg-7,.col-lg-8,.col-sm-2,.col-sm-10{
+	padding-left: 0px;
+}
+.col-sm-10{
+	margin-left:-43px;
+}
+.alocation{
+	margin-bottom:65px;
+}
+.adress{
+	width: 335px;
+	height: 35px;
+	border-radius: 4px;
+	border:solid 1px #cccccc;
+	margin-top: 20px;
+}
+.starrentTime,.endrentTime,.price{
+	width: 310px;
+	height: 35px;
+	border-radius: 4px;
+	border:solid 1px #cccccc;
+}
+.price{
+	width: 423px;
+	height: 35px;
+	border-radius: 4px;
+	border:solid 1px #cccccc;
+}
+.putHouseBtn{
+	width: 666px;
+	height: 40px;
+	margin-top: 20px;
+	background:none;
+	border:solid 2px #FF5A5F;
+	color: #FFAA91;
+	text-align: center;
+	font-size: 20px;
+	border-radius: 4px;
+}
+.putHouseBtn:hover{
+	background-color: #FF5A5F;
+	color: #FFFFFF;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #FF5A5F;
+    border-color: #FF5A5F;
+}
+.btn-primary:hover{
+    color: #fff;
+    background-color: #FF5A5F;
+    border-color: #FF5A5F;
+}

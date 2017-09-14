@@ -24,6 +24,11 @@
     height: 320px;
     border:solid 1px #ccc;
 }
+.houseImg img{
+    height: 320px;
+    width: 100%;
+    opacity: 0.8;
+}
 .houseContainer{
     width: 800px;
 }
@@ -51,6 +56,8 @@
     line-height: 50px;
     text-align: center;
     overflow: hidden;
+    position: absolute;
+    background-color: #ffffff;
 }
 .houseContainerNav a{
     float: left;
@@ -62,6 +69,7 @@
     line-height: 50px;
     text-align: center;
     color: #ffffff;
+    border-color: rgba(0,0,0,0.6);
 }
 .bookBox label{
     font-weight: normal;
@@ -120,7 +128,6 @@
 .mainBox{
     width: 700px;
     position: relative;
-    height: 999px;
     z-index: 10;
 }
 .houseEvluate{
@@ -149,4 +156,65 @@
 }
 .learnmore{
     margin-bottom: 20px;
+}
+.aboutHouse ul{
+    width: 600px;
+    height: 260px;
+    margin:0 auto;
+}
+.aboutHouse ul li{
+    line-height: 50px;
+    width: 300px;
+    float: left;
+}
+.houseRules{
+    margin-left: 40px;
+}
+.userPhotoShow{
+    width: 50px;
+    height: 50px;
+    border-radius: 90px;
+}
+.houseOwnerBox{
+    width: 700px;
+    position: relative;
+    top: 30px;
+}
+.userName{
+    margin-left: 10px;
+}
+.houseOwnerDetail{
+    width: 590px;
+    margin:0 auto;
+    padding: 5px;
+    line-height: 50px;
+}
+.userPhotoShow{
+    margin-right:30px;
+}
+.houseOwnerBox span{
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+//评论样式
+
+label {
+        font-weight: bold;
+    }
+    a {
+        font-family: Microsoft YaHei;
+    }
+#articleComment {
+    margin-top: 30px;
+    width: 700px;
+    height: 500px;
+    overflow: auto;
+}
+.address{
+    margin: 50px auto 0 auto;
+    width: 1300px;
+    height: 600px;
+    border:solid 1px #DBDBDB;
 }

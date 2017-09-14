@@ -11,6 +11,7 @@ public class Story{
 	private String userID;
 	private String imgID;
 	private String title;
+	private String content;
 	private Date writeTime;
 	
 	
@@ -49,6 +50,13 @@ public class Story{
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	public String getContent() {
+		return content;
+	}	
+	
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public Date getWriteTime() {
 		return writeTime;
 	}	
@@ -59,6 +67,6 @@ public class Story{
 	
 	@Override
 	public String toString() {
-		return   ID  + "\t" +  houseID  + "\t" +  userID  + "\t" +  imgID  + "\t" +  title  + "\t" +  writeTime  + "\t"  ;
+		return   ID  + "\t" +  houseID  + "\t" +  userID  + "\t" +  imgID  + "\t" +  title  + "\t" +  content  + "\t" +  writeTime  + "\t"  ;
 	}
 }

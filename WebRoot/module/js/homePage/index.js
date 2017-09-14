@@ -1,24 +1,21 @@
 $(function(){
 	
+	var loginuserImg = getCookie("userImg");
+	
+	if(loginuserImg!=null&&loginuserImg!=""){
+		$('.nav').html("<li class='dropdown'>"+
+				    "<a href='#' class='dropdown-toggle' data-toggle='dropdown'>成为房东"+
+					"<b class='caret'></b> </a>"+
+				    "<ul class='dropdown-menu'>"+
+					"<li><a href='#'>发布房源</a></li>"+
+					"<li><a href='#'>发布故事</a></li></ul></li>"+		        
+					"<li id='story'><a href='#'>故事</a></li>"+	
+					"<li id='travel'><a href='#'>旅程</a></li>"+
+					"<li id='mail'><a href='#'>收件箱</a></li>"+
+		            "<li><a id='userImg' href='#'><img class='userImg' src='img/"+loginuserImg+"'></a></li>"
+		)}
 	$('#login').click(function(){
-		var loginuserImg = getCookie("userImg");
-		alert(loginuserImg);
-		
-		if(loginuserImg!=null||loginuserImg!=""){
-			$('.nav').html("<li class='dropdown'>"+
-					    "<a href='#' class='dropdown-toggle' data-toggle='dropdown'>成为房东"+
-						"<b class='caret'></b> </a>"+
-					    "<ul class='dropdown-menu'>"+
-						"<li><a href='#'>发布房源</a></li>"+
-						"<li><a href='#'>发布故事</a></li></ul></li>"+		        
-						"<li id='story'><a href='#'>故事</a></li>"+	
-						"<li id='travel'><a href='#'>旅程</a></li>"+
-						"<li id='mail'><a href='#'>收件箱</a></li>"+
-			            "<li><a id='userImg' href='#'><img class='userImg' src='img/"+loginuserImg+"'></a></li>"
-			);
-		}else{
 			$('#loginbox').modal('show');
-		}
 	});
 	
 	$('#register').click(function(){
@@ -27,14 +24,11 @@ $(function(){
 	
 	$('.banner-btn').click(function(){
 		$('#registbox').modal('show');
-	});
-	
-	
+	});	
 });
 
 
 function login() {
-	
 	var loginName = $('#userName1').val();
 	var password = $('#password1').val();
 
@@ -54,11 +48,15 @@ function login() {
 			success : function(result) {
 				result = eval(result);
 				console.log('登录连接数据库成功');
-				if (result == "1") {	
-					$('#loginbox').modal('hide');					
+				
+				if (result == "1") {						
+					location.reload();				
 					var loginuserPhoto = $("input[name='userPhotoURL']").val();
-					console.log(loginuserPhoto);
-					setCookie("userImg",loginuserPhoto,0);					
+					if ($('#rememberMe').attr('checked')) {
+						setCookie("userImg",loginuserPhoto,10);
+					 }else{
+						 setCookie("userImg",loginuserPhoto);
+					 }										
 				} else if (result == "-1" ) {
 					alert('账号不存在');
 					errortips(new Array('username', 'password'));
@@ -66,7 +64,6 @@ function login() {
 					alert('密码错误');
 					errortips(new Array('username', 'password'));
 				}
-
 			},
 			error : function() {
 				alert('连接后台失败！');

@@ -5,8 +5,8 @@
  
     <insert id="save" parameterType="com.cqut.entity.Story">  
      <![CDATA[   
-         insert into  story ( ID, houseID, userID, imgID, title, writeTime)
-         values(#{ID}, #{houseID}, #{userID}, #{imgID}, #{title}, #{writeTime})	
+         insert into  story ( ID, houseID, userID, imgID, title, content, writeTime)
+         values(#{ID}, #{houseID}, #{userID}, #{imgID}, #{title}, #{content}, #{writeTime})	
      ]]>   
     </insert>
   
@@ -14,10 +14,10 @@
     <!--  mysql -->
     <insert id="saveEntities"> 
 	 	 <![CDATA[  
-	    	insert into story ( ID, houseID, userID, imgID, title, writeTime) VALUES 
+	    	insert into story ( ID, houseID, userID, imgID, title, content, writeTime) VALUES 
 	    ]]>  
 	    <foreach collection="entities" item="item" index="index" separator=",">   
-	         ( #{item.ID}, #{item.houseID}, #{item.userID}, #{item.imgID}, #{item.title}, #{item.writeTime})
+	         ( #{item.ID}, #{item.houseID}, #{item.userID}, #{item.imgID}, #{item.title}, #{item.content}, #{item.writeTime})
 	    </foreach> 
 	</insert> 
 	
@@ -29,6 +29,7 @@
       		userID = #{entity.userID},
       		imgID = #{entity.imgID},
       		title = #{entity.title},
+      		content = #{entity.content},
       		writeTime = #{entity.writeTime}
       	]]>
       	<where>
@@ -44,6 +45,7 @@
       		userID = #{entity.userID},
       		imgID = #{entity.imgID},
       		title = #{entity.title},
+      		content = #{entity.content},
       		writeTime = #{entity.writeTime}
       	]]>
       	<where>

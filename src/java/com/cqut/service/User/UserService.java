@@ -69,8 +69,9 @@ public class UserService  implements IUserService{
 
 		//验证用户名是否被使用
 		@Override
-		public String getClientPassword(String clientNo) {
+		public String getUser(String clientNo) {
 			// TODO Auto-generated method stub
+			
 			String condition = "userName = '" + clientNo + "'";
 			List<User> users = dao.getByCondition(condition);
 			if (users.size() == 0) {
@@ -95,6 +96,7 @@ public class UserService  implements IUserService{
 			user.setAge(age);
 			
 			int result = dao.save(user);
-			return result+" " + dao.save(user);
+			
+			return "1";
 		}
 }

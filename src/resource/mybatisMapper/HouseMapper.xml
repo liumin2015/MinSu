@@ -5,8 +5,8 @@
  
     <insert id="save" parameterType="com.cqut.entity.House">  
      <![CDATA[   
-         insert into  house ( ID, houseOwnerID, introduce, facilitiesID, evaluateID, state, price, type, houseImgID, bedNum, peopleNum, toiletNum, houseName, satisfy, houseRule, bookRuleID, priceRule, roomType, starTime, endTime)
-         values(#{ID}, #{houseOwnerID}, #{introduce}, #{facilitiesID}, #{evaluateID}, #{state}, #{price}, #{type}, #{houseImgID}, #{bedNum}, #{peopleNum}, #{toiletNum}, #{houseName}, #{satisfy}, #{houseRule}, #{bookRuleID}, #{priceRule}, #{roomType}, #{starTime}, #{endTime})	
+         insert into  house ( ID, houseOwnerID, introduce, facilitiesID, state, price, type, address, bedNum, peopleNum, toiletNum, houseName, satisfy, houseRule, bookRuleID, priceRule, roomType, starTime, endTime, createTime)
+         values(#{ID}, #{houseOwnerID}, #{introduce}, #{facilitiesID}, #{state}, #{price}, #{type}, #{address}, #{bedNum}, #{peopleNum}, #{toiletNum}, #{houseName}, #{satisfy}, #{houseRule}, #{bookRuleID}, #{priceRule}, #{roomType}, #{starTime}, #{endTime}, #{createTime})	
      ]]>   
     </insert>
   
@@ -14,10 +14,10 @@
     <!--  mysql -->
     <insert id="saveEntities"> 
 	 	 <![CDATA[  
-	    	insert into house ( ID, houseOwnerID, introduce, facilitiesID, evaluateID, state, price, type, houseImgID, bedNum, peopleNum, toiletNum, houseName, satisfy, houseRule, bookRuleID, priceRule, roomType, starTime, endTime) VALUES 
+	    	insert into house ( ID, houseOwnerID, introduce, facilitiesID, state, price, type, address, bedNum, peopleNum, toiletNum, houseName, satisfy, houseRule, bookRuleID, priceRule, roomType, starTime, endTime, createTime) VALUES 
 	    ]]>  
 	    <foreach collection="entities" item="item" index="index" separator=",">   
-	         ( #{item.ID}, #{item.houseOwnerID}, #{item.introduce}, #{item.facilitiesID}, #{item.evaluateID}, #{item.state}, #{item.price}, #{item.type}, #{item.houseImgID}, #{item.bedNum}, #{item.peopleNum}, #{item.toiletNum}, #{item.houseName}, #{item.satisfy}, #{item.houseRule}, #{item.bookRuleID}, #{item.priceRule}, #{item.roomType}, #{item.starTime}, #{item.endTime})
+	         ( #{item.ID}, #{item.houseOwnerID}, #{item.introduce}, #{item.facilitiesID}, #{item.state}, #{item.price}, #{item.type}, #{item.address}, #{item.bedNum}, #{item.peopleNum}, #{item.toiletNum}, #{item.houseName}, #{item.satisfy}, #{item.houseRule}, #{item.bookRuleID}, #{item.priceRule}, #{item.roomType}, #{item.starTime}, #{item.endTime}, #{item.createTime})
 	    </foreach> 
 	</insert> 
 	
@@ -28,11 +28,10 @@
       		houseOwnerID = #{entity.houseOwnerID},
       		introduce = #{entity.introduce},
       		facilitiesID = #{entity.facilitiesID},
-      		evaluateID = #{entity.evaluateID},
       		state = #{entity.state},
       		price = #{entity.price},
       		type = #{entity.type},
-      		houseImgID = #{entity.houseImgID},
+      		address = #{entity.address},
       		bedNum = #{entity.bedNum},
       		peopleNum = #{entity.peopleNum},
       		toiletNum = #{entity.toiletNum},
@@ -43,7 +42,8 @@
       		priceRule = #{entity.priceRule},
       		roomType = #{entity.roomType},
       		starTime = #{entity.starTime},
-      		endTime = #{entity.endTime}
+      		endTime = #{entity.endTime},
+      		createTime = #{entity.createTime}
       	]]>
       	<where>
       		ID = #{id}
@@ -57,11 +57,10 @@
       		houseOwnerID = #{entity.houseOwnerID},
       		introduce = #{entity.introduce},
       		facilitiesID = #{entity.facilitiesID},
-      		evaluateID = #{entity.evaluateID},
       		state = #{entity.state},
       		price = #{entity.price},
       		type = #{entity.type},
-      		houseImgID = #{entity.houseImgID},
+      		address = #{entity.address},
       		bedNum = #{entity.bedNum},
       		peopleNum = #{entity.peopleNum},
       		toiletNum = #{entity.toiletNum},
@@ -72,7 +71,8 @@
       		priceRule = #{entity.priceRule},
       		roomType = #{entity.roomType},
       		starTime = #{entity.starTime},
-      		endTime = #{entity.endTime}
+      		endTime = #{entity.endTime},
+      		createTime = #{entity.createTime}
       	]]>
       	<where>
       		<if test="condition != null">

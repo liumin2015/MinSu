@@ -12,9 +12,9 @@ public interface IUserService {
 
 	int userWithdraw(HttpServletRequest request);
 
-	String getClientPassword(String clientNo);
-
 	String addPerson(String userName, String password, String phoneNumber,
 			String email, String introduce, String sex, int age2);
+
+	String getUser(String clientNo);
 	
 }

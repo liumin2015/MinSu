@@ -14,11 +14,33 @@
 		<link rel="stylesheet" type="text/css" href="module/css/homePage/index.css">
 		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"> 
 		<link rel="stylesheet" type="text/css" href="module/css/bootstrap-theme.css">
+		<link rel="stylesheet" type="text/css" href="module/css/bootstrap-datetimepicker.min.css">
 	
 	    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>  
 	    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	    <script src="module/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+        <script src="module/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
 	    <script src="module/js/homePage/index.js" type="text/javascript"></script>
 	    <script src="module/js/homePage/homePage.js" type="text/javascript"></script>
+	    <script type="text/javascript">  
+	    $(function(){
+	    	 $('#startimeTxt').datetimepicker({  
+	    	 	format: 'yyyy-MM-dd',  
+	            language: 'zh-CN',  
+	            pickTime: false  
+	        }).on('changeDate',function(){  
+	        	$(this).datetimepicker('hide');  
+	        });  
+	         $('#endtimeTxt').datetimepicker({  
+	    	 	format: 'yyyy-MM-dd',  
+	            language: 'zh-CN',  
+	            pickTime: false  
+	        }).on('changeDate',function(){  
+	        	$(this).datetimepicker('hide');  
+	        });
+	    });
+     
+    </script>
 	</head>
 	<body>
 	<input type="text" style="display:none" name="loginNameURL" value="<%=request.getSession().getAttribute("LOGINNAME")%>"/>
@@ -238,7 +260,7 @@
 		            </div>
 		            <div class="form-group">
 			            <label for="password">密码</label>
-			            <input type="text" class="form-control" id="password1" placeholder="请输入密码" style="height:43px;">
+			            <input type="password" class="form-control" id="password1" placeholder="请输入密码" style="height:43px;">
 		            </div>
 		            <div class="checkbox">
 			            <label>
@@ -249,7 +271,6 @@
 		        </div>
 		        </div>
 		        <div class="modal-footer">
-		            <a href="#" id="register" class="btn btn-success">注册</a>
 		            <a href="#" class="btn" data-dismiss="modal">关闭</a>
 		        </div>
 		    </div>
@@ -306,15 +327,13 @@
                         <input type="radio" name="optionsRadios" id="woman" value="woman"> 女
                         </label>
 			        </div>
-		            <button id="registerbtn" class="loginbtn" onclick="register()>注册</button>
+			        <button id="registerbtn" class="loginbtn" onclick="register()">注册</button>
+		            
 		        </div>
-		        </div>
-		        <div class="modal-footer">
-		            <a href="#" id="login" class="btn btn-success">登录</a>
-		            <a href="#" class="btn" data-dismiss="modal">关闭</a>
 		        </div>
 		    </div>
 	    </div>
     </div>
+    
 	</body>
 </html>

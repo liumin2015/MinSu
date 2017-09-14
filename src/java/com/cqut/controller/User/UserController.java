@@ -40,10 +40,10 @@ public class UserController{
 		//验证账户是否被使用
 		@RequestMapping("/verifyClientNo")
 		@ResponseBody
-		public String verifyClientNo(String clientNo) throws UnsupportedEncodingException{
-				clientNo = URLDecoder.decode(clientNo, "utf-8");
+		public String verifyClientNo(String username) throws UnsupportedEncodingException{
+			username = URLDecoder.decode(username, "utf-8");
 				
-			return(service.getClientPassword(clientNo));
+			return(service.getUser(username));
 		}
 		
 		@RequestMapping("/addPerson")  
