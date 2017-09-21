@@ -23,7 +23,7 @@
 }
 .nav{
 	margin-right: 20px;
-	width: 450px;
+	width: 350px;
 	margin-top:30px;
 }
 .nav li{
@@ -67,7 +67,7 @@
 	line-height: 60px;
 	color: #ffffff;
 	font-size: 18px;
-    font-family: "微软雅黑";
+    font-family: "Microsoft YaHei";
 }
 .banner-btn:hover{
 	background-color:rgb(211,173,11);
@@ -97,7 +97,7 @@
 .searchbtn{
 	position: absolute;
     margin-top: 15px;
-    margin-left: 370px;
+    margin-left: 388px;
 	width: 80px;
 	height: 50px;
 	line-height: 50px;
@@ -187,17 +187,37 @@ input:-moz-placeholder {
 	width: 290px;
 	height: 200px;
 }
+a:hover{
+	text-decoration: none;
+}
+.houseslist:hover{
+	cursor: pointer;
+}
 .houseslist span{
 	font-size: 16px;
-	font-family: "微软雅黑";
+	font-family: "Microsoft YaHei";
 }
 .price{
 	font-size: 18px;
 	font-weight: bold;
 }
+.houses-evaluate{
+	margin-top:5px;
+	/* text-align: center; */
+}
+.houseads{
+	position:relative;
+	left:10px;
+}
+.housetype{
+	position:relative;
+	left:10px;
+}
 .star{
 	width: 160px;
 	height: 20px;
+	position:relative;
+	top:4px;
 }
 .morehouse{
 	height: 30px;
@@ -213,7 +233,7 @@ input:-moz-placeholder {
 /* 主要内容故事部分 */
 .story{
 	width: 920px;
-	margin:38px auto 0 auto;
+	margin:83px auto 20px auto;
 }
 .morestory{
 	position: absolute;
@@ -245,6 +265,8 @@ input:-moz-placeholder {
 }
 .story-detil,.story-evaluate{
 	width: 220px;
+    position: relative;
+    top: 20px;
 }
 .storyaddress{
 	font-size: 18px;

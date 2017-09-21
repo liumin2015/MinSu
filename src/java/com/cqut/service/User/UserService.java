@@ -1,12 +1,16 @@
 package com.cqut.service.User;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Service;
 
@@ -53,7 +57,10 @@ public class UserService  implements IUserService{
 			session.setAttribute("ID", user.getID());
 			session.setAttribute("LOGINNAME", user.getUserName());
 			session.setAttribute("USERIMG", user.getPhoto());
-			return "1";
+			Map<String,Object> map=new HashMap<String,Object>();
+			map.put("type", 1);
+			map.put("img", user.getPhoto());
+			return JSONObject.fromObject(map).toString();
 
 		}
 

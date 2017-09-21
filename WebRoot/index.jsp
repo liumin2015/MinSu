@@ -9,32 +9,40 @@
 	    <meta charset="utf-8">  
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<base href="<%=basePath%>">
-		<title>欢迎来到min民宿</title>
+		<title>欢迎来到MIN民宿</title>
 		<link rel="stylesheet" type="text/css" href="module/css/reset.css">
 		<link rel="stylesheet" type="text/css" href="module/css/homePage/index.css">
 		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"> 
 		<link rel="stylesheet" type="text/css" href="module/css/bootstrap-theme.css">
 		<link rel="stylesheet" type="text/css" href="module/css/bootstrap-datetimepicker.min.css">
+		
+		<link rel="stylesheet" type="text/css" href="module/css/star-rating-svg.css">
 	
 	    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>  
 	    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	    <script src="module/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
         <script src="module/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+        <script src="module/js/jquery.star-rating-svg.js" type="text/javascript"></script>
+<!--         <script src="module/js/template.js" type="text/javascript"></script> -->
+        
 	    <script src="module/js/homePage/index.js" type="text/javascript"></script>
 	    <script src="module/js/homePage/homePage.js" type="text/javascript"></script>
+	    
 	    <script type="text/javascript">  
 	    $(function(){
 	    	 $('#startimeTxt').datetimepicker({  
-	    	 	format: 'yyyy-MM-dd',  
+	    	 	format: 'yyyy-mm-dd',  
 	            language: 'zh-CN',  
-	            pickTime: false  
+	            pickTime: false ,
+	            minView: 2 
 	        }).on('changeDate',function(){  
 	        	$(this).datetimepicker('hide');  
 	        });  
 	         $('#endtimeTxt').datetimepicker({  
-	    	 	format: 'yyyy-MM-dd',  
+	    	 	format: 'yyyy-mm-dd',  
 	            language: 'zh-CN',  
-	            pickTime: false  
+	            pickTime: false  ,
+	            minView: 2
 	        }).on('changeDate',function(){  
 	        	$(this).datetimepicker('hide');  
 	        });
@@ -43,8 +51,10 @@
     </script>
 	</head>
 	<body>
-	<input type="text" style="display:none" name="loginNameURL" value="<%=request.getSession().getAttribute("LOGINNAME")%>"/>
-	<input type="text" style="display:none" name="userPhotoURL" value="<%=request.getSession().getAttribute("USERIMG")%>"/>
+	
+	<input type="text" style="display:none" class="loginIDURL" name="loginIDURL" value="<%=request.getSession().getAttribute("ID")%>"/>
+	<input type="text" style="display:none" class="loginNameURL" name="loginNameURL" value="<%=request.getSession().getAttribute("LOGINNAME")%>"/>
+	<input type="text" style="display:none" class="userPhotoURL" name="userPhotoURL" value="<%=request.getSession().getAttribute("USERIMG")%>"/>
 		<div class="warpper">
 		<div class="public-header">
 		    <div class="header-top">
@@ -56,17 +66,17 @@
 					<b class="caret"></b>
 				    </a>
 				    <ul class="dropdown-menu">
-					<li><a href="#">发布房源</a></li>
-					<li><a href="#">发布故事</a></li>
+					<li><a href="module/JSP/house/housePush.jsp">发布房源</a></li>
+					<li><a href="module/JSP/story/storyPush.jsp">发布故事</a></li>
 				    </ul>
-							        </li>
-					<li><a href="#">故事</a></li>
+					</li>
+					<li><a href="module/JSP/story/storyMore.jsp">故事</a></li>
 					<li ><a id="login" href="#">登录</a></li>
 					<li ><a id="register" href="#">注册</a></li>
 				</ul>
 			</div>
 			<div class="banner">
-				<h2>欢迎来到 minMINSU，</br>国庆旅行，全球民宿任你挑</h2>
+				<h2>欢迎来到 MINMIN宿，</br>国庆旅行，全球民宿任你挑</h2>
 				<a class="banner-btn">领取￥200首单礼</a>
 			</div>
 		</div>
@@ -76,148 +86,37 @@
 				<input class="startimeTxt" id="startimeTxt" type="text" name="startimeTxt" placeholder="入住日期">
 				<input class="endtimeTxt" id="endtimeTxt" type="text" name="endtimeTxt" placeholder="退房日期">
 				<input class="peopleNum" id="peopleNum" type="text" name="peopleNum" placeholder="房客人数">
-				<button class="searchbtn" id="search">搜索</button>
+				<button class="searchbtn" id="searchbtn" >搜索</button>
 			</div>
 			<hr/>
 			<div class="houses">
 				<h2 class="house-title">热门目的地</h2>
-				<ul class="location">
-					<li >巴黎</li>
-					<li >巴黎</li>
-					<li >巴黎</li>
-					<li >巴黎</li>
-					<li >巴黎</li>
-				</ul>
-				<hr/>
-				<div class="houses-container">
-					<div class="houseslist ">
-						<img id="houses-photo" class="houses-photo" src="img/house1.jpg">
-						<div class="houses-detil">
-							<span class="price" id="price">￥1200</span>
-							<span class="houseads" id="houseads">巴黎</span>--
-							<span class="housetype" id="housetype">整套房子/公寓</span>
-						</div>
-						<div class="houses-evaluate">
-							<span class="star"></span>
-							<span class="evaluateNum">130条评价</span>
-						</div>
-					</div>
-					<div class="houseslist">
-						<img id="houses-photo" class="houses-photo" src="img/house2.jpg">
-						<div class="houses-detil">
-						<span class="price" id="price">￥1200</span>
-						<span class="houseads" id="houseads">巴黎</span>--
-						<span class="housetype" id="housetype">整套房子/公寓</span>
-						</div>
-						<div class="houses-evaluate">
-						<span class="star"></span>
-						<span class="evaluateNum">130条评价</span>
-						</div>
-					</div>
-					<div class="houseslist">
-						<img id="houses-photo" class="houses-photo" src="img/house3.jpg">
-						<div class="houses-detil">
-						<span class="price" id="price">￥1200</span>
-						<span class="houseads" id="houseads">巴黎</span>--
-						<span class="housetype" id="housetype">整套房子/公寓</span>
-						</div>
-						<div class="houses-evaluate">
-						<span class="star"></span>
-						<span class="evaluateNum">130条评价</span>
-						</div>
-					</div>
-					<div class="houseslist">
-						<img id="houses-photo" class="houses-photo" src="img/house4.jpg">
-						<div class="houses-detil">
-							<span class="price" id="price">￥1200</span>
-							<span class="houseads" id="houseads">巴黎</span>--
-							<span class="housetype" id="housetype">整套房子/公寓</span>
-						</div>
-						<div class="houses-evaluate">
-							<span class="star"></span>
-							<span class="evaluateNum">130条评价</span>
-						</div>
-					</div>
-					<div class="houseslist">
-						<img id="houses-photo" class="houses-photo" src="img/house5.jpg">
-						<div class="houses-detil">
-							<span class="price" id="price">￥1200</span>
-							<span class="houseads" id="houseads">巴黎</span>--
-							<span class="housetype" id="housetype">整套房子/公寓</span>
-						</div>
-						<div class="houses-evaluate">
-						<span class="star"></span>
-						<span class="evaluateNum">130条评价</span>
-						</div>
-					</div>
-					<div class="houseslist">
-						<img id="houses-photo" class="houses-photo" src="img/house6.jpg">
-						<div class="houses-detil">
-						<span class="price" id="price">￥1200</span>
-						<span class="houseads" id="houseads">巴黎</span>--
-						<span class="housetype" id="housetype">整套房子/公寓</span>
-						</div>
-						<div class="houses-evaluate">
-						<span class="star"></span>
-						<span class="evaluateNum">130条评价</span>
-						</div>
-					</div>
+				<div class="houses-container" id="housescontainer">
+	
 				</div>
+				
 				<button class="morehouse" id="morehouse">查看更多房源</button>
 		    </div>
+		  
+		    
 		    <div class="story">
 			    <h2 class="story-title">故事精选</h2>
-			    <a href="#" class="morestory" id="morestory">浏览更多
+			    <a href="module/JSP/story/storyMore.jsp" class="morestory" id="morestory">浏览更多
 			    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
-				<div class="storyContainer">
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story1.jpg">
+				<div class="storyContainer" id="storyContainer">
+				     <%-- <div class="story-list">
+					    <a href='module/JSP/story/storyDetails.jsp><img class="storypPhoto" id="storypPhoto" src="img/story1.jpg"></a>
 					    <div class="story-detil">
 						    <span class="storyaddress" id="storyaddress">伦敦</span>
 						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
 					    </div>
-					    <div class="story-evaluate">
+					   
+				    </div> 
+				     <div class="story-evaluate">
 						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
 						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
 						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story2.jpg">
-					    <div class="story-detil">
-						    <span class="storyaddress" id="storyaddress">伦敦</span>
-						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
-					    </div>
-					    <div class="story-evaluate">
-						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
-						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
-						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story3.jpg">
-					    <div class="story-detil">
-						    <span class="storyaddress" id="storyaddress">伦敦</span>
-						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
-					    </div>
-					    <div class="story-evaluate">
-						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
-						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
-						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story4.jpg">
-					    <div class="story-detil">
-						    <span class="storyaddress" id="storyaddress">伦敦</span>
-						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
-					    </div>
-					    <div class="story-evaluate">
-						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
-						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
-						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
+					    </div>  --%>
 			    </div>
 			    
 		    </div>

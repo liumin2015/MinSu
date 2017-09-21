@@ -42,7 +42,7 @@
 }
 .bookBox{
     width: 380px;
-    height: 450px;
+    height: 500px;
     border:solid 1px #ccc;
 }
 .houseContainerWarpper{
@@ -59,9 +59,12 @@
     position: absolute;
     background-color: #ffffff;
 }
-.houseContainerNav a{
+.houseContainerNav li{
     float: left;
     margin-right: 20px;
+}
+.houseContainerNav li:hover{
+    color:blue;
 }
 .bookBox p{
     height: 50px;
@@ -198,23 +201,64 @@
     margin-top: 10px;
 }
 
-//ËØÑËÆ∫Ê†∑Âºè
-
-label {
-        font-weight: bold;
-    }
-    a {
-        font-family: Microsoft YaHei;
-    }
+//∆¿¬€
 #articleComment {
     margin-top: 30px;
     width: 700px;
-    height: 500px;
-    overflow: auto;
 }
 .address{
-    margin: 50px auto 0 auto;
-    width: 1300px;
-    height: 600px;
-    border:solid 1px #DBDBDB;
+    position: relative;
+    top: 50px;
+    left: 60px;
+    font-size: 20px;
 }
+.houseaddres{
+        /* position: relative; */
+    /* top: 30px; */
+    /* left: 79px; */
+    width: 600px;
+    height: 50px;
+    margin-top: 30px;
+    border: solid 1px #DBDBDB;
+}
+.commentuserphpto{
+       width: 45px;
+    height: 45px;
+    border-radius: 90px;
+    position: relative;
+    top: 39px;
+    left: 30px;
+}
+.commentcontent{
+    width: 500px;
+    height: 100px;
+    position: relative;
+    left: 90px;
+  /*   border: solid 1px #DBDBDB; */
+}
+.houseName{
+	margin-bottom:20px;
+}
+.Tndbox{
+	position: relative;
+    top: 20px;
+}
+.bookmain{
+	width:350px;
+	margin:20px auto 20px auto;
+}
+.bookmain li{
+	font-size:18px;
+	line-height:28px;
+}
+#bookhousebtn{
+	width:300px;
+	margin-left:25px;
+	height:45px;
+	background-color:#FF5A5F;
+	border-radius:4px;
+	border:solid 1px #FF5A5F;
+	font-size:20px;
+	color:#ffffff;
+}
+

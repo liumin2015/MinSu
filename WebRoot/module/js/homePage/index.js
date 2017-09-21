@@ -1,17 +1,17 @@
 $(function(){
 	
-	var loginuserImg = getCookie("userImg");
-	
-	if(loginuserImg!=null&&loginuserImg!=""){
+	var loginuserImg = $(".userPhotoURL").val();
+/*	alert(loginuserImg);*/
+	if(loginuserImg!="null"&&loginuserImg!=""&&loginuserImg!="undefined"){
 		$('.nav').html("<li class='dropdown'>"+
 				    "<a href='#' class='dropdown-toggle' data-toggle='dropdown'>成为房东"+
 					"<b class='caret'></b> </a>"+
 				    "<ul class='dropdown-menu'>"+
-					"<li><a href='#'>发布房源</a></li>"+
-					"<li><a href='#'>发布故事</a></li></ul></li>"+		        
-					"<li id='story'><a href='#'>故事</a></li>"+	
-					"<li id='travel'><a href='#'>旅程</a></li>"+
-					"<li id='mail'><a href='#'>收件箱</a></li>"+
+					"<li><a href='module/JSP/house/housePush.jsp'>发布房源</a></li>"+
+					"<li><a href='module/JSP/story/storyPush.jsp'>发布故事</a></li></ul></li>"+		        
+					"<li id='story'><a href='module/JSP/story/storyMore.jsp'>故事</a></li>"+	
+					"<li id='travel'><a href='module/JSP/travel/travel.jsp'>旅程</a></li>"+
+					"<li id='mail'><a href='module/JSP/wishlist/wishList.jsp'>心愿单</a></li>"+
 		            "<li><a id='userImg' href='#'><img class='userImg' src='img/"+loginuserImg+"'></a></li>"
 		)}
 	$('#login').click(function(){
@@ -27,7 +27,7 @@ $(function(){
 	});	
 });
 
-
+//登陆
 function login() {
 	var loginName = $('#userName1').val();
 	var password = $('#password1').val();
@@ -46,17 +46,19 @@ function login() {
 				password : password
 			},
 			success : function(result) {
-				result = eval(result);
+				result = JSON.parse(result);
 				console.log('登录连接数据库成功');
 				
-				if (result == "1") {						
-					location.reload();				
-					var loginuserPhoto = $("input[name='userPhotoURL']").val();
+				if (result.type == "1") {						
+					location.reload(true);
+					//$('#loginbox').modal('hide');
+					var loginuserPhoto = result.img;
 					if ($('#rememberMe').attr('checked')) {
 						setCookie("userImg",loginuserPhoto,10);
 					 }else{
-						 setCookie("userImg",loginuserPhoto);
-					 }										
+					setCookie("userImg",loginuserPhoto);
+					 }
+					/*console.log(loginuserPhoto);*/					
 				} else if (result == "-1" ) {
 					alert('账号不存在');
 					errortips(new Array('username', 'password'));
@@ -74,6 +76,9 @@ function login() {
 	}
 }
 
+/*if ($('#rememberMe').attr('checked')) {
+	setCookie("userImg",loginuserPhoto,10);
+ }else{*/
 
 
 //验证注册账户

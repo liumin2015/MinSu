@@ -44,13 +44,10 @@
 }
 /*更多房源主要展示内容部分*/
 .houseMain{
-	display: flex;
-	justify-content: space-between;
-	height: 520px;
-	overflow: hidden;
+	width: 1300px;
+    margin: 0 auto;
 }
 .houseShow{
-	width: 900px;
 	height: 100%;
 	overflow: auto;
 	margin-bottom: 10px;
@@ -76,7 +73,8 @@
 }
 .houseslist span{
 	font-size: 16px;
-	font-family: "微软雅黑";
+    font-family: "Microsoft YaHei";
+    margin-right: 5px;
 }
 .houseHowner{
 	width: 36px;

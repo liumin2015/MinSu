@@ -1,4 +1,4 @@
-/* 头部导航栏 
+/* 澶撮儴瀵艰埅鏍�
 .header-top{
 	height: 80px;
 	display: flex;
@@ -26,7 +26,7 @@
 	float: left;
     color: #000;
     font-size: 14px;
-    font-family: "微软雅黑";
+    font-family: "寰蒋闆呴粦";
     margin-right: 54px;
 }
 .nav a:hover{
@@ -136,15 +136,17 @@ hr{
 }
 .story-detil,.story-evaluate{
 	width: 220px;
+    position: relative;
+    top: 10px;
 }
 .storyaddress{
 	font-size: 18px;
 	font-weight: bold;
-	font-family: "微软雅黑";
+	font-family: "寰蒋闆呴粦";
 }
 .storyitd{
 	font-size: 14px;
-	font-family: "微软雅黑";
+	font-family: "寰蒋闆呴粦";
 }
 .zanNum,.evaluateNum{
 	margin-left: 2px;

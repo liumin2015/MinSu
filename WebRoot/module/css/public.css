@@ -1,4 +1,4 @@
- /*底部 */
+ /*搴曢儴 */
  .public-footer{
  	margin-top: 30px;
  	width: 920px;
@@ -17,7 +17,7 @@
  	color:rgb(151,151,151);
  }
 
- /* 头部导航栏 */
+ /* 澶撮儴瀵艰埅鏍�*/
 .header-top{
 	height: 80px;
 	display: flex;
@@ -26,7 +26,7 @@
 .logo{
 	height: 38px;
 	width: 70px;
-	background-image: url(../img/logo5.png);
+	background-image: url(../../img/logo5.png);
 	background-repeat: no-repeat;
 	text-align: center;
 	margin-left: 30px;
@@ -34,19 +34,19 @@
 }
 .nav{
 	margin-right: 20px;
-    width: 470px;
+    width: 500px;
     height: 38px;
     margin-top: 30px;
 }
 .nav a{
 	display: block;
-	height: 30px;
-	text-align: center;
-	float: left;
+    height: 30px;
+    text-align: center;
+    float: left;
     color: #000;
     font-size: 14px;
-    font-family: "微软雅黑";
-    margin-right: 54px;
+    font-family: "寰蒋闆呴粦";
+    margin-right: 30px;
 }
 .nav a:hover{
 	text-decoration:none;

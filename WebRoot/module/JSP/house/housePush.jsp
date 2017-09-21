@@ -24,21 +24,19 @@
 	    <script src="module/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
 	    <script src="module/js/bootstrap-select.js"></script>
 	    <script src="module/js/fileinput.min.js"></script>
-	    
+	    <script type="text/javascript" src="module/js/homePage/index.js"></script>
 	    <script src="module/js/house/houseImgput.js"></script>
     
 	    <script type="text/javascript">  
 	    $(function(){
 	    	 $('.starrentTime').datetimepicker({  
-	    	 	format: 'yyyy-MM-dd',  
-	            language: 'zh-CN',  
+	    	 	format: 'yyyy-mm-dd',   
 	            pickTime: false  
 	        }).on('changeDate',function(){  
 	        	$(this).datetimepicker('hide');  
 	        });  
 	         $('.endrentTime').datetimepicker({  
-	    	 	format: 'yyyy-MM-dd',  
-	            language: 'zh-CN',  
+	    	 	format: 'yyyy-mm-dd',   
 	            pickTime: false  
 	        }).on('changeDate',function(){  
 	        	$(this).datetimepicker('hide');  
@@ -53,11 +51,19 @@
 		<div class="header-top">
 			<a class="logo" href="#"></a>
 			<ul class="nav">
-				<a href="#"><li>成为房东</li></a>
-				<a href="#"><li>故事</li></a>
-				<a id="travel" href="#"><li >旅程</li></a>
-				<a id="mail" href="#"><li >心愿单</li></a>
-				<a id="userImg" href="#"><img class="userImg" src="img/user01.jpg"></a>
+			       <li class="dropdown">
+				    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					成为房东 
+					<b class="caret"></b>
+				    </a>
+				    <ul class="dropdown-menu">
+					<li><a href="module/JSP/house/housePush.jsp">发布房源</a></li>
+					<li><a href="module/JSP/story/storyPush.jsp">发布故事</a></li>
+				    </ul>
+					</li>
+					<li><a href="module/JSP/story/storyMore.jsp">故事</a></li>
+					<li ><a id="login" href="#">登录</a></li>
+					<li ><a id="register" href="#">注册</a></li>
 			</ul>
 		</div>
 		<hr/>
@@ -65,13 +71,14 @@
 		<div class="Leftbox">
 			<p class="title"><span class="userName">珉珉就</span>，你好！我们开始发布您的房源吧。</p>
 			<hr />
+			<form role="form" method="post" enctype="multipart/form-data" action="houseController/addHouse.do">
 			<div class="formbox">
 			    <div class="form-group">
-			        <input class="houseName" type="" name="" placeholder="房源名称">
+			        <input class="houseName" type="" name="houseName" placeholder="房源名称">
 			    </div>
 			    <div class="form-group alocation">
 			        <div class="col-lg-6">
-			        <select id="basic" class="selectpicker show-tick form-control">
+			        <select id="basic" class="selectpicker show-tick form-control" name="type">
 			            <option>整套房子</option>
 			            <option>公寓</option>
 			            <option>别墅</option>
@@ -79,7 +86,7 @@
 			        </select>
 			      </div>
 			      <div class="col-lg-6">
-			        <select id="basic" class="selectpicker show-tick form-control">
+			        <select id="basic" name="roomType" class="selectpicker show-tick form-control">
 			            <option>独立房间</option>
 			            <option>共用房间</option>
 			        </select>
@@ -87,15 +94,15 @@
 			    </div>
 			    <div class="form-group alocation">
 				    <div class="col-lg-4">
-				        <select id="basic" class="selectpicker show-tick form-control">
-				            <option>1位房客</option>
-				            <option>2位房客</option>
-				            <option>3位房客</option>
-				            <option>4位房客</option>
+				        <select name="peopleNum" id="basic" class="selectpicker show-tick form-control">
+				            <option value="1">1位房客</option>
+				            <option value="2">2位房客</option>
+				            <option value="3">3位房客</option>
+				            <option value="4">4位房客</option>
 				        </select>
 				    </div>
 				    <div class="col-lg-4">
-				        <select id="basic" class="selectpicker show-tick form-control">
+				        <select name="bedNum" id="basic" class="selectpicker show-tick form-control">
 				            <option>1张床</option>
 				            <option>2张床</option>
 				            <option>3张床</option>
@@ -103,7 +110,7 @@
 				        </select>
 				    </div>
 				    <div class="col-lg-4">
-				        <select id="basic" class="selectpicker show-tick form-control">
+				        <select name="toiletNum" id="basic" class="selectpicker show-tick form-control">
 				            <option>1厕所</option>
 				            <option>2厕所</option>
 				            <option>3厕所</option>
@@ -113,17 +120,17 @@
 			    </div>
 			        
 			    <div class="form-group">
-			        <input class="adress" type="" name="" placeholder="中国重庆" > 
+			        <input class="adress" type="" name="address" placeholder="中国重庆" > 
 			        <!-- placeholder根据用户的地址来读取 -->
 			    </div>
 			    <div class="form-group">
-			        <input class="starrentTime" type="" name="" placeholder="开始出租时间" > --
-			        <input class="endrentTime" type="" name="" placeholder="结束出租时间" > 
+			        <input class="starrentTime" type="" name="starTime" placeholder="开始出租时间" > --
+			        <input class="endrentTime" type="" name="endTime" placeholder="结束出租时间" > 
 			    </div>
 			    <div class="form-group">
-			         <input class="price" type="" name="" placeholder="设置出租价格">
+			         <input class="price" type="" name="price" placeholder="设置出租价格">
 			         <div class="col-lg-4">
-				        <select id="basic" class="selectpicker show-tick form-control">
+				        <select name="bookRuleID" id="basic" class="selectpicker show-tick form-control">
 				            <option>严格</option>
 				            <option>中等</option>
 				            <option>极严30天</option>
@@ -133,37 +140,29 @@
 			    </div>
 			    <div class="form-group">
 			       <label for="name">优惠政策</label>
-			        <textarea class="priceRule"></textarea>
+			        <textarea class="priceRule" name="priceRule"></textarea>
 			    </div>
 			    <div class="form-group">
 			        <label for="name">入住规则</label>
-			        <textarea class="houseRule"></textarea>
+			        <textarea class="houseRule" name="houseRule"></textarea>
 			    </div>
 			    <div class="form-group">
 			        <label for="name">房屋简介</label>
-			        <textarea class="houseInd"></textarea>
-			    </div>
-			    <div class="form-group">
-			        <label for="name">房屋简介</label>
-			        <textarea class="houseInd"></textarea>
-			    </div>
-			    <div class="form-group">
-			        <label for="name">房屋简介</label>
-			        <textarea class="houseInd"></textarea>
+			        <textarea class="houseInd" name="introduce"></textarea>
 			    </div>
 			    <div class="form-group">
                     <label class="col-sm-2 control-label">房源封面</label>
                     <div class="col-sm-10">
-                        <input type="file" name="myfile" data-ref="url2" multiple class="col-sm-10 myfile" value=""/>
+                        <input type="file" name="file" data-ref="url2" multiple class="col-sm-10 myfile" value=""/>
                         <input type="hidden" name="url2" value="">
                     </div>
                 </div>
-                <button type="" class="putHouseBtn">提交</button>
+                <button type="submit" class="putHouseBtn">提交</button>
 			</div>
-
+			</form>
     <script type="text/javascript">
     $(".myfile").fileinput({
-                uploadUrl:"<%=basePath%>uploadFile",//上传的地址
+                //uploadUrl:"houseController/uploadFile.do",//上传的地址
                 uploadAsync:true, //默认异步上传
                 showUpload: false, //是否显示上传按钮,跟随文本框的那个
                 showRemove : false, //显示移除按钮,跟随文本框的那个
@@ -241,5 +240,95 @@
 		</div>
 	</div>
     
+    <!-- 登录框 -->
+    <div id="loginbox" class="modal fade" >
+	    <div class="modal-dialog" role="document">  
+		    <div class="modal-content"> 
+		        <div class="modal-header">
+		            <a class="close" data-dismiss="modal">×</a>
+		            <h3>登录</h3>
+		        </div>
+		        <div class="modal-body">
+		        <div >
+		            <div class="form-group">
+			            <label for="userName">用户名</label>
+			            <input type="text" class="form-control" id="userName1" placeholder="请输入用户名" style="height:43px;">
+		            </div>
+		            <div class="form-group">
+			            <label for="password">密码</label>
+			            <input type="password" class="form-control" id="password1" placeholder="请输入密码" style="height:43px;">
+		            </div>
+		            <div class="checkbox">
+			            <label>
+			            <input id="rememberMe" type="checkbox">记住我
+			            </label>
+		            </div>
+		            <button id="loginbtn" class="loginbtn" onclick="login()">登录</button>
+		        </div>
+		        </div>
+		        <div class="modal-footer">
+		            <a href="#" class="btn" data-dismiss="modal">关闭</a>
+		        </div>
+		    </div>
+	    </div>
+    </div>
+    
+    <!-- 注册框 -->
+    <div id="registbox" class="modal fade" >
+	    <div class="modal-dialog" role="document">  
+		    <div class="modal-content"> 
+		        <div class="modal-header">
+		            <a class="close" data-dismiss="modal">×</a>
+		            <h3>注册</h3>
+		        </div>
+		        <div class="modal-body">
+		        <div role="form">
+		            <div class="form-group" style="display:none;">
+			            <label for="userID">用户ID</label>
+			            <input type="text" class="form-control" id="userID">
+		            </div>
+		            <div class="form-group">
+			            <label for="phoneNumber">手机号</label> 
+			            <input type="text" class="form-control" id="phoneNumber" placeholder="请输入手机号" onblur="fixedCase()" style="height:43px;">
+			            <label for="phoneNumber" class="col-sm-3 control-label1" id="fixedPrompt"></label>
+		            </div>
+		            <div class="form-group">
+			            <label for="userName">用户名</label>
+			            <input type="text" class="form-control" id="userName2" placeholder="请输入用户名" onblur="upperCase()" style="height:43px;">
+			            <label for="userName" class="col-sm-3 control-label1" id="clientNoPrompt"></label>
+		            </div>
+		            <div class="form-group">
+			            <label for="password">密码</label>
+			            <input type="password" class="form-control" id="password2" onblur="passwordCase()" placeholder="请输入密码" style="height:43px;">
+			            <label for="password" class="col-sm-3 control-label1" id="passwordPrompt"></label>
+		            </div>
+		            <div class="form-group">
+			            <label for="email">邮箱</label>
+			            <input type="text" class="form-control" id="email" placeholder="请输入邮箱" style="height:43px;">
+		            </div>
+		            <div class="form-group">
+			            <label for="introduce">简介</label>
+			            <input type="text" class="form-control" id="introduce" placeholder="" style="height:43px;">
+		            </div>
+		            <div class="form-group ">
+			            <label for="age">年龄</label>
+			            <input type="text" class="form-control" id="age" placeholder="" style="height:43px;">
+		            </div>
+		            <div class="form-group ">
+			            <label for="sex">性别</label>
+			            <label>
+                        <input type="radio" name="optionsRadios" id="man" value="man" checked> 男
+                        </label>
+                        <label>
+                        <input type="radio" name="optionsRadios" id="woman" value="woman"> 女
+                        </label>
+			        </div>
+			        <button id="registerbtn" class="loginbtn" onclick="register()">注册</button>
+		            
+		        </div>
+		        </div>
+		    </div>
+	    </div>
+    </div>
 	</body>
 </html>

@@ -95,4 +95,9 @@
 	<!--  自动创建数据表-->
      <bean id="keyHandler" class="com.cqut.util.KeyHandler"></bean>
     <bean id="classLoader" class="com.cqut.util.ClassLoaderTool"></bean>
+     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>   
+        <property name="maxUploadSize" value="10485760000"></property>  
+        <property name="maxInMemorySize" value="40960"></property>  
+   </bean> 
 </beans>

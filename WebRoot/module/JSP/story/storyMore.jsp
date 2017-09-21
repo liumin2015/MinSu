@@ -19,17 +19,32 @@
 	
 	    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>  
 	    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
+	    
+	    <script src="module/js/homePage/index.js" type="text/javascript"></script>
+	    <script src="module/js/story/storyMore.js" type="text/javascript"></script>
+	    
     </head>
 	<body>
+	<input type="text" style="display:none" class="loginIDURL" name="loginIDURL" value="<%=request.getSession().getAttribute("ID")%>"/>
+	<input type="text" style="display:none" class="loginNameURL" name="loginNameURL" value="<%=request.getSession().getAttribute("LOGINNAME")%>"/>
+	<input type="text" style="display:none" class="userPhotoURL" name="userPhotoURL" value="<%=request.getSession().getAttribute("USERIMG")%>"/>
 	<div class="warpper">
 		<div class="header-top">
-			<a class="logo" href="#"></a>
+			<a class="logo" href="index.jsp"></a>
 			<ul class="nav">
-				<a href="#"><li>成为房东</li></a>
-				<a href="#"><li>故事</li></a>
-				<a id="travel" href="#"><li >旅程</li></a>
-				<a id="mail" href="#"><li >收件箱</li></a>
-				<a id="userImg" href="#"><img class="userImg" src="img/user01.jpg"></a>
+				<li class="dropdown">
+				    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					成为房东 
+					<b class="caret"></b>
+				    </a>
+				    <ul class="dropdown-menu">
+					<li><a href="module/JSP/house/housePush.jsp">发布房源</a></li>
+					<li><a href="module/JSP/story/storyPush.jsp">发布故事</a></li>
+				    </ul>
+					</li>
+					<li><a href="module/JSP/story/storyMore.jsp">故事</a></li>
+					<li ><a id="login" href="#">登录</a></li>
+					<li ><a id="register" href="#">注册</a></li>
 			</ul>
 		</div>
 		<hr/>
@@ -41,52 +56,13 @@
 					<button class="searchbtn" id="search">搜索</button>
 				</form>
 			</div>
-			<ul class="location">
-				<li >巴黎</li>
-				<li >巴黎</li>
-				<li >巴黎</li>
-				<li >巴黎</li>
-				<li >巴黎</li>
+			<ul class="location" id="location">
+				
 			</ul>
 			<hr/>
-			<div class="storyContainer">
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story1.jpg">
-					    <div class="story-detil">
-						    <span class="storyaddress" id="storyaddress">伦敦</span>
-						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
-					    </div>
-					    <div class="story-evaluate">
-						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
-						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
-						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story2.jpg">
-					    <div class="story-detil">
-						    <span class="storyaddress" id="storyaddress">伦敦</span>
-						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
-					    </div>
-					    <div class="story-evaluate">
-						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
-						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
-						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story3.jpg">
-					    <div class="story-detil">
-						    <span class="storyaddress" id="storyaddress">伦敦</span>
-						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
-					    </div>
-					    <div class="story-evaluate">
-						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
-						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
-						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
-				    <div class="story-list">
+			<div class="storyContainer" id="storyContainer">
+				    
+				   <!--  <div class="story-list">
 					    <img class="storypPhoto" id="storypPhoto" src="img/story4.jpg">
 					    <div class="story-detil">
 						    <span class="storyaddress" id="storyaddress">伦敦</span>
@@ -97,103 +73,7 @@
 						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
 						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
 					    </div>
-				    </div>
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story4.jpg">
-					    <div class="story-detil">
-						    <span class="storyaddress" id="storyaddress">伦敦</span>
-						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
-					    </div>
-					    <div class="story-evaluate">
-						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
-						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
-						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story4.jpg">
-					    <div class="story-detil">
-						    <span class="storyaddress" id="storyaddress">伦敦</span>
-						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
-					    </div>
-					    <div class="story-evaluate">
-						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
-						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
-						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story4.jpg">
-					    <div class="story-detil">
-						    <span class="storyaddress" id="storyaddress">伦敦</span>
-						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
-					    </div>
-					    <div class="story-evaluate">
-						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
-						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
-						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story4.jpg">
-					    <div class="story-detil">
-						    <span class="storyaddress" id="storyaddress">伦敦</span>
-						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
-					    </div>
-					    <div class="story-evaluate">
-						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
-						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
-						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story4.jpg">
-					    <div class="story-detil">
-						    <span class="storyaddress" id="storyaddress">伦敦</span>
-						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
-					    </div>
-					    <div class="story-evaluate">
-						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
-						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
-						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story4.jpg">
-					    <div class="story-detil">
-						    <span class="storyaddress" id="storyaddress">伦敦</span>
-						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
-					    </div>
-					    <div class="story-evaluate">
-						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
-						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
-						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story4.jpg">
-					    <div class="story-detil">
-						    <span class="storyaddress" id="storyaddress">伦敦</span>
-						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
-					    </div>
-					    <div class="story-evaluate">
-						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
-						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
-						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
-				    <div class="story-list">
-					    <img class="storypPhoto" id="storypPhoto" src="img/story4.jpg">
-					    <div class="story-detil">
-						    <span class="storyaddress" id="storyaddress">伦敦</span>
-						    <span class="storyitd" id="storyitd">住在大厨家里是怎样的体验？早餐美到舍不得吃！</span>
-					    </div>
-					    <div class="story-evaluate">
-						    <img class="userphoto" id="userphoto" src="img/user01.jpg">
-						    <span class="glyphicon glyphicon-heart"></span><span class="zanNum">26</span>
-						    <span class="glyphicon glyphicon-comment"></span><span class="evaluateNum">6</span>
-					    </div>
-				    </div>
+				    </div> -->
 			    </div>
 		</div>
 
@@ -216,5 +96,96 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- 登录框 -->
+    <div id="loginbox" class="modal fade" >
+	    <div class="modal-dialog" role="document">  
+		    <div class="modal-content"> 
+		        <div class="modal-header">
+		            <a class="close" data-dismiss="modal">×</a>
+		            <h3>登录</h3>
+		        </div>
+		        <div class="modal-body">
+		        <div >
+		            <div class="form-group">
+			            <label for="userName">用户名</label>
+			            <input type="text" class="form-control" id="userName1" placeholder="请输入用户名" style="height:43px;">
+		            </div>
+		            <div class="form-group">
+			            <label for="password">密码</label>
+			            <input type="password" class="form-control" id="password1" placeholder="请输入密码" style="height:43px;">
+		            </div>
+		            <div class="checkbox">
+			            <label>
+			            <input id="rememberMe" type="checkbox">记住我
+			            </label>
+		            </div>
+		            <button id="loginbtn" class="loginbtn" onclick="login()">登录</button>
+		        </div>
+		        </div>
+		        <div class="modal-footer">
+		            <a href="#" class="btn" data-dismiss="modal">关闭</a>
+		        </div>
+		    </div>
+	    </div>
+    </div>
+    
+    <!-- 注册框 -->
+    <div id="registbox" class="modal fade" >
+	    <div class="modal-dialog" role="document">  
+		    <div class="modal-content"> 
+		        <div class="modal-header">
+		            <a class="close" data-dismiss="modal">×</a>
+		            <h3>注册</h3>
+		        </div>
+		        <div class="modal-body">
+		        <div role="form">
+		            <div class="form-group" style="display:none;">
+			            <label for="userID">用户ID</label>
+			            <input type="text" class="form-control" id="userID">
+		            </div>
+		            <div class="form-group">
+			            <label for="phoneNumber">手机号</label> 
+			            <input type="text" class="form-control" id="phoneNumber" placeholder="请输入手机号" onblur="fixedCase()" style="height:43px;">
+			            <label for="phoneNumber" class="col-sm-3 control-label1" id="fixedPrompt"></label>
+		            </div>
+		            <div class="form-group">
+			            <label for="userName">用户名</label>
+			            <input type="text" class="form-control" id="userName2" placeholder="请输入用户名" onblur="upperCase()" style="height:43px;">
+			            <label for="userName" class="col-sm-3 control-label1" id="clientNoPrompt"></label>
+		            </div>
+		            <div class="form-group">
+			            <label for="password">密码</label>
+			            <input type="password" class="form-control" id="password2" onblur="passwordCase()" placeholder="请输入密码" style="height:43px;">
+			            <label for="password" class="col-sm-3 control-label1" id="passwordPrompt"></label>
+		            </div>
+		            <div class="form-group">
+			            <label for="email">邮箱</label>
+			            <input type="text" class="form-control" id="email" placeholder="请输入邮箱" style="height:43px;">
+		            </div>
+		            <div class="form-group">
+			            <label for="introduce">简介</label>
+			            <input type="text" class="form-control" id="introduce" placeholder="" style="height:43px;">
+		            </div>
+		            <div class="form-group ">
+			            <label for="age">年龄</label>
+			            <input type="text" class="form-control" id="age" placeholder="" style="height:43px;">
+		            </div>
+		            <div class="form-group ">
+			            <label for="sex">性别</label>
+			            <label>
+                        <input type="radio" name="optionsRadios" id="man" value="man" checked> 男
+                        </label>
+                        <label>
+                        <input type="radio" name="optionsRadios" id="woman" value="woman"> 女
+                        </label>
+			        </div>
+			        <button id="registerbtn" class="loginbtn" onclick="register()">注册</button>
+		            
+		        </div>
+		        </div>
+		    </div>
+	    </div>
+    </div>
 	</body>
 </html>
